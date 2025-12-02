@@ -1,0 +1,903 @@
+/* Styling Dasar */
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+}
+
+/* --- Tambahan Styling untuk Header Saat Ter-Scroll --- */
+
+/* --- 0. HEADER UTAMA CONTAINER (Diperbaiki: Posisi Awal Absolute) --- */
+.main-header-container {
+    position: absolute; /* KUNCI: Awalnya melayang di atas hero */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999; 
+    transition: all 0.4s ease;
+}
+
+/* KUNCI 1: Styling saat JavaScript menambahkan kelas 'scrolled' */
+.main-header-container.scrolled {
+    position: fixed; /* Berubah menjadi fixed saat scroll */
+    background-color: white; /* Memberi background solid ke seluruh container */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+/* KUNCI 2: Membuat Top Header menghilang (Hanya di dalam .scrolled) */
+.main-header-container.scrolled .top-header {
+display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
+}
+
+/* --- 1. NAVIGATION BAR (KONSOLIDASI DAN PERBAIKAN POSISI) --- */
+.navbar {
+    display: flex;
+    /* Ubah ke flex-start agar item mulai dari kiri */
+    /* Atau gunakan space-between jika ada elemen di paling kanan */
+    justify-content: center; 
+    align-items: center;
+    
+    padding: 10px 50px; 
+    
+    background-color: transparent; 
+    position: relative; 
+    width: 100%; 
+    box-sizing: border-box; 
+    z-index: 10;
+    box-shadow: none; 
+    transition: all 0.4s ease;
+}
+
+.logo-kiri {
+    display: flex;
+    align-items: center;
+    /* Memberi jarak antara logo dan nav-links di kanannya */ 
+    
+}
+
+.navbar-logo {
+    /* Atur ukuran agar pas dengan tinggi navbar */
+    height: 65px; 
+    width: auto;
+}
+
+
+
+
+/* Kunci 3: Mengubah padding navbar saat ter-scroll (optional: untuk kompresi) */
+.main-header-container.scrolled .navbar {
+    /* Tetap transparan, background solid diberikan oleh .main-header-container */
+    padding-top: 5px; 
+    padding-bottom: 5px;
+}
+
+/* Kunci 4: Mengubah warna teks link di navbar saat ter-scroll (agar kontras) */
+.main-header-container.scrolled .nav-links a, 
+.main-header-container.scrolled .dropdown .dropbtn {
+    color: #333 !important; /* Ganti teks menjadi gelap */
+    text-shadow: none !important; /* Hapus bayangan teks */
+}
+
+
+
+/* Perubahan warna teks agar kontras dengan background image */
+.nav-links a, .utility-links a {
+    color: white; /* UBAH: Warna teks menjadi putih */
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 14px;
+    /* Tambahkan bayangan teks ringan agar lebih mudah dibaca */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+}
+
+.utility-links {
+    display: flex;
+    align-items: center;
+}
+
+.cta-button {
+    background-color: #ff6600; /* Warna oranye */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- 2. Hero Section --- */
+.hero-section {
+    /* Ganti 'path/to/your/image.jpg' dengan URL atau path gambar Anda */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url("image/swakarya.jpg");
+    background-size: cover;
+    background-position: center top;
+    height: 100vh;
+    
+    /* Hapus display: flex yang lama, gunakan flex untuk konten hero */
+    /* display: flex; */ 
+    
+    flex-direction: column;
+    padding: 0; /* Hapus padding yang mengganggu penempatan navbar */
+    position: relative;
+    color: white;
+}
+
+.hero-content {
+    /* Gunakan flex untuk menempatkan konten di bawah navbar */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Dorong konten ke bawah */
+    flex-grow: 1; /* Biarkan konten mengisi ruang yang tersisa */
+    padding: 250px 50px 80px 70px; /* Padding bawah untuk konten teks */
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 4em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Gelapkan bayangan agar lebih jelas */
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    padding: 5px 0;
+}
+
+.scroll-explore {
+    position: absolute;
+    right: 50px;
+    bottom: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* --- 3. Floating Widget (Tidak Berubah) --- */
+.floating-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+/* ... styling floating-widget lainnya ... */
+
+/* --- Bagian Konten Utama: Identitas Kami --- */
+.content-section {
+    padding: 60px 100px;
+    background-color: white; /* Pastikan latar belakangnya putih */
+}
+
+.identity-header {
+    margin-bottom: 80px;
+}
+
+.breadcrumb {
+    color: #007bff; /* Warna biru muda untuk link/breadcrumb */
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Layout untuk Judul dan Deskripsi (Menggunakan Flexbox) */
+.identity-layout {
+    display: flex;
+    gap: 40px; /* Jarak antara dua kolom */
+}
+
+.title-column {
+    flex: 0 0 45%; /* Kolom judul mengambil sekitar 45% lebar */
+}
+
+.description-column {
+    flex: 1; /* Kolom deskripsi mengisi sisa ruang */
+    padding-top: 15px; /* Sedikit geser ke bawah agar sejajar */
+}
+
+.title-column h2 {
+    font-size: 2.5em;
+    color: #333;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.description-column p {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* --- Bagian Fakta Singkat --- */
+
+.facts-container {
+    /* ... properti Grid lainnya ... */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto; /* Penting: Meratakan seluruh container fakta di tengah halaman */
+}
+
+.facts-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.facts-section h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.fact-item {
+    text-align: center; /* Meratakan ikon (block) dan teks (inline/block) */
+    margin-bottom: 40px;
+    
+}
+
+.fact-icon {
+    font-size: 3em; 
+    display: block;
+    margin: 0 auto; /* Meratakan ikon secara horizontal */
+}
+
+
+/* Penataan Angka */
+.fact-number-group {
+    display: flex; 
+    justify-content: center; /* KUNCI: Meratakan span (angka dan label) di tengah */
+    align-items: baseline; /* Menjaga angka dan label sejajar di garis bawah */
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-top: 10px; /* Jarak dari ikon di atasnya */
+}
+
+.fact-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+    margin: 0; 
+    line-height: 1;
+}
+
+.fact-label {
+    font-size: 1.5em; 
+    font-weight: 700;
+    color: #333;
+    margin-left: 5px; 
+    line-height: 1;
+}
+
+/* Penataan Deskripsi */
+.fact-description {
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.3;
+}
+
+/* Item 5 dimulai di kolom 3 dan membentang 1 kolom */
+.fact-item:nth-child(5) {
+    grid-column: 3 / span 1;
+}
+
+/* Item 6 dimulai di kolom 4 dan membentang 1 kolom */
+.fact-item:nth-child(6) {
+    grid-column: 4 / span 1;
+}
+
+/* --- Styling Dropdown untuk Navigation Bar --- */
+
+/* Container Utama Dropdown */
+.dropdown {
+    position: relative; /* Penting untuk menempatkan dropdown-content secara absolut */
+    display: inline-block; /* Agar bisa berada di samping link navigasi lainnya */
+    margin-left: 20px; /* Jarak dari item navigasi sebelumnya */
+}
+
+/* Tombol Dropdown (Link "Tentang SPH") */
+.dropdown .dropbtn {
+    /* Menggunakan styling yang sama dengan link nav lainnya */
+    color: white; 
+    text-decoration: none;
+    padding: 10px 0; /* Padding agar area klik lebih nyaman */
+    display: block;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+}
+
+/* Isi Dropdown (Menu yang Tersembunyi) */
+.dropdown-content {
+    display: none; /* KUNCI: Sembunyikan secara default */
+    position: absolute;
+    background-color: white; /* Latar belakang putih agar kontras dengan hero image */
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 15; /* Pastikan di atas elemen lain */
+    top: 100%; /* Tempatkan tepat di bawah dropbtn */
+    left: 0;
+    border-radius: 4px;
+    padding: 5px 0;
+}
+
+/* Link di dalam Dropdown */
+.dropdown-content a {
+    color: #333 !important; /* Warna teks gelap agar terbaca di latar belakang putih */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    text-shadow: none !important; /* Hapus bayangan teks dari link utama */
+    margin-left: 0;
+    font-size: 14px;
+}
+
+/* Efek Hover untuk Link Dropdown */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+    color: #007bff !important;
+}
+
+/* KUNCI: Tampilkan Dropdown saat kursor di atas container .dropdown */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Pastikan link nav-links lainnya tidak memiliki margin-left ganda jika menggunakan dropdown */
+/* Anda mungkin perlu menyesuaikan margin-left link navigasi yang lain: */
+.nav-links a {
+    /* Styling link navigasi umum */
+    margin-left: 20px;
+}
+
+/* Kecualikan link di dalam dropdown dari aturan margin-left ini */
+.dropdown-content a {
+    margin-left: 0; 
+}
+
+/* posisi submenu */
+.sub-dropdown {
+    position: relative;
+}
+
+.sub-dropdown-content {
+    display: none;
+    position: absolute;
+    left: 150px; /* Supaya muncul di kanan */
+    top: 0;
+    background: #f1f1f1;
+    min-width: 250px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.sub-dropdown:hover .sub-dropdown-content {
+    display: block;
+}
+
+
+/* --- SECTION KEPALA SEKOLAH (CONTAINER) --- */
+.principal-section {
+    padding: 80px 100px;
+    background-color: #f8f8f8; 
+}
+
+.principal-layout {
+    display: flex;
+    max-width: 1200px; /* Lebar Maksimum Container */
+    margin: 0 auto;    /* Tengah Horizontal */
+    gap: 60px;         /* Jarak antara Gambar & Teks */
+    align-items: center; 
+}
+
+/* --- KIRI: KOLOM TEKS --- */
+.principal-text-column {
+    flex: 1; /* Kolom teks mengisi sisa ruang yang tersedia */
+    /* Pastikan semua teks rata kiri */
+    text-align: left; 
+    margin-bottom: 150px;
+}
+
+/* --- KANAN: KOLOM GAMBAR --- */
+.principal-image-column {
+    flex: 0 0 35%; /* Kolom gambar mengambil 35% lebar */
+    max-width: 650px; /* Membatasi lebar maksimum kolom gambar */
+    text-align: center; /* Meratakan gambar di tengah kolomnya */
+}
+
+.principal-photo {
+    width: 350px;
+    height: auto;
+    border-radius: 25px; 
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.principal-photo:hover {
+    transform: scale(1.05);
+}
+
+.principal-contact {
+    margin-top: 20px;
+    /* Pastikan info kontak di bawah gambar rata tengah */
+    text-align: center; 
+}
+
+
+/* --- Styling Teks (Tidak Berubah) --- */
+.section-tag {
+    /* Tag di atas judul */
+    text-align: left; /* Penting agar tag rata kiri */
+    color: #ff6600; 
+}
+
+.section-title {
+    /* Judul Sambutan */
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* ... styling paragraf dan quote lainnya ... */
+
+
+/* --- Responsif Dasar (Opsional) --- */
+@media (max-width: 900px) {
+    .principal-layout {
+        flex-direction: column; /* Tumpukan Vertikal di perangkat kecil */
+        gap: 40px;
+    }
+
+    .principal-text-column {
+        order: 2; /* Teks di bawah gambar */
+        text-align: center; /* Rata tengah di mobile */
+    }
+    
+    .principal-image-column {
+        order: 1; /* Gambar di atas teks */
+        max-width: 80%; /* Gambar lebih besar di mobile */
+    }
+}
+
+
+/* ============================================== */
+/* 7. PROGRAM DETAIL SECTION (SPESIFIK) */
+/* ============================================== */
+
+/* Gunakan class .program-detail-section pada <main> di file PHP */
+
+
+/* Styling Hero Content untuk Halaman Detail */
+.program-detail-section .tkj-content {
+    /* Atur background image spesifik jika diperlukan, atau gunakan background default */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url('image/swakarya.jpg');
+    height: 35vh; /* Ketinggian hero yang lebih pendek dari halaman utama */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Atur posisi untuk hero yang lebih pendek */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+    padding: 90px 50px;
+    text-align: center;
+}
+
+.program-detail-section .hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.program-detail-section .hero-content p {
+    font-size: 1.1em;
+    max-width: 800px;
+    opacity: 0.9;
+}
+
+/* Hilangkan elemen scroll explore jika ada di hero detail */
+.program-detail-section .scroll-explore {
+    display: none;
+}
+
+/* Styling Bagian Konten Utama Program */
+.program-content {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+    line-height: 1.8;
+}
+
+.program-content h2 {
+    font-size: 2em;
+    color: #003366;
+    border-bottom: 3px solid #ff6600;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+.program-content h3 {
+    font-size: 1.5em;
+    color: #0c1a4b;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+.program-content ul {
+    list-style: disc;
+    padding-left: 25px;
+}
+
+.program-content ul li {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+
+/* --- Responsive Adjustments untuk Halaman Detail (Mobile) --- */
+@media (max-width: 768px) {
+    .program-detail-section .hero-content {
+        height: auto;
+        padding: 60px 20px 40px;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .program-detail-section .hero-content h1 {
+        font-size: 2em;
+    }
+    
+    .program-content {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+    
+    .program-content h2 {
+        font-size: 1.5em;
+    }
+}
+
+
+/* ============================================== */
+/* 8. PROFIL SEKOLAH SECTION */
+/* ============================================== */
+
+/* Styling Bagian Hero Profil */
+.profil-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 80px 50px;
+    background-color: #f7f7f7;
+    margin-top: 60px; /* Jarak dari header/navbar */
+}
+
+.profil-hero-text {
+    flex: 1;
+    max-width: 55%;
+}
+
+.profil-hero-text h1 {
+    font-size: 3em;
+    color: #0c1a4b;
+    margin-bottom: 20px;
+}
+
+.profil-hero-text p {
+    line-height: 1.8;
+    color: #555;
+}
+
+.profil-hero-image {
+    flex: 1;
+    max-width: 45%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.profil-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.profil-hero-image img:hover {
+    transform: scale(1.03);
+}
+
+/* Styling Bagian Konten Umum (Tujuan, Visi Misi, 9K) */
+.profil-section {
+    padding: 60px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.profil-section h2 {
+    font-size: 2.5em;
+    color: #003366;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 3px solid #ff6600;
+    display: inline-block;
+    padding-bottom: 10px;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+}
+
+.tujuan-list, .visimisi-content, .ninek-grid {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Visi Misi Specific */
+.visimisi-content {
+    display: flex;
+    gap: 40px;
+}
+
+.visi, .misi {
+    flex: 1;
+}
+
+.visi h3, .misi h3 {
+    font-size: 1.8em;
+    color: #ff6600;
+    margin-bottom: 15px;
+}
+
+.misi ul {
+    list-style: none;
+    padding: 0;
+}
+
+.misi li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+    line-height: 1.6;
+}
+
+/* 9K Styling (Grid Layout) */
+.ninek-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.ninek-item {
+    background-color: #e6f0ff; /* Warna latar belakang biru muda */
+    padding: 20px;
+    border-left: 5px solid #003366;
+    border-radius: 5px;
+}
+
+.ninek-item h4 {
+    font-size: 1.2em;
+    color: #003366;
+    margin-bottom: 5px;
+}
+
+.ninek-item p {
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* --- Media Query for Mobile (Tambahkan ke dalam @media (max-width: 768px) di style.css Anda) --- */
+@media (max-width: 768px) {
+    .profil-hero {
+        flex-direction: column;
+        padding: 40px 20px;
+        margin-top: 0;
+    }
+    
+    .profil-hero-text, .profil-hero-image {
+        max-width: 100%;
+        flex: none;
+    }
+
+    .profil-hero-text h1 {
+        font-size: 2em;
+    }
+
+    .profil-section {
+        padding: 40px 20px;
+    }
+
+    .profil-section h2 {
+        font-size: 1.8em;
+    }
+
+    .visimisi-content {
+        flex-direction: column;
+    }
+}
+
+
+/* --- FOOTER UTAMA --- */
+.main-footer {
+    background-color: #7e3402; /* Warna biru gelap sesuai gambar */
+    color: white;
+    padding: 60px 50px 30px; /* Padding atas-bawah-samping */
+}
+
+.footer-top-container {
+    display: grid;
+    /* Ini sudah benar: 2fr untuk kontak, 3 kolom 1fr untuk menu */
+    grid-template-columns: 2fr repeat(3, 1fr); 
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+    align-items: start;
+    /* Anda bisa menambahkan align-items: start; di sini jika diperlukan */
+    /* align-items: start; */ 
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- Kolom Kontak (Kiri) --- */
+.contact-info-column {
+    font-size: 0.9em;
+    margin-left: 100px;
+}
+
+.contact-info-column address {
+    /* Pastikan teks di dalam alamat rata kiri */
+    text-align: left; 
+    
+    /* Hapus margin horizontal bawaan jika ada */
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+.social-media {
+    display: flex;
+    align-items: center;
+    /* Jarak vertikal dari alamat di atasnya */
+    margin-top: 15px; 
+    /* Pastikan margin-left 0 agar rata dengan tepi kolom */
+    margin-left: 0; 
+    padding-left: 0;
+}
+
+.social-media a {
+    color: white;
+    font-size: 1.2em;
+    align-items: center;
+    margin-right: 15px;
+    text-align: center;
+    transition: color 0.3s;
+    
+}
+.social-media a:hover {
+    color: #ff6600; /* Warna hover oranye */
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+    /* Pastikan margin-left 0 agar rata dengan tepi kolom */
+    margin-left: 0; 
+    padding-left: 0;
+}
+
+.contact-item i {
+    color: #ff6600; /* Ikon oranye */
+    margin-right: 10px;
+    font-size: 1em;
+}
+
+.contact-item a {
+    color: #a0a0a0;
+    text-decoration: none;
+}
+.contact-item a:hover {
+    color: white;
+}
+
+/* --- Kolom Menu --- */
+.footer-menu-group a {
+    display: block; /* Membuat setiap link berada di baris baru */
+    color: #a0a0a0;
+    text-decoration: none;
+    margin-bottom: 22px;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.footer-menu-group a:hover {
+    color: white;
+}
+
+/* --- Bagian Bawah (Akreditasi) --- */
+.footer-bottom {
+    max-width: 1200px;
+    margin: 30px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accreditations-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #a0a0a0;
+    margin: 0 40px 0 0;
+}
+
+.accreditations-logos {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.accreditation-logo {
+    height: 40px; /* Sesuaikan ukuran logo */
+    width: auto;
+    opacity: 0.7; /* Sedikit redup */
+}
+
+
+/* --- Media Query untuk Tablet (Max 1024px) --- */
+@media (max-width: 1024px) {
+    /* 1. Navbar: Mengizinkan wrapping jika menu terlalu panjang */
+    .navbar {
+        /* Padding lebih kecil di samping */
+        padding: 10px 20px; 
+    }
+    
+    .nav-links {
+        /* Mengizinkan link untuk pindah baris */
+        flex-wrap: wrap; 
+        justify-content: center;
+        width: 100%; /* Menempati lebar penuh untuk wrapping */
+    }
+}
+
+/* --- Media Query untuk Mobile (Max 768px) --- */
+@media (max-width: 768px) {
+    /* 2. Navbar: Logo kiri dan nav-links menjadi vertikal atau hamburger (disarankan hamburger) */
+    .navbar {
+        flex-direction: column; /* Tumpuk logo dan menu vertikal */
+        align-items: flex-start; /* Rata kiri */
+        padding: 15px 20px;
+    }
+    
+    .logo-kiri {
+        margin-bottom: 10px; /* Jarak antara logo dan menu */
+        margin-right: 0;
+    }
+    
+    /* Alternatif (Jika menggunakan hamburger): Sembunyikan .nav-links di sini */
+    .nav-links {
+        display: none; 
+        /* Ganti dengan mekanisme tombol hamburger/off-canvas menu */
+    }
+
+}
+footer {
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  padding: 20px 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+}

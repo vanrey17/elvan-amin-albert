@@ -1,0 +1,11 @@
+# .htaccess file
+RewriteEngine On
+# Ubah /PROJECT-WEBSITE-SMK/ menjadi nama folder proyek Anda jika berbeda
+RewriteBase /PROJECT-WEBSITE-SMK/ 
+
+# Kecuali jika file atau direktori benar-benar ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Alihkan semua request ke index.php
+RewriteRule ^(.*)$ index.php [L]
