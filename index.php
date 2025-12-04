@@ -11,16 +11,12 @@
     // KODE PERBAIKAN: MENGUBAH $request MENJADI $route BERSIH
     // ===================================================
     
-    // 1. Hapus path proyek ($me) dari request. 
-    // Contoh: /PROJECT-WEBSITE-SMK/profil/ -> /profil/
     $route = str_replace($me, '', $request); 
-    
-    // 2. Bersihkan garis miring di awal dan akhir route, TAPI pertahankan jika itu home (/)
+
     if ($route !== '/') {
         $route = rtrim($route, '/'); // Hapus garis miring di akhir jika ada
     }
-    
-    // 3. Pastikan route dimulai dengan garis miring (kecuali jika itu sudah /)
+
     if (empty($route)) {
         $route = '/';
     } elseif ($route[0] !== '/') {
