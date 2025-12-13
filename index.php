@@ -3,11 +3,9 @@
 
 // BARIS 7 PERLU DIHAPUS JIKA ITU MENGANDUNG $_SERVER["REQUEST_URL"]
 
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
 
 // BASE PROJECT
-$BASE = "/PROJECT-UAS";
+$BASE = "/elvan-amin-albert";
 $image_path = $BASE . "/image";
 
 // --- START: DEFINISI DATA RUTE DAN PROGRAM STUDI ---
