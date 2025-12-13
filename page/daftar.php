@@ -333,11 +333,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
                 <label for="nama_lengkap_siswa">Nama Lengkap Siswa</label>
                 <input type="text" id="nama_lengkap_siswa" name="nama_lengkap_siswa" required value="<?= htmlspecialchars($form_data['nama_lengkap_siswa'] ?? '') ?>">
             </div>
-            
+
             <div class="form-group">
-                <label for="nama_panggilan">Nama Panggilan</label>
-                <input type="text" id="nama_panggilan" name="nama_panggilan" value="<?= htmlspecialchars($form_data['nama_panggilan'] ?? '') ?>">
-            </div>
+            <label for="nomor_induk_kependudukan">Nomor Induk Kependudukan</label>
+            <input 
+            type="text"
+            id="nomor_induk_kependudukan"
+            name="nomor_induk_kependudukan"
+            required
+            maxlength="16"
+            value="<?= htmlspecialchars($form_data['nomor_induk_kependudukan'] ?? '') ?>"
+            oninput="validateNIK(this)"
+        >
+            <small id="nik-warning" style="color:red; display:none;">
+            Isi hanya dengan angka
+            </small>
+        </div>
+
 
             <div class="form-group">
                 <label for="alamat_siswa">Alamat Lengkap Siswa</label>
@@ -391,10 +403,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="bahasa_siswa">Bahasa Sehari-hari</label>
-                <input type="text" id="bahasa_siswa" name="bahasa_siswa" value="<?= htmlspecialchars($form_data['bahasa_siswa'] ?? '') ?>">
-            </div>
 
             <div class="form-group">
                 <label for="golongan_darah">Golongan Darah</label>
@@ -410,7 +418,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             <div class="form-group group-row">
                 <label>Tinggi dan Berat Badan</label>
                 <input type="number" name="tinggi_badan" placeholder="Tinggi (cm)" min="50" style="width: 48%; display: inline-block;" value="<?= htmlspecialchars($form_data['tinggi_badan'] ?? '') ?>">
-                <input type="number" name="berat_badan" placeholder="Berat (kg)" min="10" style="width: 48%; display: inline-block; margin-left: 4%;" value="<?= htmlspecialchars($form_data['berat_badan'] ?? '') ?>">
+                <input type="number" name="berat_badan" placeholder="Berat (kg)" min="10" style="width: 48%; display: inline-block; " value="<?= htmlspecialchars($form_data['berat_badan'] ?? '') ?>">
             </div>
 
             <div class="form-group">
@@ -835,6 +843,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
         document.addEventListener('DOMContentLoaded', () => {
             showStep(currentStep);
         });
+        function validateNIK(input) {
+            const warning = document.getElementById('nik-warning');
+            
+            if (!/^\d*$/.test(input.value)) {
+                warning.style.display = 'block';
+                input.value = input.value.replace(/\D/g, '');
+            } else {
+                warning.style.display = 'none';
+            }
+        }
+</script>
+
     </script>
 </body>
 </html>
