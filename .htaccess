@@ -1,7 +1,7 @@
 RewriteEngine On
 
 # Sesuaikan folder project
-RewriteBase /PROJECT-UAS/
+RewriteBase /elvan-amin-albert/
 
 # Jika file/folder asli ada → biarkan
 RewriteCond %{REQUEST_FILENAME} !-f

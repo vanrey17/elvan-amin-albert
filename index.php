@@ -1,5 +1,5 @@
 <?php
-// C:\xampp\htdocs\PROJECT-UAS\index.php
+// C:\xampp\htdocs\elvan-amin-albert\index.php
 
 // BARIS 7 PERLU DIHAPUS JIKA ITU MENGANDUNG $_SERVER["REQUEST_URL"]
 
