@@ -1,189 +1,240 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MPLB - Manajemen Perkantoran | SMK SWAKARYA</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <?php $pageTitle = "MPLB"; ?>
-</head>
-<body>
-    <main class="program-detail-section">
-        <div class="main-header-container"> 
-            <header class="navbar">
-                <div class="logo-kiri">
-                    <a href="../index.php">
-                        <img src="../image/logo swaka.png" alt="Logo SPH" class="navbar-logo">
-                    </a>
-                </div>
-                <button class="hamburger-menu" aria-label="Toggle Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav class="nav-links" id="navMenu">
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">Tentang SPH<span class="arrow-down">▾</span></a>
-                        <div class="dropdown-content">
-                            <a href="../about/tujuan.php">Overview</a>
-                            <a href="../about/tujuan.php">Tujuan Kami</a>
-                            <a href="../about/visimisi.php">Visi Misi</a>
-                            <a href="../about/9k.php">9K</a>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">Pembelajaran <span class="arrow-down">▾</span></a>
-                        <div class="dropdown-content">
-                            <a href="../learning/kurikulum.php">Kurikulum</a>
-                            <a href="../learning/metode.php">Metode Pembelajaran</a>
-                            <a href="#">Program Studi</a>     
-                            <a href="../dukunganpembelajaran.php">Dukugan Pembelajaran</a>
-                        </div> 
-                    </div>        
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">Pendaftaran <span class="arrow-down">▾</span></a>
-                        <div class="dropdown-content">
-                            <a href="../learning/kurikulum.php">Daftar Sekarang</a>
-                            <a href="../learning/metode.php">Biaya</a>
-                            <a href="../learning/ekstrakurikuler.php">Tur Virtual</a>
-                        </div> 
-                    </div> 
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">Kehidupan Siswa <span class="arrow-down">▾</span></a>
-                        <div class="dropdown-content">
-                            <a href="../learning/kurikulum.php">Ekstrakurikuler</a>
-                            <a href="../learning/metode.php">Kerohanian</a>
-                            <a href="../learning/metode.php">Brosur</a>
-                            <a href="../learning/ekstrakurikuler.php">Layanan Siswa</a>
-                            <a href="../learning/ekstrakurikuler.php">Keluarga Sekolah</a>
-                        </div> 
-                    </div> 
-                    <div class="dropdown">
-                        <a href="#" class="dropbtn">Blog <span class="arrow-down">▾</span></a>
-                        <div class="dropdown-content">
-                            <a href="../learning/kurikulum.php">Berita</a>
-                            <a href="../learning/metode.php">Acara</a>
-                            <a href="../learning/metode.php">Prestasi</a>
-                        </div> 
-                    </div> 
-                    <a href="#">Karier</a>
-                    <a href="#">Hubungi Kami</a>
-                </nav>
-                <div class="utility-links">
-                </div>
-            </header>
-        </div>
+<?php
+// Tentukan variabel data yang berbeda untuk setiap halaman (MPLB)
+$page_title = "Manajemen Perkantoran dan Layanan Bisnis";
+$page_description = "MPLB mempersiapkan siswa untuk menjadi profesional di bidang administrasi, kesekretariatan, layanan pelanggan, dan pengelolaan dokumen digital maupun konvensional.";
 
-        <div class="tkj-content">
-            <h1>Manajemen Perkantoran dan Layanan Bisnis (MPLB)</h1>
-            <p>
-                MPLB menyiapkan siswa menjadi profesional administrasi yang mahir dalam mengelola dokumen, korespondensi, dan teknologi perkantoran modern.
-            </p>
-        </div>
+?>
 
+<main class="program-detail-section">
+    <div class="hero-background">
+        <div class="text-with-gradient-bg">
+            <h1><?php echo $page_title; ?></h1>
+            <p><?php echo $page_description; ?></p>
+        </div>
+    </div>
+</main>
+
+<div class="program-detail-section">
+    <h2 class="section-title">Tentang Program MPLB</h2>
+    <div class="program-layout-container">
+        
         <div class="program-content">
-            <h2>Tentang Program MPLB</h2>
-            <p>Fokus program ini adalah pada keahlian mengelola administrasi, pengarsipan digital, korespondensi bisnis, dan penggunaan aplikasi perkantoran. Lulusan memiliki kompetensi yang dibutuhkan di berbagai sektor korporasi.</p>
+            
+            <p>Program keahlian ini fokus pada keterampilan manajerial perkantoran, komunikasi bisnis, kearsipan digital, otomatisasi perkantoran, dan pelayanan prima (*service excellence*). Lulusan siap mengisi posisi strategis dalam lingkungan kantor modern.</p>
+            
             <h3>Prospek Karier:</h3>
             <ul>
-                <li>Staf Administrasi</li>
-                <li>Sekretaris</li>
-                <li>Resepsionis</li>
-                <li>Administrasi Umum</li>
+                <li>Staf Administrasi Umum</li>
+                <li>Sekretaris/Asisten Pribadi</li>
+                <li>Customer Service Officer</li>
+                <li>Arsiparis (Pengelola Dokumen)</li>
+                <li>Staf Pemasaran Digital</li>
+                <li>Operator Komputer Perkantoran</li>
             </ul>
         </div>
-    </main>
-
-    <footer class="main-footer">
-        <div class="footer-top-container">
-            <div class="footer-column contact-info-column">
-                <address>
-                    Jl.Sosial Km.5 No.472,<br>
-                    Kemuning, Palembang
-                </address>
-                <div class="social-media">
-                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="URL_TIKTOK_ANDA" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-whatsapp"></i></a>
-                </div>
-                <p class="contact-item">
-                    <i class="fas fa-phone-alt"></i> 
-                    +62 21 546 0234
-                </p>
-                <p class="contact-item">
-                    <i class="fas fa-envelope"></i> 
-                    <a href="smkswakaryapalembang@gmail.com">smkswakaryapalembang@gmail.com</a>
-                </p>
-                <p class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i> 
-                    <a href="https://maps.app.goo.gl/KdDu9ttbRb9bWLVY6">Lihat di google maps</a>
-                </p>
-            </div>
-            <div class="footer-column footer-menu-group">
-                <a href="#">Tujuan Kami</a>
-                <a href="#">Visi & Misi</a>
-                <a href="#">Karier</a>
-                <a href="#">Blogs</a>
-                <a href="#">Berita dan Acara</a>
-            </div>
-            <div class="footer-column footer-menu-group">
-                <a href="#">Program</a>
-                <a href="#">Kurikulum</a>
-                <a href="#">Jalur Pembelajaran</a>
-                <a href="#">Dukungan Pembelajaran</a>
-                <a href="#">Pembelajaran Pelayanan</a>
-            </div>
-            <div class="footer-column footer-menu-group">
-                <a href="#">Hubungi Kami</a>
-                <a href="#">Tur Virtual</a>
-                <a href="#">Daftar Sekarang</a>
-                <a href="#">Biaya Sekolah</a>
-                <a href="#">FAQ</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <h4 class="accreditations-title">Memorandum of Understanding</h4>
-            <div class="accreditations-logos">
-                <img src="../image/mikrotik.png" alt="Logo Akreditasi" class="accreditation-logo">
-                <img src="../image/biznet.png" class="accreditation-logo">
-                <img src="../image/indihome.png" alt="Logo WASC" class="accreditation-logo">
-                <img src="../image/yamaha.png" class="accreditation-logo">
-            </div>
-        </div>
-    </footer>
-    <footer>
-        <p>© 2025 SMK SWAKARYA PALEMBANG | All Rights Reserved</p>
-    </footer>
-    <script>
-        const mainHeader = document.querySelector('.main-header-container');
-        const topHeader = document.querySelector('.top-header');
-        let stickyPoint = 90; 
-
-        window.addEventListener('load', () => {
-            if (topHeader) {
-                stickyPoint = topHeader.offsetHeight;
-            }
-        });
-
-        function handleScroll() {
-            if (window.scrollY >= stickyPoint) {
-                mainHeader.classList.add('scrolled');
-            } else {
-                mainHeader.classList.remove('scrolled');
-            }
-        }
-        window.addEventListener('scroll', handleScroll);
         
-        // Mobile Menu Toggle
-        const hamburger = document.querySelector('.hamburger-menu');
-        const navMenu = document.querySelector('#navMenu');
+        <div class="program-visual">
+            <img src="<?php echo $image_path; ?>/labmplb.png" alt="Siswa MPLB Sedang Belajar Administrasi dan Kearsipan">
+        </div>
+        
+    </div>  
 
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-            });
-        }
-    </script>
-</body>
-</html>
+    <div class="kurikulum-section">
+        <div class="container">
+            <h2 class="section-title">Mata Pelajaran Utama MPLB 📝</h2>
+            <p>Kurikulum MPLB dirancang untuk menciptakan tenaga administrasi yang profesional, terampil dalam teknologi, dan memiliki etika kerja yang tinggi.</p>
+            
+            <div class="mata-pelajaran-grid">
+                
+                <div class="mapel-card">
+                    <div class="mapel-icon-container">
+                        📈 </div>
+                    <div class="mapel-content">
+                        <h3>Otomatisasi Tata Kelola (OTK) Perkantoran</h3>
+                        <p>Mempelajari penggunaan perangkat lunak perkantoran (MS Office/G Suite) dan sistem informasi manajemen untuk efisiensi pekerjaan administrasi, termasuk OTK Kepegawaian dan Sarana Prasarana.</p>
+                    </div>
+                </div>
+                
+                <div class="mapel-card">
+                    <div class="mapel-icon-container">
+                        📂 </div>
+                    <div class="mapel-content">
+                        <h3>Kearsipan dan Dokumen Digital</h3>
+                        <p>Fokus pada sistem penyimpanan dan penemuan kembali dokumen (arsip) secara konvensional dan digital, sesuai standar keamanan dan efisiensi.</p>
+                    </div>
+                </div>
+
+                <div class="mapel-card">
+                    <div class="mapel-icon-container">
+                        🤝 </div>
+                    <div class="mapel-content">
+                        <h3>Komunikasi Bisnis & Pelayanan Prima</h3>
+                        <p>Mencakup teknik komunikasi lisan dan tertulis (surat, *email*) yang efektif, serta prinsip-prinsip *service excellence* (pelayanan prima) kepada pelanggan dan kolega.</p>
+                    </div>
+                </div>
+                
+                <div class="mapel-card">
+                    <div class="mapel-icon-container">
+                        💰 </div>
+                    <div class="mapel-content">
+                        <h3>Administrasi Keuangan Dasar</h3>
+                        <p>Mempelajari dasar-dasar pencatatan transaksi keuangan, penyusunan laporan sederhana, dan pengelolaan kas kecil untuk operasional kantor.</p>
+                    </div>
+                </div>
+                
+                <div class="mapel-card">
+                    <div class="mapel-icon-container">
+                        👔 </div>
+                    <div class="mapel-content">
+                        <h3>Etika Profesi dan Budaya Kerja</h3>
+                        <p>Keterampilan non-teknis (soft skill) yang krusial, meliputi etika berbusana, etika telepon, dan membangun budaya kerja yang profesional.</p>
+                    </div>
+                </div>
+                
+                <div class="mapel-card pilihan">
+                    <div class="mapel-icon-container">
+                        🛒 </div>
+                    <div class="mapel-content">
+                        <h3>Pilihan: Pemasaran Digital dan E-Commerce</h3>
+                        <p>Mengenal konsep dasar pemasaran melalui media digital, pengelolaan media sosial untuk bisnis, dan dasar-dasar transaksi *e-commerce*.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ====================================================
+   2. GAYA KURIKULUM SECTION (1 BARIS 1 MAPEL)
+   ==================================================== */
+
+.kurikulum-section {
+    background-color: #e9ecef; /* Latar belakang kontras */
+    padding: 80px 0;
+}
+
+.kurikulum-section h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.kurikulum-section p {
+    text-align: center;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mata-pelajaran-grid {
+    display: grid;
+    /* Memastikan HANYA 1 kolom pada semua ukuran layar */
+    grid-template-columns: 1fr; 
+    gap: 20px; 
+    max-width: 900px; 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.mapel-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 5px solid #007bff; /* Garis biru sebagai aksen utama */
+    
+    /* Menggunakan Flexbox untuk tata letak ikon dan konten */
+    display: flex;
+    align-items: flex-start; /* Mengatur ikon dan teks sejajar di bagian atas */
+    gap: 20px;
+}
+
+.mapel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- STYLING ICON/IMAGE CONTAINER --- */
+.mapel-icon-container {
+    flex-shrink: 0; 
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Bentuk lingkaran */
+    background-color: #e6f0ff; /* Background ringan */
+    color: #007bff; /* Warna ikon/simbol utama */
+    font-size: 30px; 
+    /* Gaya untuk gambar JPG jika digunakan */
+    /* img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; } */
+}
+
+/* --- STYLING CONTENT --- */
+.mapel-content {
+    flex-grow: 1; /* Konten mengambil sisa ruang */
+}
+
+.mapel-content h3 {
+    color: #212529;
+    margin-top: 0;
+    font-size: 1.4em; 
+    margin-bottom: 5px;
+}
+
+.mapel-content p {
+    text-align: left; /* Mengembalikan teks ke rata kiri */
+    margin-bottom: 0;
+}
+
+/* --- STYLING MATA PELAJARAN PILIHAN (IoT) --- */
+.mapel-card.pilihan {
+    background-color: #fff3cd; /* Latar belakang kuning muda */
+    border-left: 5px solid #ffc107; /* Garis kuning sebagai aksen */
+}
+
+.mapel-card.pilihan .mapel-icon-container {
+    background-color: #ffe066; /* Background ikon kuning */
+    color: #856404;
+}
+
+.mapel-card.pilihan h3 {
+    color: #856404;
+}
+
+
+/* ====================================
+   3. MEDIA QUERIES (RESPONSIVITAS)
+   ==================================== */
+@media (max-width: 768px) {
+    
+    .program-layout-container {
+        /* Mengubah Flexbox menjadi stack vertikal */
+        flex-direction: column; 
+        gap: 20px;
+    }
+    
+    .program-content, .program-visual {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .program-detail-section {
+        padding: 40px 0;
+    }
+
+    .mapel-card {
+        padding: 20px; /* Kurangi padding di perangkat kecil */
+    }
+    
+    .mapel-icon-container {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+    }
+}
+</style>

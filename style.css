@@ -109,7 +109,7 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 /* --- 2. Hero Section --- */
 .hero-section {
     /* Ganti 'path/to/your/image.jpg' dengan URL atau path gambar Anda */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url("image/swakarya.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url("image/ascendia-bangunan.png");
     background-size: cover;
     background-position: center top;
     height: 100vh;
@@ -383,52 +383,7 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 
 
 /* --- SECTION KEPALA SEKOLAH (CONTAINER) --- */
-.principal-section {
-    padding: 80px 100px;
-    background-color: #f8f8f8; 
-}
-
-.principal-layout {
-    display: flex;
-    max-width: 1200px; /* Lebar Maksimum Container */
-    margin: 0 auto;    /* Tengah Horizontal */
-    gap: 60px;         /* Jarak antara Gambar & Teks */
-    align-items: center; 
-}
-
-/* --- KIRI: KOLOM TEKS --- */
-.principal-text-column {
-    flex: 1; /* Kolom teks mengisi sisa ruang yang tersedia */
-    /* Pastikan semua teks rata kiri */
-    text-align: left; 
-    margin-bottom: 150px;
-}
-
-/* --- KANAN: KOLOM GAMBAR --- */
-.principal-image-column {
-    flex: 0 0 35%; /* Kolom gambar mengambil 35% lebar */
-    max-width: 650px; /* Membatasi lebar maksimum kolom gambar */
-    text-align: center; /* Meratakan gambar di tengah kolomnya */
-}
-
-.principal-photo {
-    width: 350px;
-    height: auto;
-    border-radius: 25px; 
-    object-fit: cover;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.principal-photo:hover {
-    transform: scale(1.05);
-}
-
-.principal-contact {
-    margin-top: 20px;
-    /* Pastikan info kontak di bawah gambar rata tengah */
-    text-align: center; 
-}
+/* Class lama (principal-section) DITIMPA/DIHAPUS, diganti dengan .principal-hero-section (di bawah) */
 
 
 /* --- Styling Teks (Tidak Berubah) --- */
@@ -475,21 +430,53 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 
 
 /* Styling Hero Content untuk Halaman Detail */
-.program-detail-section .tkj-content {
+.program-detail-section .hero-background {
     /* Atur background image spesifik jika diperlukan, atau gunakan background default */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url('image/swakarya.jpg');
-    height: 35vh; /* Ketinggian hero yang lebih pendek dari halaman utama */
-    display: flex;
-    flex-direction: column;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url('image/ascendia-bangunan.png');
+    background-size: cover;
+    background-position: upper center;
+    height: 30vh; /* Ketinggian hero yang lebih pendek dari halaman utama */
+    display: block;
+    background-repeat: no-repeat;
     justify-content: center;
     align-items: center;
     position: relative; /* Atur posisi untuk hero yang lebih pendek */
     left: 0;
     bottom: 0;
     width: 100%;
-    max-width: none;
     padding: 90px 50px;
     text-align: center;
+}
+
+/* STYLE UNTUK GRADIENT BACKGROUND PADA TEKS */
+.text-with-gradient-bg {
+    /* Ruang di sekitar teks */
+    padding: 10px 20px; 
+    margin: 40px 0;
+    
+    /* Menerapkan Gradient: Contoh dari hitam 70% opacity ke 40% opacity */
+    background: linear-gradient(
+        135deg, 
+        rgba(0, 0, 0, 0.3) 0%, 
+        rgba(0, 0, 0, 0.4) 100%
+    );
+
+    /* Warna teks dan properti display */
+    color: white; 
+    display: inline-block; /* Sangat penting agar background hanya menutupi teks */
+    border-radius: 5px; 
+}
+
+/* Styling Judul */
+.hero-background-content h1.text-with-gradient-bg {
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+/* Styling Subjudul/Paragraf */
+.hero-background-content p.text-with-gradient-bg {
+    font-size: 1.1em;
+    font-weight: 400;
 }
 
 .program-detail-section .hero-content h1 {
@@ -503,6 +490,15 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     opacity: 0.9;
 }
 
+.program-layout-container {
+    display: flex;
+    gap: 40px; /* Jarak antara kolom kiri dan kanan */
+    align-items: flex-start; /* Meratakan item ke atas */
+    max-width: 1200px; /* Lebar maksimum seperti section lain */
+    margin: 60px auto;
+    padding: 0 50px; 
+}
+
 /* Hilangkan elemen scroll explore jika ada di hero detail */
 .program-detail-section .scroll-explore {
     display: none;
@@ -511,17 +507,50 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 /* Styling Bagian Konten Utama Program */
 .program-content {
     max-width: 900px;
-    margin: 60px auto;
-    padding: 0 20px;
+    padding: 0 10px;
     line-height: 1.8;
+    flex : 2;
+    padding: 0;
+    
 }
 
-.program-content h2 {
+.program-content p {
+    color: #555;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Styling Gambar di Kolom Kanan */
+.program-visual img {
+    width: 100%;
+    /* KUNCI 1: Batasi Tinggi Maksimum agar tidak terlalu besar */
+    max-height: 400px; /* Coba nilai ini. Sesuaikan 450px sesuai kebutuhan visual */
+    
+    border-radius: 15px; 
+    margin-top: 20px;
+    height: auto; 
+    display: block;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    
+    /* KUNCI 2: Memastikan gambar menutupi area yang ditetapkan (penting jika Anda memberi height/max-height) */
+    object-fit: cover; 
+}
+
+.program-detail-section{
+    text-align:center;
+}
+
+
+.program-detail-section h2 {
     font-size: 2em;
     color: #003366;
+    /* Ubah border-bottom menjadi border-bottom yang lebih pendek */
     border-bottom: 3px solid #ff6600;
+    padding-top: 40px;
     padding-bottom: 10px;
     margin-bottom: 30px;
+    /* Langkah Kunci 1: Membuat elemen hanya selebar konten */
+    display: inline-block;
 }
 
 .program-content h3 {
@@ -529,17 +558,15 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     color: #0c1a4b;
     margin-top: 40px;
     margin-bottom: 15px;
+    text-align: left;
 }
+
 
 .program-content ul {
-    list-style: disc;
-    padding-left: 25px;
+    color: #555;
+    text-align: left;
 }
 
-.program-content ul li {
-    margin-bottom: 8px;
-    color: #555;
-}
 
 
 /* --- Responsive Adjustments untuk Halaman Detail (Mobile) --- */
@@ -567,63 +594,153 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 
 
 /* ============================================== */
-/* 8. PROFIL SEKOLAH SECTION */
+/* 8. PROFIL SEKOLAH SECTION (BARU: 4 Kolom) */
 /* ============================================== */
 
-/* Styling Bagian Hero Profil */
-.profil-hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 40px;
-    padding: 80px 50px;
+/* --- A. COLOMN 1: HERO/SAMBUTAN KEPALA SEKOLAH --- */
+.principal-hero-section {
     background-color: #f7f7f7;
-    margin-top: 60px; /* Jarak dari header/navbar */
+    padding: 100px 50px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0; 
 }
 
-.profil-hero-text {
+.principal-layout-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 80px;
+    align-items: center;
+}
+
+.principal-text-column {
     flex: 1;
-    max-width: 55%;
+    max-width: 60%;
+    margin-bottom: 0; 
 }
 
-.profil-hero-text h1 {
+.principal-text-column h1 {
     font-size: 3em;
     color: #0c1a4b;
     margin-bottom: 20px;
 }
 
-.profil-hero-text p {
-    line-height: 1.8;
-    color: #555;
+.principal-text-column blockquote {
+    border-left: 5px solid #ff6600;
+    padding-left: 20px;
+    margin: 25px 0;
+    font-style: italic;
+    color: #003366;
+    font-size: 1.1em;
 }
 
-.profil-hero-image {
-    flex: 1;
-    max-width: 45%;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.principal-signature {
+    font-size: 1.1em;
+    font-weight: bold; 
+    color: #333;
+    margin-top: 25px;
 }
 
-.profil-hero-image img {
-    width: 100%;
-    height: auto;
-    display: block;
+.principal-image-column {
+    flex: 0 0 40%;
+    position: relative;
+}
+
+.principal-photo {
+    width: 100%; 
+    height: 450px; 
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    object-fit: cover; 
+}
+
+.principal-photo:hover {
+    transform: none; 
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary-profile {
+    display: inline-block;
+    background-color: #ff6600; 
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px; 
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-primary-profile:hover {
+    background-color: #e65c00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 102, 0, 0.6);
+}
+
+
+/* --- B. COLOMN 2: FAKTA PROFIL SEKOLAH --- */
+
+.facts-section-profile {
+    padding: 80px 50px;
+    background-color: white;
+    text-align: center;
+}
+
+.facts-title {
+    font-size: 2.5em; 
+    color: #003366;
+    margin-bottom: 50px;
+    border-bottom: 3px solid #ff6600;
+    display: inline-block;
+    padding-bottom: 10px;
+}
+
+.facts-container-profile {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px;
+    max-width: 1100px;
+    margin: 40px auto 0;
+}
+
+.fact-item-profile {
+    padding: 20px;
+    border-radius: 10px;
     transition: transform 0.3s ease;
 }
 
-.profil-hero-image img:hover {
-    transform: scale(1.03);
+.fact-item-profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Styling Bagian Konten Umum (Tujuan, Visi Misi, 9K) */
-.profil-section {
-    padding: 60px 50px;
-    max-width: 1200px;
-    margin: 0 auto;
+.fact-item-profile .fact-icon { /* Menambahkan .fact-item-profile agar lebih spesifik dari .fact-icon umum */
+    font-size: 3.5em;
+    color: #ff6600; 
+    margin-bottom: 15px;
 }
 
-.profil-section h2 {
+.fact-item-profile .fact-number-group .fact-number {
+    font-size: 3em;
+    color: #003366; 
+}
+
+.fact-item-profile .fact-number-group .fact-label {
+    font-size: 1.2em;
+    color: #003366;
+}
+
+/* --- C. COLOMN 3: TUJUAN KAMI --- */
+
+.tujuan-section {
+    background-color: #e6f0ff; 
+    padding: 80px 50px;
+}
+
+.section-title-center {
     font-size: 2.5em;
     color: #003366;
     text-align: center;
@@ -631,106 +748,175 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     border-bottom: 3px solid #ff6600;
     display: inline-block;
     padding-bottom: 10px;
-    width: auto;
     left: 50%;
     transform: translateX(-50%);
     position: relative;
 }
 
-.tujuan-list, .visimisi-content, .ninek-grid {
-    padding: 20px;
+.tujuan-content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tujuan-card {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Visi Misi Specific */
-.visimisi-content {
+.tujuan-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.tujuan-icon {
+    font-size: 2.5em;
+    color: #003366;
+    margin-bottom: 15px;
+}
+
+.tujuan-card h3 {
+    font-size: 1.5em;
+    color: #0c1a4b;
+    margin-bottom: 10px;
+}
+
+
+/* --- D. COLOMN 4: VISI MISI --- */
+
+.visimisi-section {
+    padding: 80px 50px;
+    background-color: white;
+}
+
+.visimisi-container {
     display: flex;
-    gap: 40px;
+    max-width: 1000px;
+    margin: 40px auto 0;
+    gap: 50px;
 }
 
-.visi, .misi {
+.visi-column, .misi-column {
     flex: 1;
+    padding: 30px;
+    border-radius: 10px;
 }
 
-.visi h3, .misi h3 {
-    font-size: 1.8em;
+.visi-column {
+    background-color: #fff8f0; 
+    border-left: 5px solid #ff6600;
+}
+
+.misi-column {
+    background-color: #f0f3ff; 
+    border-left: 5px solid #003366;
+}
+
+.visimisi-icon {
+    font-size: 2em;
     color: #ff6600;
     margin-bottom: 15px;
 }
 
-.misi ul {
+.misi-column .visimisi-icon {
+    color: #003366;
+}
+
+.visi-column h3, .misi-column h3 {
+    font-size: 1.8em;
+    color: #0c1a4b;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.misi-column ul {
     list-style: none;
     padding: 0;
 }
 
-.misi li {
+.misi-column li {
     padding: 10px 0;
-    border-bottom: 1px dashed #eee;
+    border-bottom: 1px dashed #ccc;
     line-height: 1.6;
-}
-
-/* 9K Styling (Grid Layout) */
-.ninek-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.ninek-item {
-    background-color: #e6f0ff; /* Warna latar belakang biru muda */
-    padding: 20px;
-    border-left: 5px solid #003366;
-    border-radius: 5px;
-}
-
-.ninek-item h4 {
-    font-size: 1.2em;
-    color: #003366;
-    margin-bottom: 5px;
-}
-
-.ninek-item p {
-    font-size: 0.9em;
     color: #333;
+    position: relative;
 }
 
-/* --- Media Query for Mobile (Tambahkan ke dalam @media (max-width: 768px) di style.css Anda) --- */
-@media (max-width: 768px) {
-    .profil-hero {
+.misi-column li:before {
+    content: "\2713"; 
+    color: #ff6600;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+/* --- Media Query untuk Profil Sekolah --- */
+
+@media (max-width: 900px) {
+    .principal-layout-content {
         flex-direction: column;
-        padding: 40px 20px;
-        margin-top: 0;
+        gap: 40px;
     }
     
-    .profil-hero-text, .profil-hero-image {
+    .principal-text-column, .principal-image-column {
         max-width: 100%;
-        flex: none;
+        text-align: center;
+    }
+    
+    .principal-photo {
+        height: 350px; 
     }
 
-    .profil-hero-text h1 {
-        font-size: 2em;
+    .principal-text-column h1 {
+        font-size: 2.5em;
+    }
+    
+    .principal-hero-section {
+        padding: 80px 20px;
+    }
+    
+    .facts-container-profile {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px;
     }
 
-    .profil-section {
-        padding: 40px 20px;
-    }
-
-    .profil-section h2 {
-        font-size: 1.8em;
-    }
-
-    .visimisi-content {
+    .visimisi-container {
         flex-direction: column;
+        gap: 30px;
+    }
+    
+    .tujuan-content-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .section-title-center {
+        /* Hapus transform X agar rata tengah normal di mobile */
+        transform: none;
+        left: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .facts-container-profile {
+        grid-template-columns: 1fr; 
+    }
+    .principal-layout-content {
+        gap: 20px;
     }
 }
 
 
 /* --- FOOTER UTAMA --- */
 .main-footer {
-    background-color: #7e3402; /* Warna biru gelap sesuai gambar */
+    background-color: #2C3E50; /* Warna biru gelap sesuai gambar */
     color: white;
     padding: 60px 50px 30px; /* Padding atas-bawah-samping */
 }
@@ -856,6 +1042,119 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 }
 
 
+/* --- 1. Pengaturan Bagian Utama (Section) --- */
+.profil-section.ninek {
+    /* Padding dan margin untuk memisahkan bagian dari konten lain */
+    padding: 60px 20px;
+    margin: 40px auto;
+    /* Maksimal lebar agar konten tidak terlalu melebar di layar besar */
+    max-width: 1200px;
+}
+
+/* Judul Utama */
+.profil-section.ninek h2 {
+    font-family: 'Poppins', sans-serif; /* Gunakan font modern */
+    font-size: 2.5rem;
+    color: #1a237e; /* Biru Tua/Navy - Memberi kesan profesional */
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #ffcc33; /* Garis bawah warna Emas */
+    padding-bottom: 5px;
+}
+
+/* Sub-teks Penjelasan */
+.profil-section.ninek p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #444;
+}
+
+/* --- 2. Pengaturan Grid 9K --- */
+.ninek-grid {
+    /* Menggunakan CSS Grid untuk tata letak yang rapi */
+    display: grid;
+    /* Tampilkan 3 kolom di desktop, dan atur jarak antar item */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* --- 3. Pengaturan Setiap Item 9K --- */
+.ninek-item {
+    /* Gaya kartu untuk setiap prinsip */
+    background-color: #ffffff; /* Latar belakang putih */
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    
+    /* Box Shadow yang halus dan bergengsi */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 10px rgba(0, 0, 0, 0.03);
+    
+    /* Transisi untuk efek hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efek Hover (Aksi Saat Kursor Di Atas Item) */
+.ninek-item:hover {
+    /* Mengangkat kartu sedikit dan mengubah bayangan */
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+    cursor: default;
+}
+
+/* Judul Setiap Prinsip (K***) */
+.ninek-item h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    /* Gradasi Biru ke Emas untuk kesan premium */
+    background: linear-gradient(90deg, #1a237e 0%, #ffcc33 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #1a237e; /* Fallback color */
+    
+    /* Memberi jarak atas agar tampak ada ikon (jika nanti ditambahkan) */
+    padding-top: 5px; 
+}
+
+/* Deskripsi Prinsip */
+.ninek-item p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* --- 4. Responsif untuk Layar Kecil (Opsional tapi Penting) --- */
+@media (max-width: 768px) {
+    .ninek-grid {
+        /* Di tablet, tampilkan 2 kolom */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .profil-section.ninek h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ninek-grid {
+        /* Di ponsel, tampilkan 1 kolom */
+        grid-template-columns: 1fr;
+    }
+    
+    .ninek-item {
+        padding: 25px;
+    }
+}
+
 /* --- Media Query untuk Tablet (Max 1024px) --- */
 @media (max-width: 1024px) {
     /* 1. Navbar: Mengizinkan wrapping jika menu terlalu panjang */
@@ -893,11 +1192,5 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     }
 
 }
-footer {
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  padding: 20px 0;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-}
+
+

@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Sesuaikan folder project
+RewriteBase /PROJECT-UAS/
+
+# Jika file/folder asli ada → biarkan
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Routing semua ke index.php
+RewriteRule ^(.*)$ index.php [L]

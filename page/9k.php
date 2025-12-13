@@ -1,4 +1,18 @@
+<?php
+// Tentukan variabel data yang berbeda untuk setiap halaman
+$page_title = "Teknik Sepeda Motor";
+$page_description = "TSM menghasilkan lulusan yang terampil dalam perawatan dan perbaikan sepeda motor, siap bekerja di bengkel resmi maupun membuka usaha sendiri.";
 
+?>
+
+<main class="program-detail-section">
+    <div class="hero-background">
+        <div class="text-with-gradient-bg">
+            <h1><?php echo $page_title; ?></h1>
+            <p><?php echo $page_description; ?></p>
+        </div>
+    </div>
+</main>
         <section class="profil-section ninek">
             <h2>Prinsip 9K Kami</h2>
             <p style="text-align: center; margin-bottom: 30px; color: #555;">9K adalah nilai-nilai inti yang kami tanamkan kepada seluruh warga sekolah untuk menciptakan ekosistem pendidikan yang positif dan berdaya saing.</p>
