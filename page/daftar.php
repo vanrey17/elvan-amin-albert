@@ -348,7 +348,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             <small id="nik-warning" style="color:red; display:none;">
             Isi hanya dengan angka
             </small>
-        </div>
+            </div>
 
 
             <div class="form-group">
@@ -487,66 +487,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             <h2>Data Orang Tua/Wali</h2>
             
             <h3>A. Data Ayah</h3>
+            <!-- agar data base tau jika user mengisi ini maka akan menjadi data ayah -->
+            <input type="hidden" name="jenis_peran" value="ayah">
+
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
-                <input type="text" name="nama_lengkap" required value="<?= htmlspecialchars($form_data['nama_lengkap'] ?? '') ?>">
+                <input type="text" name="nama_lengkap" required value="<?= htmlspecialchars($form_data['nama_lengkap_ayah'] ?? '') ?>">
+            </div>
+           <div class="form-group">
+            <label for="nomor_induk_kependudukan_ayah">Nomor Induk Kependudukan</label>
+            <input 
+            type="text"
+            id="nomor_induk_kependudukan_ayah"
+            name="nomor_induk_kependudukan_ayah"
+            required
+            maxlength="16"
+            value="<?= htmlspecialchars($form_data['nomor_induk_kependudukan_ayah'] ?? '') ?>"
+            oninput="validateNIK(this)">
             </div>
 
             <div class="form-group">
                 <label for="tempat_lahir">Tempat Lahir</label>
-                <input type="text" id="tempat_lahir" name="tempat_lahir" required value="<?= htmlspecialchars($form_data['tempat_lahir'] ?? '') ?>">
+                <input type="text" id="tempat_lahir" name="tempat_lahir_ayah" required value="<?= htmlspecialchars($form_data['tempat_lahir_ayah'] ?? '') ?>">
             </div>
 
             <div class="form-group">
                 <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required value="<?= htmlspecialchars($form_data['tanggal_lahir'] ?? '') ?>">
+                <input type="date" id="tanggal_lahir" name="tanggal_lahir_ayah" required value="<?= htmlspecialchars($form_data['tanggal_lahir_ayah'] ?? '') ?>">
             </div>
 
-            <div class="form-group">
-                <label for="gender_siswa">Gender</label>
-                <select id="gender_siswa" name="gender_siswa" required>
-                    <option value="">Pilih Gender</option>
-                    <option value="Pria" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Pria') ? 'selected' : '' ?>>Pria</option>
-                    <option value="Wanita" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Wanita') ? 'selected' : '' ?>>Wanita</option>
-                </select>
-            </div>
 
             <div class="form-group">
                 <label for="kewarganegaraan">Kewarganegaraan</label>
                 <select id="kewarganegaraan" name="kewarganegaraan" required>
                     <option value="">Pilih Kewarganegaraan</option>
                     <option value="WNI" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
-                    <option value="WNA" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'Wanita') ? 'selected' : '' ?>>WNA</option>
+                    <option value="WNA" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'W') ? 'selected' : '' ?>>WNA</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="agama">Agama</label>
-                <select id="agama" name="agama">
+                <select id="agama" name="agama_ayah" required>
                     <option value="">Pilih Agama</option>
-                    <option value="Islam" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
-                    <option value="Kristen" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
-                    <option value="Katholik" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
-                    <option value="Hindu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
-                    <option value="buddha" <?= (isset($form_data['agama']) && $form_data['agama'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
-                    <option value="konghucu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
-                    <option value="Lainnya" <?= (isset($form_data['agama_siswa']) && $form_data['agama_siswa'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
+                    <option value="Islam" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
+                    <option value="Kristen" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
+                    <option value="Katholik" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
+                    <option value="Hindu" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
+                    <option value="buddha" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
+                    <option value="konghucu" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
+                    <option value="Lainnya" <?= (isset($form_data['agama_ayah']) && $form_data['agama_ayah'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="bahasa_siswa">Bahasa Sehari-hari</label>
-                <input type="text" id="bahasa_siswa" name="bahasa_siswa" value="<?= htmlspecialchars($form_data['bahasa_siswa'] ?? '') ?>">
-            </div>
+            
 
             <div class="form-group">
                 <label for="golongan_darah">Golongan Darah</label>
-                <select id="golongan_darah" name="golongan_darah">
+                <select id="golongan_darah" name="golongan_darah_ayah">
                     <option value="">Pilih Golongan Darah</option>
-                    <option value="A" <?= (isset($form_data['golongan_darah']) && $form_data['golongan darah'] == 'A') ? 'selected' : '' ?>>A</option>
-                    <option value="B" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'B') ? 'selected' : '' ?>>B</option>
-                    <option value="AB" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'AB') ? 'selected' : '' ?>>AB</option>
-                    <option value="O" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'O') ? 'selected' : '' ?>>O</option>
+                    <option value="A" <?= (isset($form_data['golongan_darah_ayah']) && $form_data['golongan_darah_ayah'] == 'A') ? 'selected' : '' ?>>A</option>
+                    <option value="B" <?= (isset($form_data['golongan_darah_ayah']) && $form_data['golongan_darah_ayah'] == 'B') ? 'selected' : '' ?>>B</option>
+                    <option value="AB" <?= (isset($form_data['golongan_darah_ayah']) && $form_data['golongan_darah_ayah'] == 'AB') ? 'selected' : '' ?>>AB</option>
+                    <option value="O" <?= (isset($form_data['golongan_darah_ayah']) && $form_data['golongan_darah_ayah'] == 'O') ? 'selected' : '' ?>>O</option>
                 </select>
             </div>
 
@@ -560,72 +563,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             </div>
 
             <div class="form-group">
-                <label for="nomor_handphone_siswa">Nomor Handphone</label>
-                <input type="telepon" id="nomor_handphone_siswa" name="nomor_handphone_siswa" required value="<?= htmlspecialchars($form_data['nomor_handphone_siswa'] ?? '') ?>">
+                <label for="nomor_handphone_ayah">Nomor Handphone</label>
+                <input type="telepon" id="nomor_handphone_ayah" name="nomor_handphone_ayah" required value="<?= htmlspecialchars($form_data['nomor_handphone_ayah'] ?? '') ?>">
             </div>
             
 
             <h3>B. Data Ibu</h3>
+            <input type="hidden" name="jenis_peran" value="ibu">
             <div class="form-group">
                 <label for="nama_lengkap">Nama lengkap Ibu</label>
-                <input type="text" name="nama_lengkap" required value="<?= htmlspecialchars($form_data['nama_lengkap'] ?? '') ?>">
+                <input type="text" name="nama_lengkap_ibu" required value="<?= htmlspecialchars($form_data['nama_lengkap_ibu'] ?? '') ?>">
             </div>
 
             <div class="form-group">
-                <label for="tempat_lahir">Tempat Lahir</label>
-                <input type="text" id="tempat_lahir" name="tempat_lahir" required value="<?= htmlspecialchars($form_data['tempat_lahir'] ?? '') ?>">
+            <label for="nomor_induk_kependudukan_ibu">Nomor Induk Kependudukan</label>
+            <input 
+            type="text"
+            id="nomor_induk_kependudukan_ibu"
+            name="nomor_induk_kependudukan_ibu"
+            required
+            maxlength="16"
+            value="<?= htmlspecialchars($form_data['nomor_induk_kependudukan_ibu'] ?? '') ?>"
+            oninput="validateNIK(this)">
             </div>
 
             <div class="form-group">
-                <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required value="<?= htmlspecialchars($form_data['tanggal_lahir'] ?? '') ?>">
+                <label for="tempat_lahir_ibu">Tempat Lahir</label>
+                <input type="text" id="tempat_lahir_ibu" name="tempat_lahir_ibu" required value="<?= htmlspecialchars($form_data['tempat_lahir_ibu'] ?? '') ?>">
             </div>
 
             <div class="form-group">
-                <label for="gender_siswa">Gender</label>
-                <select id="gender_siswa" name="gender_siswa" required>
-                    <option value="">Pilih Gender</option>
-                    <option value="Pria" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Pria') ? 'selected' : '' ?>>Pria</option>
-                    <option value="Wanita" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Wanita') ? 'selected' : '' ?>>Wanita</option>
-                </select>
+                <label for="tanggal_lahir_ibu">Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir_ibu" name="tanggal_lahir_ibu" required value="<?= htmlspecialchars($form_data['tanggal_lahir_ibu'] ?? '') ?>">
             </div>
 
+          
             <div class="form-group">
-                <label for="kewarganegaraan">Kewarganegaraan</label>
-                <select id="kewarganegaraan" name="kewarganegaraan" required>
+                <label for="kewarganegaraan_ibu">Kewarganegaraan</label>
+                <select id="kewarganegaraan_ibu" name="kewarganegaraan_ibu" required>
                     <option value="">Pilih Kewarganegaraan</option>
-                    <option value="WNI" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
-                    <option value="WNA" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'Wanita') ? 'selected' : '' ?>>WNA</option>
+                    <option value="WNI" <?= (isset($form_data['kewarganegaraan_ibu']) && $form_data['kewarganegaraan_ibu'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
+                    <option value="WNA" <?= (isset($form_data['kewarganegaraan_ibu']) && $form_data['kewarganegaraan_ibu'] == 'WNA') ? 'selected' : '' ?>>WNA</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="agama">Agama</label>
-                <select id="agama" name="agama">
+                <label for="agama_ibu">Agama</label>
+                <select id="agama" name="agama_ibu">
                     <option value="">Pilih Agama</option>
-                    <option value="Islam" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
-                    <option value="Kristen" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
-                    <option value="Katholik" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
-                    <option value="Hindu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
-                    <option value="buddha" <?= (isset($form_data['agama']) && $form_data['agama'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
-                    <option value="konghucu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
-                    <option value="Lainnya" <?= (isset($form_data['agama_siswa']) && $form_data['agama_siswa'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
+                    <option value="Islam" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
+                    <option value="Kristen" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
+                    <option value="Katholik" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
+                    <option value="Hindu" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
+                    <option value="buddha" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
+                    <option value="konghucu" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
+                    <option value="Lainnya" <?= (isset($form_data['agama_ibu']) && $form_data['agama_ibu'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="bahasa_siswa">Bahasa Sehari-hari</label>
-                <input type="text" id="bahasa_siswa" name="bahasa_siswa" value="<?= htmlspecialchars($form_data['bahasa_siswa'] ?? '') ?>">
-            </div>
 
             <div class="form-group">
                 <label for="golongan_darah">Golongan Darah</label>
-                <select id="golongan_darah" name="golongan_darah">
+                <select id="golongan_darah" name="golongan_darah_ibu">
                     <option value="">Pilih Golongan Darah</option>
-                    <option value="A" <?= (isset($form_data['golongan_darah']) && $form_data['golongan darah'] == 'A') ? 'selected' : '' ?>>A</option>
-                    <option value="B" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'B') ? 'selected' : '' ?>>B</option>
-                    <option value="AB" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'AB') ? 'selected' : '' ?>>AB</option>
-                    <option value="O" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'O') ? 'selected' : '' ?>>O</option>
+                    <option value="A" <?= (isset($form_data['golongan_darah_ibu']) && $form_data['golongan_darah_ibu'] == 'A') ? 'selected' : '' ?>>A</option>
+                    <option value="B" <?= (isset($form_data['golongan_darah_ibu']) && $form_data['golongan_darah_ibu'] == 'B') ? 'selected' : '' ?>>B</option>
+                    <option value="AB" <?= (isset($form_data['golongan_darah_ibu']) && $form_data['golongan_darah_ibu'] == 'AB') ? 'selected' : '' ?>>AB</option>
+                    <option value="O" <?= (isset($form_data['golongan_darah_ibu']) && $form_data['golongan_darah_ibu'] == 'O') ? 'selected' : '' ?>>O</option>
                 </select>
             </div>
 
@@ -639,82 +643,82 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             </div>
 
             <div class="form-group">
-                <label for="nomor_handphone_siswa">Nomor Handphone</label>
-                <input type="telepon" id="nomor_handphone_siswa" name="nomor_handphone_siswa" required value="<?= htmlspecialchars($form_data['nomor_handphone_siswa'] ?? '') ?>">
+                <label for="nomor_handphone_ibu">Nomor Handphone</label>
+                <input type="telepon" id="nomor_handphone_ibu" name="nomor_handphone_ibu" required value="<?= htmlspecialchars($form_data['nomor_handphone_ibu'] ?? '') ?>">
             </div>
             
             <h3>C. Data Wali (Jika Ada)</h3>
+            <input type="hidden" name="jenis_peran" value="wali">
             <div class="form-group">
                 <label for="nama_lengkap">Nama lengkap Wali</label>
-                <input type="text" name="nama_lengkap" required value="<?= htmlspecialchars($form_data['nama_lengkap'] ?? '') ?>">
+                <input type="text" name="nama_lengkap_wali" required value="<?= htmlspecialchars($form_data['nama_lengkap_wali'] ?? '') ?>">
             </div>
 
             <div class="form-group">
-                <label for="tempat_lahir">Tempat Lahir</label>
-                <input type="text" id="tempat_lahir" name="tempat_lahir" required value="<?= htmlspecialchars($form_data['tempat_lahir'] ?? '') ?>">
+            <label for="nomor_induk_kependudukan_wali">Nomor Induk Kependudukan</label>
+            <input 
+            type="text"
+            id="nomor_induk_kependudukan_wali"
+            name="nomor_induk_kependudukan_wali"
+            required
+            maxlength="16"
+            value="<?= htmlspecialchars($form_data['nomor_induk_kependudukan_wali'] ?? '') ?>"
+            oninput="validateNIK(this)">
             </div>
 
             <div class="form-group">
-                <label for="tanggal_lahir">Tanggal Lahir</label>
-                <input type="date" id="tanggal_lahir" name="tanggal_lahir" required value="<?= htmlspecialchars($form_data['tanggal_lahir'] ?? '') ?>">
+                <label for="tempat_lahir_wali">Tempat Lahir</label>
+                <input type="text" id="tempat_lahir_wali" name="tempat_lahir_wali" required value="<?= htmlspecialchars($form_data['tempat_lahir_wali'] ?? '') ?>">
             </div>
 
             <div class="form-group">
-                <label for="gender_siswa">Gender</label>
-                <select id="gender_siswa" name="gender_siswa" required>
-                    <option value="">Pilih Gender</option>
-                    <option value="Pria" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Pria') ? 'selected' : '' ?>>Pria</option>
-                    <option value="Wanita" <?= (isset($form_data['gender_siswa']) && $form_data['gender_siswa'] == 'Wanita') ? 'selected' : '' ?>>Wanita</option>
-                </select>
+                <label for="tanggal_lahir_wali">Tanggal Lahir</label>
+                <input type="date" id="tanggal_lahir_wali" name="tanggal_lahir_wali" required value="<?= htmlspecialchars($form_data['tanggal_lahir_wali'] ?? '') ?>">
             </div>
 
+          
             <div class="form-group">
                 <label for="kewarganegaraan">Kewarganegaraan</label>
-                <select id="kewarganegaraan" name="kewarganegaraan" required>
+                <select id="kewarganegaraan" name="kewarganegaraan_wali" required>
                     <option value="">Pilih Kewarganegaraan</option>
-                    <option value="WNI" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
-                    <option value="WNA" <?= (isset($form_data['kewarganegaraan']) && $form_data['kewarganegaraan'] == 'Wanita') ? 'selected' : '' ?>>WNA</option>
+                    <option value="WNI" <?= (isset($form_data['kewarganegaraan_wali']) && $form_data['kewarganegaraan_wali'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
+                    <option value="WNA" <?= (isset($form_data['kewarganegaraan_wali']) && $form_data['kewarganegaraan_wali'] == 'WNA') ? 'selected' : '' ?>>WNA</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="agama">Agama</label>
-                <select id="agama" name="agama">
+                <select id="agama" name="agama_wali" required>
                     <option value="">Pilih Agama</option>
-                    <option value="Islam" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
-                    <option value="Kristen" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
-                    <option value="Katholik" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
-                    <option value="Hindu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
-                    <option value="buddha" <?= (isset($form_data['agama']) && $form_data['agama'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
-                    <option value="konghucu" <?= (isset($form_data['agama']) && $form_data['agama'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
-                    <option value="Lainnya" <?= (isset($form_data['agama_siswa']) && $form_data['agama_siswa'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
+                    <option value="Islam" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'Islam') ? 'selected' : '' ?>>Islam</option>
+                    <option value="Kristen" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'Kristen') ? 'selected' : '' ?>>Kristen</option>
+                    <option value="Katholik" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'Katholik') ? 'selected' : '' ?>>Katholik</option>
+                    <option value="Hindu" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'Hindu') ? 'selected' : '' ?>>Hindu</option>
+                    <option value="buddha" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'buddha') ? 'selected' : '' ?>>Buddha</option>
+                    <option value="konghucu" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'konghucu') ? 'selected' : '' ?>>Konghucu</option>
+                    <option value="Lainnya" <?= (isset($form_data['agama_wali']) && $form_data['agama_wali'] == 'Lainnya') ? 'selected' : '' ?>>Lainnya</option>
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="bahasa_siswa">Bahasa Sehari-hari</label>
-                <input type="text" id="bahasa_siswa" name="bahasa_siswa" value="<?= htmlspecialchars($form_data['bahasa_siswa'] ?? '') ?>">
-            </div>
+           
 
             <div class="form-group">
                 <label for="golongan_darah">Golongan Darah</label>
-                <select id="golongan_darah" name="golongan_darah">
+                <select id="golongan_darah" name="golongan_darah_wali">
                     <option value="">Pilih Golongan Darah</option>
-                    <option value="A" <?= (isset($form_data['golongan_darah']) && $form_data['golongan darah'] == 'A') ? 'selected' : '' ?>>A</option>
-                    <option value="B" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'B') ? 'selected' : '' ?>>B</option>
-                    <option value="AB" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'AB') ? 'selected' : '' ?>>AB</option>
-                    <option value="O" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'O') ? 'selected' : '' ?>>O</option>
+                    <option value="A" <?= (isset($form_data['golongan_darah_wali']) && $form_data['golongan_darah_wali'] == 'A') ? 'selected' : '' ?>>A</option>
+                    <option value="B" <?= (isset($form_data['golongan_darah_wali']) && $form_data['golongan_darah_wali'] == 'B') ? 'selected' : '' ?>>B</option>
+                    <option value="AB" <?= (isset($form_data['golongan_darah_wali']) && $form_data['golongan_darah_wali'] == 'AB') ? 'selected' : '' ?>>AB</option>
+                    <option value="O" <?= (isset($form_data['golongan_darah_wali']) && $form_data['golongan_darah_wali'] == 'O') ? 'selected' : '' ?>>O</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="hubungan_dengan_siswa">Hubungan Dengan Siswa</label>
-                <select id="hubungan_dengan_siswa" name="hubunga_dengan_siswa">
-                    <option value="">Pilih </option>
-                    <option value="ayah_kandung" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'ayah_kandung') ? 'selected' : '' ?>>Ayah Kandung</option>
-                    <option value="ayah_tiri" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'ayah_tiri') ? 'selected' : '' ?>>Ayah Tiri</option>
-                    <option value="ibu_kandung" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'ibu_kandung') ? 'selected' : '' ?>>Ibu Kandung</option>
-                    <option value="ibu_tiri" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'ibu_tiri') ? 'selected' : '' ?>>Ibu Tiri</option>
+                <select id="hubungan_dengan_siswa" name="hubungan_dengan_siswa">
+                    <option value="">Pilih Hubungan</option>
+                    <option value="sepupu" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'sepupu') ? 'selected' : '' ?>>Sepupu</option>
+                    <option value="paman" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'paman') ? 'selected' : '' ?>>Paman</option>
                     <option value="cucu" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'cucu') ? 'selected' : '' ?>>Cucu</option>
                     <option value="keponakan" <?= (isset($form_data['hubungan_dengan_siswa']) && $form_data['hubungan_dengan_siswa'] == 'keponakan') ? 'selected' : '' ?>>Keponakan</option>
                             
@@ -722,8 +726,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             </div>
 
             <div class="form-group">
-                <label for="nomor_handphone_siswa">Nomor Handphone</label>
-                <input type="telepon" id="nomor_handphone_siswa" name="nomor_handphone_siswa" required value="<?= htmlspecialchars($form_data['nomor_handphone_siswa'] ?? '') ?>">
+                <label for="nomor_handphone_wali">Nomor Handphone</label>
+                <input type="telepon" id="nomor_handphone_wali" name="nomor_handphone_wali" required value="<?= htmlspecialchars($form_data['nomor_handphone_wali'] ?? '') ?>">
             </div>
 
             <div class="button-group">
@@ -855,6 +859,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
         }
 </script>
 
-    </script>
 </body>
 </html>
