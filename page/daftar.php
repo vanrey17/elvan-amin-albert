@@ -18,43 +18,177 @@ siswa mendapatkan pengalaman belajar yang mendalam sesuai dengan minat dan poten
 </main>
 
 <?php
-// === BAGIAN PHP UNTUK PROSES SUBMIT FORMULIR ===
+include 'config.php';
 
-$step = 1; // Default step
-$errors = [];
-$success_message = '';
-$form_data = [];
+if (isset($_POST['submit_form'])) {
 
-// Cek jika formulir telah di-submit (tombol 'submit_form' di Langkah 3 ditekan)
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
-    
-    // 1. Validasi Data (Contoh sederhana)
-    if (empty($_POST['nama_lengkap_siswa'])) {
-        $errors[] = "Nama Lengkap Siswa wajib diisi.";
+    // ======================
+    // 1. AMBIL DATA
+    // ======================
+    $nama_lengkap_siswa = $_POST['nama_lengkap_siswa'];
+    $nomor_induk_kependudukan = $_POST['nomor_induk_kependudukan'];
+    $alamat_siswa = $_POST['alamat_siswa'];
+    $nomor_handphone_siswa = $_POST['nomor_handphone_siswa'];
+    $gender_siswa = $_POST['gender_siswa'];
+    $kewarganegaraan = $_POST['kewarganegaraan'];
+    $tempat_lahir = $_POST['tempat_lahir'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $agama_siswa = $_POST['agama_siswa'];
+    $golongan_darah = $_POST['golongan_darah'];
+    $tinggi_badan = $_POST['tinggi_badan'];
+    $berat_badan = $_POST['berat_badan'];
+    $hobi_siswa = $_POST['hobi_siswa'];
+    $cita_cita = $_POST['cita_cita'];
+    $minat_jurusan = $_POST['minat_jurusan'];
+    $pilihan_identitas = isset($_POST['pilihan_identitas'])
+        ? implode(", ", $_POST['pilihan_identitas'])
+        : '';
+
+    // ======================
+    // 2. VALIDASI
+    // ======================
+    if (
+        empty($nama_lengkap_siswa) ||
+        empty($nomor_induk_kependudukan) ||
+        empty($alamat_siswa) ||
+        empty($nomor_handphone_siswa) ||
+        empty($gender_siswa) ||
+        empty($kewarganegaraan) ||
+        empty($tempat_lahir) ||
+        empty($tanggal_lahir) ||
+        empty($agama_siswa) ||
+        empty($golongan_darah) ||
+        empty($tinggi_badan) ||
+        empty($berat_badan) ||
+        empty($hobi_siswa) ||
+        empty($cita_cita) ||
+        empty($minat_jurusan) ||
+        empty($pilihan_identitas)
+    ) {
+        die("Semua field siswa wajib diisi");
     }
-    // ... Tambahkan validasi lain sesuai kebutuhan ...
 
-    // 2. Simpan Data Form
-    $form_data = $_POST;
-    
-    // 3. Proses Upload File (Ini hanya contoh struktur, perlu implementasi yang lebih robust)
-    if (empty($errors)) {
-        // ... Logika upload file (seperti di kode Anda) ...
+    // ======================
+    // 3. INSERT SISWA
+    // ======================
+    $insert_query = "
+        INSERT INTO tb_calon_siswa (
+            nama_lengkap_siswa,
+            nomor_induk_kependudukan,
+            alamat_siswa,
+            nomor_handphone_siswa,
+            gender_siswa,
+            kewarganegaraan,
+            tempat_lahir,
+            tanggal_lahir,
+            agama_siswa,
+            golongan_darah,
+            tinggi_badan,
+            berat_badan,
+            hobi_siswa,
+            cita_cita,
+            minat_jurusan,
+            pilihan_identitas
+        ) VALUES (
+            '$nama_lengkap_siswa',
+            '$nomor_induk_kependudukan',
+            '$alamat_siswa',
+            '$nomor_handphone_siswa',
+            '$gender_siswa',
+            '$kewarganegaraan',
+            '$tempat_lahir',
+            '$tanggal_lahir',
+            '$agama_siswa',
+            '$golongan_darah',
+            '$tinggi_badan',
+            '$berat_badan',
+            '$hobi_siswa',
+            '$cita_cita',
+            '$minat_jurusan',
+            '$pilihan_identitas'
+        )
+    ";
 
-        // 4. Proses Penyimpanan ke Database (SQL) atau Kirim Email
-        // Misalnya: menyimpan $form_data ke MySQL database
-        
-        $success_message = "✅ Formulir pendaftaran berhasil dikirim! Kami akan segera memproses data Anda.";
-        // Reset data setelah sukses
-        $form_data = [];
-    } else {
-        // Jika ada error, kembali ke langkah 3 (atau langkah manapun yang validasinya gagal)
-        $step = 3; 
+    if (!mysqli_query($conn, $insert_query)) {
+        die("Gagal insert siswa: " . mysqli_error($conn));
     }
+
+    // ======================
+    // 4. FK
+    // ======================
+    $id_siswa = mysqli_insert_id($conn);
+    $penanggung = $_POST['penanggung_jawab'];
+
+    // ======================
+    // 5. ORANG TUA
+    // ======================
+    if ($penanggung === 'orangtua') {
+
+        mysqli_query($conn, "
+            INSERT INTO tb_orangtua (
+                id_siswa,
+                nama_ayah, nik_ayah, tempat_lahir_ayah, tanggal_lahir_ayah,
+                kewarganegaraan_ayah, agama_ayah, golongan_darah_ayah,
+                hubungan_ayah, no_hp_ayah,
+                nama_lengkap_ibu, nik_ibu, tempat_lahir_ibu, tanggal_lahir_ibu,
+                kewarganegaraan_ibu, agama_ibu, golongan_darah_ibu,
+                hubungan_ibu, no_hp_ibu
+            ) VALUES (
+                '$id_siswa',
+                '$_POST[nama_lengkap_ayah]',
+                '$_POST[nomor_induk_kependudukan_ayah]',
+                '$_POST[tempat_lahir_ayah]',
+                '$_POST[tanggal_lahir_ayah]',
+                '$_POST[kewarganegaraan_ayah]',
+                '$_POST[agama_ayah]',
+                '$_POST[golongan_darah_ayah]',
+                'ayah',
+                '$_POST[nomor_handphone_ayah]',
+                '$_POST[nama_lengkap_ibu]',
+                '$_POST[nomor_induk_kependudukan_ibu]',
+                '$_POST[tempat_lahir_ibu]',
+                '$_POST[tanggal_lahir_ibu]',
+                '$_POST[kewarganegaraan_ibu]',
+                '$_POST[agama_ibu]',
+                '$_POST[golongan_darah_ibu]',
+                'ibu',
+                '$_POST[nomor_handphone_ibu]'
+            )
+        ") or die(mysqli_error($conn));
+    }
+
+    // ======================
+    // 6. WALI
+    // ======================
+    if ($penanggung === 'wali') {
+
+        mysqli_query($conn, "
+            INSERT INTO tb_wali (
+                id_siswa,
+                nama_wali, nik_wali, tempat_lahir_wali, tanggal_lahir_wali,
+                kewarganegaraan_wali, agama_wali, golongan_darah_wali,
+                hubungan_wali, no_hp_wali
+            ) VALUES (
+                '$id_siswa',
+                '$_POST[nama_lengkap_wali]',
+                '$_POST[nomor_induk_kependudukan_wali]',
+                '$_POST[tempat_lahir_wali]',
+                '$_POST[tanggal_lahir_wali]',
+                '$_POST[kewarganegaraan_wali]',
+                '$_POST[agama_wali]',
+                '$_POST[golongan_darah_wali]',
+                'wali',
+                '$_POST[nomor_handphone_wali]'
+            )
+        ") or die(mysqli_error($conn));
+    }
+
+    echo "DATA BERHASIL DISIMPAN";
 }
-
-// === BAGIAN PHP SELESAI ===
 ?>
+
+
+
 
 
     <style>
@@ -484,11 +618,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             </div>
         </div>
         <div id="step-2" class="form-step">
-            <h2>Data Orang Tua/Wali</h2>
+           <h2>Data Orang Tua / Wali</h2>
+
+
+            <div class="form-group">
+                <label>
+                    <input type="radio" name="penanggung_jawab" value="orangtua" required>
+                </label>
+
+                <label>
+                    <input type="radio" name="penanggung_jawab" value="wali">
+
+                </label>
+            </div>
             
+            <div id="form-orangtua" style="display:none;">
             <h3>A. Data Ayah</h3>
             <!-- agar data base tau jika user mengisi ini maka akan menjadi data ayah -->
-            <input type="hidden" name="jenis_peran" value="ayah">
 
             <div class="form-group">
                 <label for="nama_lengkap">Nama Lengkap</label>
@@ -569,7 +715,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
             
 
             <h3>B. Data Ibu</h3>
-            <input type="hidden" name="jenis_peran" value="ibu">
+           
             <div class="form-group">
                 <label for="nama_lengkap">Nama lengkap Ibu</label>
                 <input type="text" name="nama_lengkap_ibu" required value="<?= htmlspecialchars($form_data['nama_lengkap_ibu'] ?? '') ?>">
@@ -646,9 +792,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
                 <label for="nomor_handphone_ibu">Nomor Handphone</label>
                 <input type="telepon" id="nomor_handphone_ibu" name="nomor_handphone_ibu" required value="<?= htmlspecialchars($form_data['nomor_handphone_ibu'] ?? '') ?>">
             </div>
+            </div>
             
+            <div id="form-wali" style="display:none;">
             <h3>C. Data Wali (Jika Ada)</h3>
-            <input type="hidden" name="jenis_peran" value="wali">
+
             <div class="form-group">
                 <label for="nama_lengkap">Nama lengkap Wali</label>
                 <input type="text" name="nama_lengkap_wali" required value="<?= htmlspecialchars($form_data['nama_lengkap_wali'] ?? '') ?>">
@@ -801,10 +949,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
 
             <div class="button-group">
                 <button type="button" onclick="showPrevStep()">&laquo; Kembali ke Langkah 2</button>
-                <button type="submit" name="submit_form">**SUBMIT FORMULIR Pendaftaran**</button>
+                <button type="submit" name="submit_form">SUBMIT FORMULIR Pendaftaran</button>
             </div>
         </div>
-
+        </div>
     </form>
     
     <script>
