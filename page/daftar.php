@@ -355,6 +355,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_form'])) {
                 <label for="alamat_siswa">Alamat Lengkap Siswa</label>
                 <textarea id="alamat_siswa" name="alamat_siswa" rows="3" required><?= htmlspecialchars($form_data['alamat_siswa'] ?? '') ?></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="bahasa">Bahasa Sehari hari</label>
+                <textarea id="bahasa" name="bahasa" rows="3" required><?= htmlspecialchars($form_data['bahasa'] ?? '') ?></textarea>
+            </div>
             
             <div class="form-group">
                 <label for="nomor_handphone_siswa">Nomor Handphone Siswa</label>
