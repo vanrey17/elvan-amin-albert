@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- <style>
+    <style>
         body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; }
         .ascendia-orange { color: #F97316; }
         .bg-ascendia-orange { background-color: #F97316; }
@@ -17,7 +17,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-    </style> -->
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
