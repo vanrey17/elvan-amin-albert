@@ -3,12 +3,11 @@
 if (!isset($BASE)) $BASE = '';
 if (!isset($image_path)) $image_path = $BASE . '/image';
 
-// Akses data Program Studi dari file utama (index.php)
-// Data ini digunakan untuk menu Multi-Level Program Studi
-global $program_studi_sub_menu, $BASE; 
+// Akses data Program Studi dan Layanan Siswa dari file utama (index.php)
+global $program_studi_sub_menu, $student_services_data, $BASE; 
 
 // --- FALLBACK/CONTOH DATA PROGRAM STUDI ---
-// Jika array belum didefinisikan di index.php, gunakan fallback ini:
+// (Tetap sama seperti kode asli Anda)
 if (!isset($program_studi_sub_menu)) {
     $program_studi_sub_menu = [
         '/tjkt' => ['display' => 'TJKT - Teknik Jaringan Komputer dan Telekomunikasi'],
@@ -19,7 +18,16 @@ if (!isset($program_studi_sub_menu)) {
         '/titl' => ['display' => 'TITL - Teknik Instalasi Tenaga Listrik'],
         '/tsm' => ['display' => 'TSM - Teknik Sepeda Motor'],
         '/tkr' => ['display' => 'TKR - Teknik Kendaraan Ringan'],
-        
+    ];
+}
+
+// --- FALLBACK/CONTOH DATA LAYANAN SISWA BARU ---
+// Gunakan fallback jika array belum didefinisikan di index.php
+if (!isset($student_services_data)) {
+    $student_services_data = [
+        '/layanansiswa/uks' => ['display' => 'Smart UKS'], 
+        '/layanansiswa/bk' => ['display' => 'Bimbingan Konseling (BK)'],
+        '/layanansiswa/kantin' => ['display' => 'Kantin Sehat'],
     ];
 }
 // ------------------------------------------
@@ -65,7 +73,7 @@ if (!isset($program_studi_sub_menu)) {
                             <?php endforeach; ?>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
 
             <div class="dropdown">
@@ -83,7 +91,21 @@ if (!isset($program_studi_sub_menu)) {
                 <div class="dropdown-content">
                     <a href="<?php echo $BASE; ?>/ekstrakurikuler">Ekstrakurikuler</a>
                     <a href="<?php echo $BASE; ?>/kerohanian">Kerohanian</a>
-                    <a href="<?php echo $BASE; ?>/layanansiswa">Layanan Siswa</a>
+                    
+                    <div class="sub-dropdown">
+                        <a href="<?php echo $BASE; ?>/layanansiswa" class="sub-dropbtn">
+                            Layanan Siswa <i class="fa fa-angle-right"></i>
+                        </a>
+                        <div class="sub-dropdown-content">
+                            <?php foreach ($student_services_data as $url_path => $data): ?>
+                                <a href="<?php echo $BASE . $url_path; ?>">
+                                    <?php echo htmlspecialchars($data['display']); ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+
+                    </div>
+                    
                     <a href="<?php echo $BASE; ?>/keluargasekolah">Keluarga Sekolah</a>
                 </div>
             </div>
@@ -95,4 +117,3 @@ if (!isset($program_studi_sub_menu)) {
         </nav>
     </header>
 </div>
-

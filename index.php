@@ -36,7 +36,7 @@ $program_studies_data = [
         'file' => 'page/akl.php',
         'display' => 'AKL - Akuntansi dan Keuangan Lembaga',
     ],
-    // TAMBAHKAN PROGRAM STUDI LAIN YANG HILANG DI SINI:
+    // PROGRAM STUDI LAIN:
     '/rpl' => [ 'file' => 'page/rpl.php', 'display' => 'RPL - Rekayasa Perangkat Lunak' ],
     '/dkv' => [ 'file' => 'page/dkv.php', 'display' => 'DKV - Desain Komunikasi Visual' ],
     '/titl' => [ 'file' => 'page/titl.php', 'display' => 'TITL - Teknik Instalasi Tenaga Listrik' ],
@@ -44,8 +44,24 @@ $program_studies_data = [
     '/tkr' => [ 'file' => 'page/tkr.php', 'display' => 'TKR - Teknik Kendaraan Ringan' ],
 ];
 
+// --- PERBAIKAN: DEFINISI LAYANAN SISWA SEBAGAI SUBMENU ---
+// Tambahkan file dan display name untuk submenu Layanan Siswa
+$student_services_data = [
+    '/layanansiswa/uks' => [
+        'file' => 'page/uks.php', // Mengarah ke file uks.php yang sudah dibuat
+        'display' => 'Smart UKS',
+    ],
+    '/layanansiswa/bk' => [
+        'file' => 'page/bk.php', // Asumsi ada file BK
+        'display' => 'Bimbingan Konseling (BK)',
+    ],
+    '/layanansiswa/kantin' => [
+        'file' => 'page/kantin.php', // Asumsi ada file Kantin
+        'display' => 'Kantin Sehat',
+    ],
+];
 
-// Routing map (Array datar, MENGANDALKAN $program_studies_data)
+// --- Routing map (Array datar utama) ---
 $routes = [
     '/' => 'page/home.php',
 
@@ -55,7 +71,7 @@ $routes = [
     '/visimisi' => 'page/visimisi.php',
     '/9k' => 'page/9k.php',
 
-    // Pembelajaranf
+    // Pembelajaran
     '/kurikulum' => 'page/kurikulum.php',
     '/metode' => 'page/metodepembelajaran.php',
     '/dukunganpembelajaran' => 'page/dukunganpembelajaran.php',
@@ -69,8 +85,14 @@ foreach ($program_studies_data as $url_path => $data) {
 // Kehidupan siswa
 $routes['/ekstrakurikuler'] = 'page/ekstrakurikuler.php';
 $routes['/kerohanian'] = 'page/kerohanian.php';
-$routes['/layanansiswa'] = 'page/layanansiswa.php';
+$routes['/layanansiswa'] = 'page/layanansiswa.php'; // Halaman landing utama Layanan Siswa
 $routes['/keluargasekolah'] = 'page/keluargasekolah.php';
+
+// Gabungkan rute Layanan Siswa ke array $routes datar
+foreach ($student_services_data as $url_path => $data) {
+    $routes[$url_path] = $data['file'];
+}
+
 
 // Pendaftaran
 $routes['/daftar'] = 'page/daftar.php';
