@@ -17,15 +17,27 @@ $step = 1; // Langkah default
 include 'config.php';
 
 if (isset($_POST['submit_form'])) {
-    // ======================
     // 1. AMBIL DATA
-    // ======================
-    // ... kode ambil data yang sudah ada ...
-    
-    // ======================
-    // 2. VALIDASI (MODIFIED)
-    // ======================
-    // Alih-alih menggunakan die(), kumpulkan error ke array
+    $form_data = $_POST;
+    $nama_lengkap_siswa = mysqli_real_escape_string($conn, $_POST['nama_lengkap_siswa'] ?? '');
+    $nomor_induk_kependudukan = mysqli_real_escape_string($conn, $_POST['nomor_induk_kependudukan'] ?? '');
+    $alamat_siswa = mysqli_real_escape_string($conn, $_POST['alamat_siswa'] ?? '');
+    $nomor_handphone_siswa = mysqli_real_escape_string($conn, $_POST['nomor_handphone_siswa'] ?? '');
+    $gender_siswa = mysqli_real_escape_string($conn, $_POST['gender_siswa'] ?? '');
+    $kewarganegaraan = mysqli_real_escape_string($conn, $_POST['kewarganegaraan'] ?? '');
+    $tempat_lahir = mysqli_real_escape_string($conn, $_POST['tempat_lahir'] ?? '');
+    $tanggal_lahir = mysqli_real_escape_string($conn, $_POST['tanggal_lahir'] ?? '');
+    $agama_siswa = mysqli_real_escape_string($conn, $_POST['agama_siswa'] ?? '');
+    $golongan_darah = mysqli_real_escape_string($conn, $_POST['golongan_darah'] ?? '');
+    $tinggi_badan = mysqli_real_escape_string($conn, $_POST['tinggi_badan'] ?? '');
+    $berat_badan = mysqli_real_escape_string($conn, $_POST['berat_badan'] ?? '');
+    $hobi_siswa = mysqli_real_escape_string($conn, $_POST['hobi_siswa'] ?? '');
+    $cita_cita = mysqli_real_escape_string($conn, $_POST['cita_cita'] ?? '');
+    $minat_jurusan = mysqli_real_escape_string($conn, $_POST['minat_jurusan'] ?? '');
+    $pilihan_identitas = isset($_POST['pilihan_identitas']) ? implode(', ', $_POST['pilihan_identitas']) : '';
+
+
+       // 2. VALIDASI (MODIFIED)
     if (empty($nama_lengkap_siswa)) $errors[] = "Nama lengkap siswa wajib diisi";
     if (empty($nomor_induk_kependudukan)) $errors[] = "Nomor Induk Kependudukan wajib diisi";
     if (empty($alamat_siswa)) $errors[] = "Alamat siswa wajib diisi";
@@ -43,60 +55,34 @@ if (isset($_POST['submit_form'])) {
     if (empty($minat_jurusan)) $errors[] = "Minat jurusan wajib diisi";
     if (empty($pilihan_identitas)) $errors[] = "Pilihan identitas wajib dipilih";
 
-    // ======================
+// ======================
     // 3. INSERT SISWA JIKA TIDAK ADA ERROR
     // ======================
     if (empty($errors)) {
-        // Simpan semua data POST ke $form_data untuk tampilkan kembali jika error
-        $form_data = $_POST;
-        
+        // Ambil penanggung jawab di sini agar tidak 'Undefined Variable'
+        $penanggung = $_POST['penanggung_jawab'] ?? '';
+
         $insert_query = "
             INSERT INTO tb_calon_siswa (
-                nama_lengkap_siswa,
-                nomor_induk_kependudukan,
-                alamat_siswa,
-                nomor_handphone_siswa,
-                gender_siswa,
-                kewarganegaraan,
-                tempat_lahir,
-                tanggal_lahir,
-                agama_siswa,
-                golongan_darah,
-                tinggi_badan,
-                berat_badan,
-                hobi_siswa,
-                cita_cita,
-                minat_jurusan,
-                pilihan_identitas
+                `nama_lengkap_siswa`, `nomor_induk_kependudukan`, `alamat_siswa`,
+                `nomor_handphone_siswa`, `gender_siswa`, `kewarganegaraan`,
+                `tempat_lahir`, `tanggal_lahir`, `agama_siswa`, `golongan_darah`,
+                `tinggi_badan`, `berat_badan`, `hobi_siswa`, `cita_cita`, `minat_jurusan`
             ) VALUES (
-                '$nama_lengkap_siswa',
-                '$nomor_induk_kependudukan',
-                '$alamat_siswa',
-                '$nomor_handphone_siswa',
-                '$gender_siswa',
-                '$kewarganegaraan',
-                '$tempat_lahir',
-                '$tanggal_lahir',
-                '$agama_siswa',
-                '$golongan_darah',
-                '$tinggi_badan',
-                '$berat_badan',
-                '$hobi_siswa',
-                '$cita_cita',
-                '$minat_jurusan',
-                '$pilihan_identitas'
+                '$nama_lengkap_siswa', '$nomor_induk_kependudukan', '$alamat_siswa',
+                '$nomor_handphone_siswa', '$gender_siswa', '$kewarganegaraan',
+                '$tempat_lahir', '$tanggal_lahir', '$agama_siswa', '$golongan_darah',
+                '$tinggi_badan', '$berat_badan', '$hobi_siswa', '$cita_cita', '$minat_jurusan'
             )
         ";
 
+        // JALANKAN QUERY SISWA TERLEBIH DAHULU
         if (mysqli_query($conn, $insert_query)) {
-            // ======================
-            // 4. FK
-            // ======================
+            // Ambil ID siswa yang baru saja masuk
             $id_siswa = mysqli_insert_id($conn);
-            $penanggung = $_POST['penanggung_jawab'];
 
             // ======================
-            // 5. ORANG TUA
+            // 4. SIMPAN ORANG TUA / WALI (Hanya jika Siswa Berhasil)
             // ======================
             if ($penanggung === 'orangtua') {
                 $query_orangtua = "
@@ -110,77 +96,67 @@ if (isset($_POST['submit_form'])) {
                         hubungan_ibu, no_hp_ibu
                     ) VALUES (
                         '$id_siswa',
-                        '{$_POST['nama_lengkap_ayah']}',
-                        '{$_POST['nomor_induk_kependudukan_ayah']}',
-                        '{$_POST['tempat_lahir_ayah']}',
-                        '{$_POST['tanggal_lahir_ayah']}',
-                        '{$_POST['kewarganegaraan_ayah']}',
-                        '{$_POST['agama_ayah']}',
-                        '{$_POST['golongan_darah_ayah']}',
-                        'ayah',
-                        '{$_POST['nomor_handphone_ayah']}',
-                        '{$_POST['nama_lengkap_ibu']}',
-                        '{$_POST['nomor_induk_kependudukan_ibu']}',
-                        '{$_POST['tempat_lahir_ibu']}',
-                        '{$_POST['tanggal_lahir_ibu']}',
-                        '{$_POST['kewarganegaraan_ibu']}',
-                        '{$_POST['agama_ibu']}',
-                        '{$_POST['golongan_darah_ibu']}',
-                        'ibu',
-                        '{$_POST['nomor_handphone_ibu']}'
+                        '{$_POST['nama_lengkap_ayah']}', '{$_POST['nomor_induk_kependudukan_ayah']}', 
+                        '{$_POST['tempat_lahir_ayah']}', '{$_POST['tanggal_lahir_ayah']}',
+                        '{$_POST['kewarganegaraan_ayah']}', '{$_POST['agama_ayah']}', 
+                        '{$_POST['golongan_darah_ayah']}', 'ayah', '{$_POST['nomor_handphone_ayah']}',
+                        '{$_POST['nama_lengkap_ibu']}', '{$_POST['nomor_induk_kependudukan_ibu']}', 
+                        '{$_POST['tempat_lahir_ibu']}', '{$_POST['tanggal_lahir_ibu']}',
+                        '{$_POST['kewarganegaraan_ibu']}', '{$_POST['agama_ibu']}', 
+                        '{$_POST['golongan_darah_ibu']}', 'ibu', '{$_POST['nomor_handphone_ibu']}'
                     )
                 ";
                 
                 if (!mysqli_query($conn, $query_orangtua)) {
-                    $errors[] = "Gagal insert data orangtua: " . mysqli_error($conn);
+                    $errors[] = "Gagal simpan data orangtua: " . mysqli_error($conn);
                 }
-            }
-
-            // ======================
-            // 6. WALI
-            // ======================
-            if ($penanggung === 'wali') {
+            } elseif ($penanggung === 'wali') {
                 $query_wali = "
                     INSERT INTO tb_wali (
-                        id_siswa,
-                        nama_wali, nik_wali, tempat_lahir_wali, tanggal_lahir_wali,
-                        kewarganegaraan_wali, agama_wali, golongan_darah_wali,
-                        hubungan_wali, no_hp_wali
+                        id_siswa, 
+                        nama_wali, 
+                        nik_wali, 
+                        tempat_lahir_wali, 
+                        tanggal_lahir_wali,
+                        kewarganegaraan_wali, 
+                        agama_wali, 
+                        golongan_darah_wali,
+                        hubungan_wali, 
+                        no_hp_wali
                     ) VALUES (
                         '$id_siswa',
-                        '{$_POST['nama_lengkap_wali']}',
-                        '{$_POST['nomor_induk_kependudukan_wali']}',
-                        '{$_POST['tempat_lahir_wali']}',
-                        '{$_POST['tanggal_lahir_wali']}',
-                        '{$_POST['kewarganegaraan_wali']}',
-                        '{$_POST['agama_wali']}',
-                        '{$_POST['golongan_darah_wali']}',
-                        'wali',
-                        '{$_POST['nomor_handphone_wali']}'
+                        '" . mysqli_real_escape_string($conn, $_POST['nama_lengkap_wali'] ?? '') . "', 
+                        '" . mysqli_real_escape_string($conn, $_POST['nomor_induk_kependudukan_wali'] ?? '') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['tempat_lahir_wali'] ?? '') . "', 
+                        '" . mysqli_real_escape_string($conn, $_POST['tanggal_lahir_wali'] ?? '') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['kewarganegaraan_wali'] ?? '') . "', 
+                        '" . mysqli_real_escape_string($conn, $_POST['agama_wali'] ?? '') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['golongan_darah_wali'] ?? '') . "', 
+                        '" . mysqli_real_escape_string($conn, $_POST['hubungan_wali'] ?? 'Wali') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['nomor_handphone_wali'] ?? '') . "'
                     )
                 ";
                 
                 if (!mysqli_query($conn, $query_wali)) {
-                    $errors[] = "Gagal insert data wali: " . mysqli_error($conn);
+                    $errors[] = "Gagal simpan data wali: " . mysqli_error($conn);
                 }
             }
 
             // Jika semua insert berhasil
             if (empty($errors)) {
                 $success_message = "DATA BERHASIL DISIMPAN";
-                // Kosongkan form_data agar form reset
-                $form_data = [];
+                $form_data = []; // Reset form
             }
             
         } else {
+            // Jika insert siswa saja sudah gagal
             $errors[] = "Gagal insert siswa: " . mysqli_error($conn);
         }
     } else {
-        // Jika ada error validasi, simpan data yang sudah diisi
         $form_data = $_POST;
     }
-}
 
+}
 
 // ... (setelah insert siswa dan orangtua/wali) ...
 
@@ -270,7 +246,7 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 $insert_berkas = "INSERT INTO tb_berkas (
                     id_siswa, 
                     sekolah_asal, 
-                    nilai_rata_rata, 
+                    nilai_ijazah, 
                     jenis_berkas, 
                     nama_file, 
                     path_file, 
@@ -346,7 +322,15 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
         // ==========================================
         // TAMPILKAN INFORMASI FILE YANG DISIMPAN
         // ==========================================
-        echo "<div style='background:#e8f5e9; padding:20px; margin:20px 0; border-radius:5px; border:1px solid #4caf50;'>";
+        $registration_success = true;
+        
+        // Simpan data untuk ditampilkan di Kartu
+        $sukses_nama = $nama_lengkap_siswa;
+        $sukses_id = $id_siswa; 
+        $sukses_jurusan = $minat_jurusan;
+        $sukses_sekolah = $_POST['sekolah_asal'];
+        $sukses_tgl = date('d F Y');
+        $sukses_jumlah_file = $upload_success_count;
         echo "<h3 style='color:#2e7d32;'>✅ UPLOAD BERHASIL!</h3>";
         echo "<p><strong>Total file yang diupload:</strong> $upload_success_count file</p>";
         
@@ -373,6 +357,8 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
             }
         }
         echo "</ul>";
+
+
         
         // Tombol untuk membuka folder
         $folder_path_for_windows = str_replace('/', '\\', $absolute_path);
@@ -614,6 +600,100 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
             color: #155724 !important;
         }
 
+    /* --- KARTU INFORMASI BERHASIL UPLOAD --- */
+        .success-card {
+        background: white;
+        max-width: 700px;
+        margin: 50px auto;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        animation: popUp 0.5s ease-out;
+    }
+    @keyframes popUp {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    .success-header {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 30px;
+    }
+    .success-icon {
+        font-size: 60px;
+        background: white;
+        color: #28a745;
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .success-body { padding: 30px; }
+    .reg-number {
+        background: #f8f9fa;
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 50px;
+        border: 2px dashed #28a745;
+        color: #333;
+        font-weight: bold;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+    }
+    .student-details {
+        text-align: left;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-label { color: #666; font-weight: 500; }
+    .detail-value { font-weight: bold; color: #333; }
+    .success-footer {
+        background: #f1f1f1;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+    .btn-print {
+        background: #007bff;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+    }
+    .btn-home {
+        background: #6c757d;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    @media print {
+        body * { visibility: hidden; }
+        .success-card, .success-card * { visibility: visible; }
+        .success-card { position: absolute; left: 0; top: 0; width: 100%; box-shadow: none; border: 2px solid #000; margin: 0; }
+        .success-footer { display: none; }
+    }
+
         /* --- RESPONSIVENESS (tetap sama) --- */
         @media (max-width: 768px) {
             .step-indicator {
@@ -635,31 +715,77 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
     </style>
 
 
-    <h1>Welcome to SMK Teknologi Ascendia</h1>
+<h1>Welcome to SMK Teknologi Ascendia</h1>
     
-    <?php if ($success_message): ?>
-        <div style="color: green; border: 1px solid green; padding: 10px;"><?= $success_message ?></div>
-    <?php endif; ?>
+    <?php if (isset($registration_success) && $registration_success): ?>
 
-    <?php if (!empty($errors)): ?>
-        <div style="color: red; border: 1px solid red; padding: 10px;">
-            **Mohon koreksi kesalahan berikut:**
-            <ul>
-                <?php foreach ($errors as $error): ?>
-                    <li><?= htmlspecialchars($error) ?></li>
-                <?php endforeach; ?>
-            </ul>
+        <div class="success-card">
+            <div class="success-header">
+                <div class="success-icon">✓</div>
+                <h2 style="color:white; margin:0; border:none; padding:0;">Pendaftaran Berhasil!</h2>
+                <p style="margin-top:10px; color:white; opacity:0.9;">Selamat bergabung di SMK Teknologi Ascendia</p>
+            </div>
+            
+            <div class="success-body">
+                <p>Halo <strong><?= htmlspecialchars($sukses_nama) ?></strong>, data pendaftaran dan berkas Anda telah berhasil kami terima.</p>
+                
+                <div class="reg-number">
+                    NO. REG: REG-<?= date('Y') ?>-<?= str_pad($sukses_id, 4, '0', STR_PAD_LEFT) ?>
+                </div>
+
+                <div class="student-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Nama Lengkap</span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_nama) ?></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Jurusan Diminati</span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_jurusan) ?></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Sekolah Asal</span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_sekolah) ?></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Tanggal Daftar</span>
+                        <span class="detail-value"><?= $sukses_tgl ?></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Status Berkas</span>
+                        <span class="detail-value" style="color:green;">Terupload (<?= $sukses_jumlah_file ?> File)</span>
+                    </div>
+                </div>
+
+                <p style="font-size:0.9em; color:#666;">
+                    Silakan cetak bukti pendaftaran ini dan bawa saat verifikasi ulang.
+                </p>
+            </div>
+
+            <div class="success-footer">
+                <button onclick="window.print()" class="btn-print">🖨️ Cetak Bukti</button>
+                <a href="?page=daftar" class="btn-home">Kembali</a>
+            </div>
         </div>
-    <?php endif; ?>
+
+    <?php else: ?> 
+    <?php if (!empty($errors)): ?>
+            <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px; border-radius: 5px; background: #ffe6e6;">
+                <strong>Mohon koreksi kesalahan berikut:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <?php foreach ($errors as $error): ?>
+                        <li><?= $error ?></li> 
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
     <div class="step-indicator">
         <div id="tab-1" onclick="showStep(1)">1. Data Calon Siswa</div>
         <div id="tab-2" onclick="showStep(2)">2. Data Orang Tua/Wali</div>
         <div id="tab-3" onclick="showStep(3)">3. Data Tambahan & Dokumen</div>
-        <div id="tab-submit">Submit</div>
     </div>
     
-    <form method="POST" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" enctype="multipart/form-data">
+    <form method="POST" action="" enctype="multipart/form-data">
 
         <div id="step-1" class="form-step active"> 
             <h2>Data Calon Siswa (Applicant Data)</h2>
@@ -744,7 +870,7 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 <label for="golongan_darah">Golongan Darah</label>
                 <select id="golongan_darah" name="golongan_darah">
                     <option value="">Pilih Golongan Darah</option>
-                    <option value="A" <?= (isset($form_data['golongan_darah']) && $form_data['golongan darah'] == 'A') ? 'selected' : '' ?>>A</option>
+                    <option value="A" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'A') ? 'selected' : '' ?>>A</option>
                     <option value="B" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'B') ? 'selected' : '' ?>>B</option>
                     <option value="AB" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'AB') ? 'selected' : '' ?>>AB</option>
                     <option value="O" <?= (isset($form_data['golongan_darah']) && $form_data['golongan_darah'] == 'O') ? 'selected' : '' ?>>O</option>
@@ -772,7 +898,7 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 <select id="minat_jurusan" name="minat_jurusan" required>
                     <option value="">Pilih Jurusan</option>
                     <option value="RPL" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'RPL') ? 'selected' : '' ?>>Rekayasa Perangkat Lunak (RPL)</option>
-                    <option value="TKJ" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'TKJ') ? 'selected' : '' ?>>Teknik Komputer dan Jaringan (TKJ)</option>
+                    <option value="TJKT" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'TJKT') ? 'selected' : '' ?>>Teknik Komputer dan Jaringan (TJKT)</option>
                     <option value="DKV" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'DKV') ? 'selected' : '' ?>>Desain Komunikasi Visual (DKV)</option>
                     <option value="DPIB" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'DPIB') ? 'selected' : '' ?>>Desain Pemodelan dan Informasi Bangunan (DPIB)</option>
                     <option value="MPLB" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'MPLB') ? 'selected' : '' ?>>Manajemen Perkantoran dan Layanan Bisnis (MPLB)</option>
@@ -1159,11 +1285,11 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
 
     <div class="button-group">
         <button type="button" onclick="showPrevStep()">&laquo; Kembali ke Langkah 2</button>
-        <button type="submit" name="submit_form">SUBMIT FORMULIR Pendaftaran</button>
+       <button type="submit" name="submit_form" class="btn-submit">SUBMIT FORMULIR Pendaftaran</button>
     </div>
 </div>
     </form>
-    
+    <?php endif; ?>
     <script>
         let currentStep = <?= $step ?>; // Ambil nilai langkah dari PHP
 
