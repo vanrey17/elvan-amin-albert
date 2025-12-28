@@ -1,57 +1,135 @@
 <?php
-// Tentukan variabel data yang berbeda untuk setiap halaman
-$page_title = "Teknik Sepeda Motor";
-$page_description = "TSM menghasilkan lulusan yang terampil dalam perawatan dan perbaikan sepeda motor, siap bekerja di bengkel resmi maupun membuka usaha sendiri.";
-
+// Tentukan variabel data
+$page_title = "PRINSIP 9K";
+$page_description = "Nilai inti pembentuk ekosistem pendidikan yang positif, berdaya saing, dan berkarakter di SMK Vokasi Merdeka Belajar.";
+include 'page/hero.php';
 ?>
 
-<main class="program-detail-section">
-    <div class="hero-background">
-        <div class="text-with-gradient-bg">
-            <h1><?php echo $page_title; ?></h1>
-            <p><?php echo $page_description; ?></p>
-        </div>
-    </div>
-</main>
-        <section class="profil-section ninek">
-            <h2>Prinsip 9K Kami</h2>
-            <p style="text-align: center; margin-bottom: 30px; color: #555;">9K adalah nilai-nilai inti yang kami tanamkan kepada seluruh warga sekolah untuk menciptakan ekosistem pendidikan yang positif dan berdaya saing.</p>
-            <div class="ninek-grid">
-                <div class="ninek-item">
-                    <h4>Keamanan</h4>
-                    <p>Menciptakan lingkungan sekolah yang aman dari ancaman fisik dan psikis.</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <section class="ninek-content">
+        <div class="container">
+            <div class="ninek-modern-grid">
+                <?php
+                $ninek_data = [
+                    ['title' => 'Keamanan', 'desc' => 'Lingkungan aman dari ancaman fisik & psikis.', 'icon' => 'fa-shield-halved'],
+                    ['title' => 'Kebersihan', 'desc' => 'Lingkungan rapi, sehat, dan bebas sampah.', 'icon' => 'fa-broom'],
+                    ['title' => 'Ketertiban', 'desc' => 'Disiplin menaati aturan dan norma sosial.', 'icon' => 'fa-clipboard-check'],
+                    ['title' => 'Keindahan', 'desc' => 'Lingkungan asri, artistik, dan menyenangkan.', 'icon' => 'fa-leaf'],
+                    ['title' => 'Kekeluargaan', 'desc' => 'Rasa persaudaraan dan peduli antar warga.', 'icon' => 'fa-users-items'],
+                    ['title' => 'Kerindangan', 'desc' => 'Penghijauan untuk suasana sejuk & nyaman.', 'icon' => 'fa-tree'],
+                    ['title' => 'Kesehatan', 'desc' => 'Pola hidup sehat dan sanitasi terjaga.', 'icon' => 'fa-heart-pulse'],
+                    ['title' => 'Keterbukaan', 'desc' => 'Komunikasi transparan, jujur, dan edukatif.', 'icon' => 'fa-comments'],
+                    ['title' => 'Keteladanan', 'desc' => 'Menjadi uswah/contoh dalam etika & sikap.', 'icon' => 'fa-star']
+                ];
+
+                foreach ($ninek_data as $index => $item): 
+                    $color_class = ($index % 2 == 0) ? 'blue-theme' : 'orange-theme';
+                ?>
+                <div class="ninek-card <?php echo $color_class; ?>">
+                    <div class="card-bg-icon"><i class="fas <?php echo $item['icon']; ?>"></i></div>
+                    <div class="card-body">
+                        <div class="icon-box">
+                            <i class="fas <?php echo $item['icon']; ?>"></i>
+                        </div>
+                        <h4><?php echo $item['title']; ?></h4>
+                        <p><?php echo $item['desc']; ?></p>
+                    </div>
+                    <div class="card-number"><?php echo str_pad($index + 1, 2, '0', STR_PAD_LEFT); ?></div>
                 </div>
-                <div class="ninek-item">
-                    <h4>Kebersihan</h4>
-                    <p>Menjaga lingkungan sekolah tetap bersih, rapi, dan bebas sampah.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Ketertiban</h4>
-                    <p>Disiplin dalam menaati peraturan, jadwal, dan norma sosial yang berlaku.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Keindahan</h4>
-                    <p>Mengelola lingkungan sekolah menjadi asri, sedap dipandang, dan menyenangkan.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Kekeluargaan</h4>
-                    <p>Membangun rasa persaudaraan, saling menghormati, dan peduli antar warga sekolah.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Kerindangan</h4>
-                    <p>Mengoptimalkan penghijauan untuk menciptakan suasana sejuk dan nyaman.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Kesehatan</h4>
-                    <p>Mendorong pola hidup sehat, kebersihan diri, dan lingkungan sehat.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Keterbukaan</h4>
-                    <p>Bersikap transparan dan jujur dalam komunikasi dan pengelolaan informasi.</p>
-                </div>
-                <div class="ninek-item">
-                    <h4>Keteladanan</h4>
-                    <p>Menjadi contoh yang baik dalam sikap, perilaku, dan etika sehari-hari.</p>
-                </div>
+                <?php endforeach; ?>
+
             </div>
-        </section>
+        </div>
+    </section>
+
+<style>
+
+
+/* Grid Modern */
+.ninek-modern-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* Card Styling */
+.ninek-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border: 1px solid #edf2f7;
+    z-index: 1;
+}
+
+.ninek-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.blue-theme .icon-box { background: #eef4ff; color: var(--asc-blue); }
+.orange-theme .icon-box { background: #fff5ee; color: var(--asc-orange); }
+
+.ninek-card h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--asc-dark);
+}
+
+.ninek-card p {
+    color: var(--text-gray);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Dekorasi Background Card */
+.card-bg-icon {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-size: 8rem;
+    opacity: 0.03;
+    transform: rotate(-15deg);
+    z-index: 0;
+}
+
+.card-number {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    opacity: 0.1;
+}
+
+/* Hover Effect Specific */
+.blue-theme:hover { border-bottom: 4px solid var(--asc-blue); }
+.orange-theme:hover { border-bottom: 4px solid var(--asc-orange); }
+
+@media (max-width: 768px) {
+    .hero-9k h1 { font-size: 2.2rem; }
+    .ninek-modern-grid { grid-template-columns: 1fr; }
+}
+</style>

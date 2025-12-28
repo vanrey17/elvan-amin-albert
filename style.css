@@ -34,8 +34,8 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     display: flex;
     /* Ubah ke flex-start agar item mulai dari kiri */
     /* Atau gunakan space-between jika ada elemen di paling kanan */
-    justify-content: center; 
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     
     padding: 10px 50px; 
     
@@ -112,11 +112,7 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url("image/ascendia-bangunan.png");
     background-size: cover;
     background-position: center top;
-    height: 100vh;
-    
-    /* Hapus display: flex yang lama, gunakan flex untuk konten hero */
-    /* display: flex; */ 
-    
+    height: 100vh;    
     flex-direction: column;
     padding: 0; /* Hapus padding yang mengganggu penempatan navbar */
     position: relative;
@@ -562,7 +558,7 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 
 
 /* Styling Hero Content untuk Halaman Detail */
-.program-detail-section .hero-background {
+.program-hero-section .hero-background {
     /* Atur background image spesifik jika diperlukan, atau gunakan background default */
     background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url('image/ascendia-bangunan.png');
     background-size: cover;
@@ -1324,5 +1320,3 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     }
 
 }
-
-

@@ -17,7 +17,7 @@ Kemuning, Palembang
 
 
 <p class="contact-item"><i class="fas fa-phone-alt"></i> +62 21 546 0234</p>
-<p class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:reyelvan16@gmail.com">reyelvan16@gmail.com</a></p>
+<p class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:reyelvan16@gmail.com">ascendia@sch.co.id</a></p>
 <p class="contact-item"><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/KdDu9ttbRb9bWLVY6">Lihat di Google Maps</a></p>
 </div>
 

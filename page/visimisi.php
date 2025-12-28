@@ -1,9 +1,9 @@
 <?php
 // Tentukan variabel data yang berbeda untuk setiap halaman
-$page_title = "Teknik Sepeda Motor";
-$page_description = "TSM menghasilkan lulusan yang terampil dalam perawatan dan perbaikan sepeda motor, siap bekerja di bengkel resmi maupun membuka usaha sendiri.";
+$page_title = "VISI MISI SEKOLAH";
+$page_description = "Menjadi Pusat Keunggulan Pendidikan Vokasi yang Menghasilkan Lulusan Berkarakter, Inovatif, dan Kompeten di Tingkat Internasional.";
 
-require_once 'page/hero-background.php';
+include 'page/hero.php';
 ?>
 
 

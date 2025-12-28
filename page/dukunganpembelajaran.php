@@ -5,17 +5,11 @@ $page_description = "Lihat secara detail fasilitas pembelajaran dan infrastruktu
 
 ?>
 
-<main class="program-detail-section">
-    <div class="hero-background">
-        <div class="text-with-gradient-bg">
-            <h1><?php echo $page_title; ?></h1>
-            <p><?php echo $page_description; ?></p>
-        </div>
-    </div>
-</main>
-<div class="program-detail-section">
+
+<?php include 'page/hero.php'; ?>
+<div class="container">
     <section class="labs-overview-section container">
-        <h2 class="section-title">Laboratorium dan Peralatan Canggih Kami</h2>
+        <h2 class="section-title">Kolaborasi dan Efisiensi Infrastruktur</h2>
         <p class="section-subtitle">Setiap lab dirancang untuk memaksimalkan potensi Anda, didukung oleh teknologi dan infrastruktur yang relevan dengan dunia kerja.</p>
         
         <div class="labs-grid">
@@ -187,51 +181,13 @@ $page_description = "Lihat secara detail fasilitas pembelajaran dan infrastruktu
             </div>
         </div>
     </section>
-</div>
-</div>
 
+</div>
 <style>
-/* --- HERO SECTION UTAMA (LEBIH VISUAL) --- */
-.hero-section.visual-hero {
-    position: relative;
-    background: url('/path/to/your/main-lab-hero.jpg') no-repeat center center/cover; /* Ganti dengan gambar hero kampus/lab utama */
-    color: white;
-    padding: 100px 20px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)); /* Overlay gelap */
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.hero-content h1 {
-    color: white;
-    font-size: 3.2em;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-}
-
-.hero-content p {
-    font-size: 1.3em;
-    opacity: 0.9;
-    line-height: 1.5;
-}
-
 /* --- SECTION JUDUL UMUM --- */
+.container {
+    text-align: center;
+}
 .section-title {
     font-size: 2.8em;
     color: #003366;

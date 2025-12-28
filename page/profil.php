@@ -4,15 +4,9 @@ $page_title = "SMK Teknologi Ascendia";
 $page_description = "Mencetak Generasi Unggul di Bidang Teknologi dengan Kompetensi, Inovasi, dan Karakter.";
 
 ?>
-
-<main class="program-detail-section">
-    <div class="hero-background">
-        <div class="text-with-gradient-bg">
-            <h1><?php echo $page_title; ?></h1>
-            <p><?php echo $page_description; ?></p>
-        </div>
-    </div>
-</main>
+<?php
+include 'page/hero.php';
+?>
 
 <?php
 // Sertakan file-file lain jika diperlukan

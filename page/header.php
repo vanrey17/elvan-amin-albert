@@ -25,9 +25,9 @@ if (!isset($program_studi_sub_menu)) {
 // Gunakan fallback jika array belum didefinisikan di index.php
 if (!isset($student_services_data)) {
     $student_services_data = [
-        '/layanansiswa/uks' => ['display' => 'Smart UKS'], 
-        '/layanansiswa/bk' => ['display' => 'Bimbingan Konseling (BK)'],
-        '/layanansiswa/kantin' => ['display' => 'Kantin Sehat'],
+        // '/uks' => ['display' => 'Smart UKS'], 
+        '/bk' => ['display' => 'Bimbingan Konseling'],
+        '/kantin' => ['display' => 'Kantin Sehat'],
     ];
 }
 // ------------------------------------------
@@ -61,7 +61,7 @@ if (!isset($student_services_data)) {
                     <a href="<?php echo $BASE; ?>/dukunganpembelajaran">Dukungan Pembelajaran</a>
 
                     <div class="sub-dropdown">
-                        <a href="<?php echo $BASE; ?>/programstudi" class="sub-dropbtn">
+                        <a href="" class="sub-dropbtn">
                             Program Studi <i class="fa fa-angle-right"></i>
                         </a>
 
@@ -93,7 +93,7 @@ if (!isset($student_services_data)) {
                     <a href="<?php echo $BASE; ?>/kerohanian">Kerohanian</a>
                     
                     <div class="sub-dropdown">
-                        <a href="<?php echo $BASE; ?>/layanansiswa" class="sub-dropbtn">
+                        <a href="" class="sub-dropbtn">
                             Layanan Siswa <i class="fa fa-angle-right"></i>
                         </a>
                         <div class="sub-dropdown-content">

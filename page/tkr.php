@@ -3,16 +3,9 @@
 $page_title = "Teknik Kendaraan Ringan";
 $page_description = "TKR mempersiapkan siswa menjadi teknisi otomotif profesional yang kompeten dalam perawatan, perbaikan, dan diagnosis kerusakan pada sistem mesin, chasis, kelistrikan, dan AC mobil.";
 
+include 'page/hero.php';
 ?>
 
-<main class="program-detail-section">
-    <div class="hero-background">
-        <div class="text-with-gradient-bg">
-            <h1><?php echo $page_title; ?></h1>
-            <p><?php echo $page_description; ?></p>
-        </div>
-    </div>
-</main>
 
 <div class="program-detail-section">
     <h2 class="section-title">Tentang Program TKR</h2>

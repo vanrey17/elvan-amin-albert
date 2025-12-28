@@ -48,15 +48,15 @@ $program_studies_data = [
 // Tambahkan file dan display name untuk submenu Layanan Siswa
 $student_services_data = [
     '/layanansiswa/uks' => [
-        'file' => 'page/uks.php', // Mengarah ke file uks.php yang sudah dibuat
+        'file' => 'page/uks.php', 
         'display' => 'Smart UKS',
     ],
     '/layanansiswa/bk' => [
-        'file' => 'page/bk.php', // Asumsi ada file BK
+        'file' => 'page/bk.php', 
         'display' => 'Bimbingan Konseling (BK)',
     ],
     '/layanansiswa/kantin' => [
-        'file' => 'page/kantin.php', // Asumsi ada file Kantin
+        'file' => 'page/kantin.php', 
         'display' => 'Kantin Sehat',
     ],
 ];
