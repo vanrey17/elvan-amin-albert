@@ -61,9 +61,6 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     width: auto;
 }
 
-
-
-
 /* Kunci 3: Mengubah padding navbar saat ter-scroll (optional: untuk kompresi) */
 .main-header-container.scrolled .navbar {
     /* Tetap transparan, background solid diberikan oleh .main-header-container */
@@ -106,187 +103,89 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     font-weight: bold;
 }
 
-/* --- 2. Hero Section --- */
-.hero-section {
-    /* Ganti 'path/to/your/image.jpg' dengan URL atau path gambar Anda */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url("image/ascendia-bangunan.png");
-    background-size: cover;
-    background-position: center top;
-    height: 100vh;    
-    flex-direction: column;
-    padding: 0; /* Hapus padding yang mengganggu penempatan navbar */
-    position: relative;
-    color: white;
+.mobile-menu-btn, 
+.mobile-close-btn {
+    display: none !important; /* Sembunyikan di Desktop */
 }
 
-.hero-content {
-    /* Gunakan flex untuk menempatkan konten di bawah navbar */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Dorong konten ke bawah */
-    flex-grow: 1; /* Biarkan konten mengisi ruang yang tersisa */
-    padding: 250px 50px 80px 70px; /* Padding bawah untuk konten teks */
-    max-width: 600px;
-}
+/* --- MOBILE MENU POP-UP REFINEMENT --- */
+@media (max-width: 768px) {
+    /* Munculkan tombol hamburger di header */
+    .mobile-menu-btn {
+        display: flex !important; 
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 24px;
+        color: #333;
+        padding: 10px;
+    }
 
-.hero-content h1 {
-    font-size: 4em;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Gelapkan bayangan agar lebih jelas */
-}
+    /* Munculkan tombol close di dalam nav pop-up */
+    .mobile-close-btn {
+        display: block !important;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 28px;
+        color: #333;
+        cursor: pointer;
+    }
 
-.hero-content p {
-    font-size: 1.2em;
-    line-height: 1.5;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    padding: 5px 0;
-}
+    /* Sembunyikan menu desktop asli agar tidak berantakan */
+.nav-links {
+        display: none; /* Sembunyi secara default */
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 85%; /* Menu mengambil sebagian besar lebar layar */
+        height: 100vh;
+        background-color: white; /* Latar belakang putih seperti gambar */
+        flex-direction: column;
+        padding: 60px 20px 20px 20px;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        overflow-y: auto; /* Bisa di-scroll jika menu panjang */
+    }
 
-.scroll-explore {
-    position: absolute;
-    right: 50px;
-    bottom: 30px;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-}
+    .nav-links.active {
+        display: flex;
+    }
+    .dropbtn {
+        color: black !important;
+    }
 
-/* --- 3. Floating Widget (Tidak Berubah) --- */
-.floating-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-}
-/* ... styling floating-widget lainnya ... */
+    .nav-links a, .dropbtn {
+        color: #334155;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f5f9; /* Garis pemisah tipis */
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* Teks kiri, Icon kanan */
+        font-weight: 500;
+        text-decoration: none;
+    }
 
-/* --- Bagian Konten Utama: Identitas Kami --- */
-.content-section {
-    padding: 60px 100px;
-    background-color: white; /* Pastikan latar belakangnya putih */
-}
+    .dropdown-content {
+        display: none;
+        background-color: #f8fafc;
+        padding-left: 15px;
+    }
 
-.identity-header {
-    margin-bottom: 80px;
-}
+    /* Tampilkan dropdown saat class mobile-open aktif */
+    .dropdown.mobile-open > .dropdown-content {
+        display: block;
+    }
 
-.breadcrumb {
-    color: #007bff; /* Warna biru muda untuk link/breadcrumb */
-    font-size: 14px;
-    margin-bottom: 5px;
-}
-
-/* Layout untuk Judul dan Deskripsi (Menggunakan Flexbox) */
-.identity-layout {
-    display: flex;
-    gap: 40px; /* Jarak antara dua kolom */
-}
-
-.title-column {
-    flex: 0 0 45%; /* Kolom judul mengambil sekitar 45% lebar */
-}
-
-.description-column {
-    flex: 1; /* Kolom deskripsi mengisi sisa ruang */
-    padding-top: 15px; /* Sedikit geser ke bawah agar sejajar */
-}
-
-.title-column h2 {
-    font-size: 2.5em;
-    color: #333;
-    line-height: 1.2;
-    margin: 0;
-}
-
-.description-column p {
-    color: #555;
-    line-height: 1.6;
-}
-
-/* --- Bagian Fakta Singkat --- */
-
-.facts-container {
-    /* ... properti Grid lainnya ... */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 10px;
-    max-width: 900px;
-    margin: 0 auto; /* Penting: Meratakan seluruh container fakta di tengah halaman */
-}
-
-.facts-section {
-    text-align: center;
-    padding: 40px 0;
-}
-
-.facts-section h3 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 60px;
-}
-
-.fact-item {
-    text-align: center; /* Meratakan ikon (block) dan teks (inline/block) */
-    margin-bottom: 40px;
-    
-}
-
-.fact-icon {
-    font-size: 3em; 
-    display: block;
-    margin: 0 auto; /* Meratakan ikon secara horizontal */
-}
-
-
-/* Penataan Angka */
-.fact-number-group {
-    display: flex; 
-    justify-content: center; /* KUNCI: Meratakan span (angka dan label) di tengah */
-    align-items: baseline; /* Menjaga angka dan label sejajar di garis bawah */
-    line-height: 1;
-    margin-bottom: 5px;
-    margin-top: 10px; /* Jarak dari ikon di atasnya */
-}
-
-.fact-number {
-    font-size: 2.5em;
-    font-weight: 700;
-    color: #333;
-    margin: 0; 
-    line-height: 1;
-}
-
-.fact-label {
-    font-size: 1.5em; 
-    font-weight: 700;
-    color: #333;
-    margin-left: 5px; 
-    line-height: 1;
-}
-
-/* Penataan Deskripsi */
-.fact-description {
-    font-size: 1em;
-    color: #555;
-    margin-top: 5px;
-    line-height: 1.3;
-}
-
-/* Item 5 dimulai di kolom 3 dan membentang 1 kolom */
-.fact-item:nth-child(5) {
-    grid-column: 3 / span 1;
-}
-
-/* Item 6 dimulai di kolom 4 dan membentang 1 kolom */
-.fact-item:nth-child(6) {
-    grid-column: 4 / span 1;
+    /* Tombol Close (X) di dalam menu */
+    .mobile-close-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        color: #334155;
+        cursor: pointer;
+    }
 }
 
 /* --- Styling Dropdown untuk Navigation Bar --- */
@@ -366,11 +265,31 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 .sub-dropdown-content {
     display: none;
     position: absolute;
-    left: 150px; /* Supaya muncul di kanan */
+    left: 100%; /* Lebih aman menggunakan 100% daripada pixel agar pas di samping */
     top: 0;
     background: #f1f1f1;
     min-width: 250px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    
+    /* Tambahkan Baris Ini */
+    max-height: 300px;    /* Ketinggian maksimal sebelum scroll muncul */
+    overflow-y: auto;     /* Munculkan scrollbar hanya jika konten melebihi max-height */
+    overflow-x: hidden;   /* Hindari scroll ke samping */
+    border-radius: 4px;   /* Opsional: agar sudut lebih halus */
+}
+
+/* Mempercantik tampilan scrollbar (Opsional untuk browser Webkit seperti Chrome/Edge) */
+.sub-dropdown-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sub-dropdown-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.sub-dropdown-content::-webkit-scrollbar-thumb:hover {
+    background: #f39c12; /* Warna senada dengan tema orange Anda */
 }
 
 .sub-dropdown:hover .sub-dropdown-content {
@@ -382,14 +301,15 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
    ==================================================== */
 
 .kurikulum-section {
-    background-color: #e9ecef; /* Latar belakang kontras */
+    background-color: #fff; /* Latar belakang kontras */
     padding: 80px 0;
+
 }
 
 .kurikulum-section h2 {
     text-align: center;
     margin-bottom: 10px;
-    color: #007bff;
+    color: #003366;
 }
 
 .kurikulum-section p {
@@ -453,13 +373,14 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 .mapel-content h3 {
     color: #212529;
     margin-top: 0;
-    font-size: 1.4em; 
+    font-size: 1em; 
     margin-bottom: 5px;
 }
 
 .mapel-content p {
     text-align: left; /* Mengembalikan teks ke rata kiri */
     margin-bottom: 0;
+    font-size: 0.8em; 
 }
 
 /* --- STYLING MATA PELAJARAN PILIHAN (IoT) --- */
@@ -528,41 +449,13 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     margin-bottom: 30px;
 }
 
-/* ... styling paragraf dan quote lainnya ... */
-
-
-/* --- Responsif Dasar (Opsional) --- */
-@media (max-width: 900px) {
-    .principal-layout {
-        flex-direction: column; /* Tumpukan Vertikal di perangkat kecil */
-        gap: 40px;
-    }
-
-    .principal-text-column {
-        order: 2; /* Teks di bawah gambar */
-        text-align: center; /* Rata tengah di mobile */
-    }
-    
-    .principal-image-column {
-        order: 1; /* Gambar di atas teks */
-        max-width: 80%; /* Gambar lebih besar di mobile */
-    }
-}
-
-
-/* ============================================== */
-/* 7. PROGRAM DETAIL SECTION (SPESIFIK) */
-/* ============================================== */
-
-/* Gunakan class .program-detail-section pada <main> di file PHP */
-
 
 /* Styling Hero Content untuk Halaman Detail */
 .program-hero-section .hero-background {
     /* Atur background image spesifik jika diperlukan, atau gunakan background default */
     background-image: linear-gradient(rgba(0, 0, 0, 0.4)), url('image/ascendia-bangunan.png');
     background-size: cover;
-    background-position: upper center;
+    background-position: cover;
     height: 30vh; /* Ketinggian hero yang lebih pendek dari halaman utama */
     display: block;
     background-repeat: no-repeat;
@@ -611,6 +504,7 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     font-size: 2.5em;
     margin-bottom: 10px;
 }
+
 
 .program-detail-section .hero-content p {
     font-size: 1.1em;
@@ -668,9 +562,12 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
     text-align:center;
 }
 
+.kurikulum-section p {
+    font-size: 0.8em !important;
+}
 
 .program-detail-section h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     color: #003366;
     /* Ubah border-bottom menjadi border-bottom yang lebih pendek */
     border-bottom: 3px solid #ff6600;
@@ -725,88 +622,6 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 /* 8. PROFIL SEKOLAH SECTION (BARU: 4 Kolom) */
 /* ============================================== */
 
-/* --- A. COLOMN 1: HERO/SAMBUTAN KEPALA SEKOLAH --- */
-.principal-hero-section {
-    background-color: #f7f7f7;
-    padding: 100px 50px;
-    overflow: hidden;
-    position: relative;
-    margin-top: 0; 
-}
-
-.principal-layout-content {
-    display: flex;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 80px;
-    align-items: center;
-}
-
-.principal-text-column {
-    flex: 1;
-    max-width: 60%;
-    margin-bottom: 0; 
-}
-
-.principal-text-column h1 {
-    font-size: 3em;
-    color: #0c1a4b;
-    margin-bottom: 20px;
-}
-
-.principal-text-column blockquote {
-    border-left: 5px solid #ff6600;
-    padding-left: 20px;
-    margin: 25px 0;
-    font-style: italic;
-    color: #003366;
-    font-size: 1.1em;
-}
-
-.principal-signature {
-    font-size: 1.1em;
-    font-weight: bold; 
-    color: #333;
-    margin-top: 25px;
-}
-
-.principal-image-column {
-    flex: 0 0 40%;
-    position: relative;
-}
-
-.principal-photo {
-    width: 100%; 
-    height: 450px; 
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    transition: all 0.5s ease;
-    object-fit: cover; 
-}
-
-.principal-photo:hover {
-    transform: none; 
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-}
-
-.btn-primary-profile {
-    display: inline-block;
-    background-color: #ff6600; 
-    color: white;
-    padding: 12px 30px;
-    border-radius: 50px; 
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 30px;
-    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
-    transition: all 0.3s ease;
-}
-
-.btn-primary-profile:hover {
-    background-color: #e65c00;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 102, 0, 0.6);
-}
 
 
 /* --- B. COLOMN 2: FAKTA PROFIL SEKOLAH --- */
@@ -918,405 +733,6 @@ display: none; /* KUNCI: Menghapus elemen secara total dari flow dokumen */
 
 /* --- D. COLOMN 4: VISI MISI --- */
 
-.visimisi-section {
-    padding: 80px 50px;
-    background-color: white;
-}
-
-.visimisi-container {
-    display: flex;
-    max-width: 1000px;
-    margin: 40px auto 0;
-    gap: 50px;
-}
-
-.visi-column, .misi-column {
-    flex: 1;
-    padding: 30px;
-    border-radius: 10px;
-}
-
-.visi-column {
-    background-color: #fff8f0; 
-    border-left: 5px solid #ff6600;
-}
-
-.misi-column {
-    background-color: #f0f3ff; 
-    border-left: 5px solid #003366;
-}
-
-.visimisi-icon {
-    font-size: 2em;
-    color: #ff6600;
-    margin-bottom: 15px;
-}
-
-.misi-column .visimisi-icon {
-    color: #003366;
-}
-
-.visi-column h3, .misi-column h3 {
-    font-size: 1.8em;
-    color: #0c1a4b;
-    margin-top: 0;
-    margin-bottom: 20px;
-}
-
-.misi-column ul {
-    list-style: none;
-    padding: 0;
-}
-
-.misi-column li {
-    padding: 10px 0;
-    border-bottom: 1px dashed #ccc;
-    line-height: 1.6;
-    color: #333;
-    position: relative;
-}
-
-.misi-column li:before {
-    content: "\2713"; 
-    color: #ff6600;
-    font-weight: bold;
-    display: inline-block;
-    width: 1em;
-    margin-left: -1em;
-}
 
 /* --- Media Query untuk Profil Sekolah --- */
 
-@media (max-width: 900px) {
-    .principal-layout-content {
-        flex-direction: column;
-        gap: 40px;
-    }
-    
-    .principal-text-column, .principal-image-column {
-        max-width: 100%;
-        text-align: center;
-    }
-    
-    .principal-photo {
-        height: 350px; 
-    }
-
-    .principal-text-column h1 {
-        font-size: 2.5em;
-    }
-    
-    .principal-hero-section {
-        padding: 80px 20px;
-    }
-    
-    .facts-container-profile {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 20px;
-    }
-
-    .visimisi-container {
-        flex-direction: column;
-        gap: 30px;
-    }
-    
-    .tujuan-content-grid {
-        grid-template-columns: 1fr; 
-    }
-
-    .section-title-center {
-        /* Hapus transform X agar rata tengah normal di mobile */
-        transform: none;
-        left: 0;
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    .facts-container-profile {
-        grid-template-columns: 1fr; 
-    }
-    .principal-layout-content {
-        gap: 20px;
-    }
-}
-
-
-/* --- FOOTER UTAMA --- */
-.main-footer {
-    background-color: #2C3E50; /* Warna biru gelap sesuai gambar */
-    color: white;
-    padding: 60px 50px 30px; /* Padding atas-bawah-samping */
-}
-
-.footer-top-container {
-    display: grid;
-    /* Ini sudah benar: 2fr untuk kontak, 3 kolom 1fr untuk menu */
-    grid-template-columns: 2fr repeat(3, 1fr); 
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 40px;
-    align-items: start;
-    /* Anda bisa menambahkan align-items: start; di sini jika diperlukan */
-    /* align-items: start; */ 
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* --- Kolom Kontak (Kiri) --- */
-.contact-info-column {
-    font-size: 0.9em;
-    margin-left: 100px;
-}
-
-.contact-info-column address {
-    /* Pastikan teks di dalam alamat rata kiri */
-    text-align: left; 
-    
-    /* Hapus margin horizontal bawaan jika ada */
-    margin-left: 0;
-    margin-right: 0;
-}
-
-
-.social-media {
-    display: flex;
-    align-items: center;
-    /* Jarak vertikal dari alamat di atasnya */
-    margin-top: 15px; 
-    /* Pastikan margin-left 0 agar rata dengan tepi kolom */
-    margin-left: 0; 
-    padding-left: 0;
-}
-
-.social-media a {
-    color: white;
-    font-size: 1.2em;
-    align-items: center;
-    margin-right: 15px;
-    text-align: center;
-    transition: color 0.3s;
-    
-}
-.social-media a:hover {
-    color: #ff6600; /* Warna hover oranye */
-}
-
-.contact-item {
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-    margin-bottom: 0;
-    /* Pastikan margin-left 0 agar rata dengan tepi kolom */
-    margin-left: 0; 
-    padding-left: 0;
-}
-
-.contact-item i {
-    color: #ff6600; /* Ikon oranye */
-    margin-right: 10px;
-    font-size: 1em;
-}
-
-.contact-item a {
-    color: #a0a0a0;
-    text-decoration: none;
-}
-.contact-item a:hover {
-    color: white;
-}
-
-/* --- Kolom Menu --- */
-.footer-menu-group a {
-    display: block; /* Membuat setiap link berada di baris baru */
-    color: #a0a0a0;
-    text-decoration: none;
-    margin-bottom: 22px;
-    font-size: 1em;
-    transition: color 0.3s;
-}
-
-.footer-menu-group a:hover {
-    color: white;
-}
-
-/* --- Bagian Bawah (Akreditasi) --- */
-.footer-bottom {
-    max-width: 1200px;
-    margin: 30px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.accreditations-title {
-    font-size: 1.2em;
-    font-weight: 600;
-    color: #a0a0a0;
-    margin: 0 40px 0 0;
-}
-
-.accreditations-logos {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.accreditation-logo {
-    height: 40px; /* Sesuaikan ukuran logo */
-    width: auto;
-    opacity: 0.7; /* Sedikit redup */
-}
-
-
-/* --- 1. Pengaturan Bagian Utama (Section) --- */
-.profil-section.ninek {
-    /* Padding dan margin untuk memisahkan bagian dari konten lain */
-    padding: 60px 20px;
-    margin: 40px auto;
-    /* Maksimal lebar agar konten tidak terlalu melebar di layar besar */
-    max-width: 1200px;
-}
-
-/* Judul Utama */
-.profil-section.ninek h2 {
-    font-family: 'Poppins', sans-serif; /* Gunakan font modern */
-    font-size: 2.5rem;
-    color: #1a237e; /* Biru Tua/Navy - Memberi kesan profesional */
-    text-align: center;
-    margin-bottom: 10px;
-    border-bottom: 3px solid #ffcc33; /* Garis bawah warna Emas */
-    padding-bottom: 5px;
-}
-
-/* Sub-teks Penjelasan */
-.profil-section.ninek p {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: #444;
-}
-
-/* --- 2. Pengaturan Grid 9K --- */
-.ninek-grid {
-    /* Menggunakan CSS Grid untuk tata letak yang rapi */
-    display: grid;
-    /* Tampilkan 3 kolom di desktop, dan atur jarak antar item */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-/* --- 3. Pengaturan Setiap Item 9K --- */
-.ninek-item {
-    /* Gaya kartu untuk setiap prinsip */
-    background-color: #ffffff; /* Latar belakang putih */
-    padding: 30px;
-    border-radius: 12px;
-    border: 1px solid #e0e0e0;
-    
-    /* Box Shadow yang halus dan bergengsi */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 10px rgba(0, 0, 0, 0.03);
-    
-    /* Transisi untuk efek hover */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Efek Hover (Aksi Saat Kursor Di Atas Item) */
-.ninek-item:hover {
-    /* Mengangkat kartu sedikit dan mengubah bayangan */
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
-    cursor: default;
-}
-
-/* Judul Setiap Prinsip (K***) */
-.ninek-item h4 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-top: 0;
-    margin-bottom: 15px;
-    /* Gradasi Biru ke Emas untuk kesan premium */
-    background: linear-gradient(90deg, #1a237e 0%, #ffcc33 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #1a237e; /* Fallback color */
-    
-    /* Memberi jarak atas agar tampak ada ikon (jika nanti ditambahkan) */
-    padding-top: 5px; 
-}
-
-/* Deskripsi Prinsip */
-.ninek-item p {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.95rem;
-    color: #666;
-    line-height: 1.5;
-}
-
-/* --- 4. Responsif untuk Layar Kecil (Opsional tapi Penting) --- */
-@media (max-width: 768px) {
-    .ninek-grid {
-        /* Di tablet, tampilkan 2 kolom */
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    
-    .profil-section.ninek h2 {
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .ninek-grid {
-        /* Di ponsel, tampilkan 1 kolom */
-        grid-template-columns: 1fr;
-    }
-    
-    .ninek-item {
-        padding: 25px;
-    }
-}
-
-/* --- Media Query untuk Tablet (Max 1024px) --- */
-@media (max-width: 1024px) {
-    /* 1. Navbar: Mengizinkan wrapping jika menu terlalu panjang */
-    .navbar {
-        /* Padding lebih kecil di samping */
-        padding: 10px 20px; 
-    }
-    
-    .nav-links {
-        /* Mengizinkan link untuk pindah baris */
-        flex-wrap: wrap; 
-        justify-content: center;
-        width: 100%; /* Menempati lebar penuh untuk wrapping */
-    }
-}
-
-/* --- Media Query untuk Mobile (Max 768px) --- */
-@media (max-width: 768px) {
-    /* 2. Navbar: Logo kiri dan nav-links menjadi vertikal atau hamburger (disarankan hamburger) */
-    .navbar {
-        flex-direction: column; /* Tumpuk logo dan menu vertikal */
-        align-items: flex-start; /* Rata kiri */
-        padding: 15px 20px;
-    }
-    
-    .logo-kiri {
-        margin-bottom: 10px; /* Jarak antara logo dan menu */
-        margin-right: 0;
-    }
-    
-    /* Alternatif (Jika menggunakan hamburger): Sembunyikan .nav-links di sini */
-    .nav-links {
-        display: none; 
-        /* Ganti dengan mekanisme tombol hamburger/off-canvas menu */
-    }
-
-}

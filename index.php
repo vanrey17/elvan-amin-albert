@@ -1,160 +1,121 @@
 <?php
-// C:\xampp\htdocs\elvan-amin-albert\index.php
+// 1. BASE PROJECT
+$BASE = "/elvan-amin-albert"; 
 
-// BARIS 7 PERLU DIHAPUS JIKA ITU MENGANDUNG $_SERVER["REQUEST_URL"]
+// 2. SETUP URL (Otomatis deteksi IP agar Android lancar)
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$base_url = $protocol . $host . $BASE . "/"; 
 
-
-// BASE PROJECT
-$BASE = "/elvan-amin-albert";
-$image_path = $BASE . "/image";
-
-// --- START: DEFINISI DATA RUTE DAN PROGRAM STUDI ---
-
-// Definisikan rute dan nama panjang Program Studi secara terpisah
+// 3. DEFINISI DATA (Harus di atas sebelum foreach)
 $program_studies_data = [
-    '/programstudi' => [
-        'file' => 'page/programstudi.php',
-        'display' => 'Daftar Program Studi (Semua)',
-    ],
-    '/tjkt' => [
-        'file' => 'page/tjkt.php',
-        'display' => 'TJKT - Teknik Jaringan Komputer dan Telekomunikasi',
-    ],
-    '/mplb' => [
-        'file' => 'page/mplb.php',
-        'display' => 'MPLB - Manajemen Perkantoran dan Layanan Bisnis',
-    ],
-    '/pmsr' => [
-        'file' => 'page/pmsr.php',
-        'display' => 'PMSR - Pemasaran',
-    ],
-    '/tsm' => [
-        'file' => 'page/tsm.php',
-        'display' => 'TSM - Teknik Sepeda Motor',
-    ],
-    '/akl' => [
-        'file' => 'page/akl.php',
-        'display' => 'AKL - Akuntansi dan Keuangan Lembaga',
-    ],
-    // PROGRAM STUDI LAIN:
-    '/rpl' => [ 'file' => 'page/rpl.php', 'display' => 'RPL - Rekayasa Perangkat Lunak' ],
-    '/dkv' => [ 'file' => 'page/dkv.php', 'display' => 'DKV - Desain Komunikasi Visual' ],
-    '/titl' => [ 'file' => 'page/titl.php', 'display' => 'TITL - Teknik Instalasi Tenaga Listrik' ],
-    '/dpib' => [ 'file' => 'page/dpib.php', 'display' => 'DPIB - Desain Pemodelan dan Informasi Bangunan' ],
-    '/tkr' => [ 'file' => 'page/tkr.php', 'display' => 'TKR - Teknik Kendaraan Ringan' ],
+    '/tjkt' => ['file' => 'page/tjkt.php', 'display' => 'TJKT - Teknik Jaringan Komputer dan Telekomunikasi'],
+    '/mplb' => ['file' => 'page/mplb.php', 'display' => 'MPLB - Manajemen Perkantoran dan Layanan Bisnis'],
+    '/pmsr' => ['file' => 'page/pmsr.php', 'display' => 'PMSR - Pemasaran'],
+    '/tsm'  => ['file' => 'page/tsm.php', 'display' => 'TSM - Teknik Sepeda Motor'],
+    '/akl'  => ['file' => 'page/akl.php', 'display' => 'AKL - Akuntansi dan Keuangan Lembaga'],
+    '/rpl'  => ['file' => 'page/rpl.php', 'display' => 'RPL - Rekayasa Perangkat Lunak'],
+    '/dkv'  => ['file' => 'page/dkv.php', 'display' => 'DKV - Desain Komunikasi Visual'],
+    '/titl' => ['file' => 'page/titl.php', 'display' => 'TITL - Teknik Instalasi Tenaga Listrik'],
+    '/dpib' => ['file' => 'page/dpib.php', 'display' => 'DPIB - Desain Pemodelan dan Informasi Bangunan'],
+    '/tkr'  => ['file' => 'page/tkr.php', 'display' => 'TKR - Teknik Kendaraan Ringan'],
 ];
 
-// --- PERBAIKAN: DEFINISI LAYANAN SISWA SEBAGAI SUBMENU ---
-// Tambahkan file dan display name untuk submenu Layanan Siswa
 $student_services_data = [
-    '/layanansiswa/uks' => [
-        'file' => 'page/uks.php', 
-        'display' => 'Smart UKS',
-    ],
-    '/layanansiswa/bk' => [
-        'file' => 'page/bk.php', 
-        'display' => 'Bimbingan Konseling (BK)',
-    ],
-    '/layanansiswa/kantin' => [
-        'file' => 'page/kantin.php', 
-        'display' => 'Kantin Sehat',
-    ],
+    '/uks'    => ['file' => 'page/uks.php', 'display' => 'Smart UKS'],
+    '/bk'     => ['file' => 'page/bk.php', 'display' => 'Bimbingan Konseling (BK)'],
+    '/kantin' => ['file' => 'page/kantin.php', 'display' => 'Kantin Sehat'],
 ];
 
-// --- Routing map (Array datar utama) ---
 $routes = [
     '/' => 'page/home.php',
-
-    // Tentang
     '/profil' => 'page/profil.php',
     '/tujuan' => 'page/tujuan.php',
     '/visimisi' => 'page/visimisi.php',
-    '/9k' => 'page/9k.php',
-
-    // Pembelajaran
+    '/9k' => 'page/9k.php', 
     '/kurikulum' => 'page/kurikulum.php',
     '/metode' => 'page/metodepembelajaran.php',
     '/dukunganpembelajaran' => 'page/dukunganpembelajaran.php',
+    '/ekstrakurikuler' => 'page/ekstrakurikuler.php',
+    '/kerohanian' => 'page/kerohanian.php',
+    '/layanansiswa' => 'page/layanansiswa.php',
+    '/keluargasekolah' => 'page/keluargasekolah.php',
+    '/daftar' => 'page/daftar.php',
+    '/biaya' => 'page/biaya.php',
+    '/blog' => 'page/blog.php',
+    '/blog-detail' => 'page/blog-detail.php',
+
 ];
 
-// Gabungkan rute Program Studi ke array $routes datar
-foreach ($program_studies_data as $url_path => $data) {
-    $routes[$url_path] = $data['file'];
-}
-    
-// Kehidupan siswa
-$routes['/ekstrakurikuler'] = 'page/ekstrakurikuler.php';
-$routes['/kerohanian'] = 'page/kerohanian.php';
-$routes['/layanansiswa'] = 'page/layanansiswa.php'; // Halaman landing utama Layanan Siswa
-$routes['/keluargasekolah'] = 'page/keluargasekolah.php';
-
-// Gabungkan rute Layanan Siswa ke array $routes datar
-foreach ($student_services_data as $url_path => $data) {
-    $routes[$url_path] = $data['file'];
+// Gabungkan Sub-Menu ke Routes Utama
+foreach ($program_studies_data as $path => $d) { 
+    $clean_path = ltrim($path, '/'); // Menghilangkan "/" di awal jika ada
+    $routes['/' . $clean_path] = $d['file']; 
 }
 
+foreach ($student_services_data as $path => $d) { 
+    $clean_path = ltrim($path, '/'); 
+    $routes['/' . $clean_path] = $d['file']; 
+}
+// 4. LOGIKA ROUTING GABUNGAN (PENTING AGAR LINK WORK)
+$page_param = $_GET['page'] ?? ''; 
 
-// Pendaftaran
-$routes['/daftar'] = 'page/daftar.php';
-$routes['/biaya'] = 'page/biaya.php';
-$routes['/brosur'] = 'page/brosur.php';
-$routes['/turvirtual'] = 'page/turvirtual.php';
-
-// --- END: DEFINISI DATA RUTE DAN PROGRAM STUDI ---
-
-// --- START: LOGIKA ROUTING ---
-
-// Ambil path request (tanpa query)
-$request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-// Hapus base folder dengan cara aman
-if (strpos($request, $BASE) === 0) {
-    $route = substr($request, strlen($BASE));
+if (!empty($page_param)) {
+    // Jika link dari header index.php?page=profil -> $route jadi /profil
+    $route = '/' . $page_param;
 } else {
+    // Jika akses via URL langsung
+    $request = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
     $route = $request;
+    if (strpos($route, $BASE) === 0) { $route = substr($route, strlen($BASE)); }
+    $route = str_replace('/index.php', '', $route);
 }
 
-// Normalisasi double slash
-$route = preg_replace('#/+#', '/', $route);
-
-// Normalisasi trailing slash
 $route = rtrim($route, '/');
-if ($route === '' || $route === false) $route = '/';
+if ($route === '') $route = '/';
 
-
-// Tentukan file content
 $content_file = $routes[$route] ?? 'page/404.php';
-if (!file_exists($content_file)) {
-    $content_file = 'page/404.php';
-}
-
-// HAPUS DEFINISI ROUTES GANDA DI BAWAH SINI!
-// ... (Baris 112 - 140 dari kode Anda sebelumnya Dihapus)
-// ...
+if (!file_exists(__DIR__ . '/' . $content_file)) { $content_file = 'page/404.php'; }
 ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SMK SWAKARYA PALEMBANG</title>
-
-<link rel="stylesheet" href="<?php echo $BASE; ?>/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous">
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SMK Teknologi ASCENDIA</title>
+    <link rel="stylesheet" href="<?= $base_url; ?>style.css?v=<?= time(); ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 
-<?php include 'page/header.php'; ?>
-
+<?php 
+// Share data ke header agar sub-menu tampil
+$program_studi_sub_menu = $program_studies_data;
+include __DIR__ . '/page/header.php'; 
+?>
 
 <main id="main-content">
-<?php include $content_file; ?>
+    <?php 
+    // Tentukan path lengkap secara absolut
+    $target_file = __DIR__ . DIRECTORY_SEPARATOR . $content_file;
+
+    if (file_exists($target_file) && !empty($content_file)) {
+        include $target_file;
+    } else {
+        // Jika file konten tidak ada, coba panggil 404.php
+        $error_page = __DIR__ . DIRECTORY_SEPARATOR . 'page' . DIRECTORY_SEPARATOR . '404.php';
+        
+        if (file_exists($error_page)) {
+            include $error_page;
+        } else {
+            echo "<div class='alert alert-danger'>Kesalahan Fatal: Halaman <strong>$content_file</strong> dan 404.php tidak ditemukan.</div>";
+        }
+    }
+    ?>
 </main>
 
-<?php include 'page/footer.php'; ?>
+<?php include __DIR__ . '/page/footer.php'; ?>
 
-
-<script src="<?php echo $BASE; ?>/js/scroll-header.js"></script>
+<script src="<?= $base_url; ?>js/scroll-header.js"></script>
 </body>
 </html>

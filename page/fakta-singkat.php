@@ -77,3 +77,94 @@
 
     </div>
 </section>
+
+<style>
+.facts-container {
+    /* ... properti Grid lainnya ... */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto; /* Penting: Meratakan seluruh container fakta di tengah halaman */
+}
+
+.facts-section {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.facts-section h3 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 60px;
+}
+
+.fact-item {
+    text-align: center; /* Meratakan ikon (block) dan teks (inline/block) */
+    margin-bottom: 40px;
+    
+}
+
+.fact-icon {
+    font-size: 3em; 
+    display: block;
+    margin: 0 auto; /* Meratakan ikon secara horizontal */
+}
+
+
+/* Penataan Angka */
+.fact-number-group {
+    display: flex; 
+    justify-content: center; /* KUNCI: Meratakan span (angka dan label) di tengah */
+    align-items: baseline; /* Menjaga angka dan label sejajar di garis bawah */
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-top: 10px; /* Jarak dari ikon di atasnya */
+}
+
+.fact-number {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #333;
+    margin: 0; 
+    line-height: 1;
+}
+
+.fact-label {
+    font-size: 1.5em; 
+    font-weight: 700;
+    color: #333;
+    margin-left: 5px; 
+    line-height: 1;
+}
+
+/* Penataan Deskripsi */
+.fact-description {
+    font-size: 1em;
+    color: #555;
+    margin-top: 5px;
+    line-height: 1.3;
+}
+
+/* Item 5 dimulai di kolom 3 dan membentang 1 kolom */
+.fact-item:nth-child(5) {
+    grid-column: 3 / span 1;
+}
+
+/* Item 6 dimulai di kolom 4 dan membentang 1 kolom */
+.fact-item:nth-child(6) {
+    grid-column: 4 / span 1;
+}
+
+@media (max-width: 768px) {
+    .facts-container {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 5px;
+    }
+    .fact-item-profile {
+        margin-bottom: 30px;
+        font-size: 0.6em;
+    }
+}
+
+</style>

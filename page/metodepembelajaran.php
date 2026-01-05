@@ -9,8 +9,6 @@ siswa mendapatkan pengalaman belajar yang mendalam sesuai dengan minat dan poten
 include 'page/hero.php';
 ?>
 
-
-
 <div class="container">
     
     <h2 class="section-heading">🚀 Metode Pembelajaran Aktif</h2>
@@ -199,5 +197,35 @@ include 'page/hero.php';
         .implementation-card h4 {
             color: var(--primary-color);
             margin-top: 0;
+        }
+
+        @media (max-width: 768px) {
+
+            .method-card {
+                flex-direction: column;
+                min-height: auto; /* Sesuaikan tinggi pada layar kecil */
+                width: 300px;
+                height: auto;
+            }
+        
+            .method-text h3, .implementation-card h4 {
+                flex: none;
+                width: 100%;
+                font-size: 1em;
+            }
+            .method-text p, .implementation-card p {
+                flex: none;
+                width: 100%;
+                font-size: 0.8em;
+            }
+        
+            .method-image-container {
+                padding: 20px 0;
+            }
+        
+            .method-image-container img {
+                width: 100%; /* Gambar mengisi lebar penuh pada layar kecil */
+                height: auto; /* Sesuaikan tinggi otomatis */
+            }
         }
     </style>

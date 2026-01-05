@@ -74,6 +74,21 @@ include 'page/hero.php';
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
+.ninek-card h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--asc-dark);
+}
+
+.ninek-card p {
+    color: var(--text-gray);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 2;
+}
+
 .icon-box {
     width: 60px;
     height: 60px;
@@ -89,20 +104,7 @@ include 'page/hero.php';
 .blue-theme .icon-box { background: #eef4ff; color: var(--asc-blue); }
 .orange-theme .icon-box { background: #fff5ee; color: var(--asc-orange); }
 
-.ninek-card h4 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: var(--asc-dark);
-}
 
-.ninek-card p {
-    color: var(--text-gray);
-    line-height: 1.5;
-    font-size: 0.95rem;
-    position: relative;
-    z-index: 2;
-}
 
 /* Dekorasi Background Card */
 .card-bg-icon {
@@ -124,6 +126,54 @@ include 'page/hero.php';
     opacity: 0.1;
 }
 
+/* --- 3. Pengaturan Setiap Item 9K --- */
+.ninek-item {
+    /* Gaya kartu untuk setiap prinsip */
+    background-color: #ffffff; /* Latar belakang putih */
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    
+    /* Box Shadow yang halus dan bergengsi */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), 0 0 10px rgba(0, 0, 0, 0.03);
+    
+    /* Transisi untuk efek hover */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efek Hover (Aksi Saat Kursor Di Atas Item) */
+.ninek-item:hover {
+    /* Mengangkat kartu sedikit dan mengubah bayangan */
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 0, 0, 0.05);
+    cursor: default;
+}
+
+/* Judul Setiap Prinsip (K***) */
+.ninek-item h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 15px;
+    /* Gradasi Biru ke Emas untuk kesan premium */
+    background: linear-gradient(90deg, #1a237e 0%, #ffcc33 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #1a237e; /* Fallback color */
+    
+    /* Memberi jarak atas agar tampak ada ikon (jika nanti ditambahkan) */
+    padding-top: 5px; 
+}
+
+/* Deskripsi Prinsip */
+.ninek-item p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
 /* Hover Effect Specific */
 .blue-theme:hover { border-bottom: 4px solid var(--asc-blue); }
 .orange-theme:hover { border-bottom: 4px solid var(--asc-orange); }
@@ -131,5 +181,9 @@ include 'page/hero.php';
 @media (max-width: 768px) {
     .hero-9k h1 { font-size: 2.2rem; }
     .ninek-modern-grid { grid-template-columns: 1fr; }
+    .ninek-card { padding: 10px 5px; width: 300px; height: auto; }
+    .card-body .icon-box { width: 50px; height: 50px; font-size: 1.2rem; gap: 10px; }
+    .card-body h4 { padding: 30px 20px; font-size: 1.5rem; }
+    .card-body p { padding: 30px 20px; font-size: 1rem; }
 }
 </style>

@@ -27,7 +27,7 @@ include 'page/hero.php';
         </div>
         
         <div class="program-visual">
-            <img src="<?php echo $image_path; ?>/labtjkt.png" alt="Siswa TJKT Sedang Belajar Jaringan">
+            <img src="<?php echo $image_path; ?>/labtjkt.png" alt="lab tjkt">
         </div>
         
     </div>  

@@ -1,6 +1,41 @@
 <?php
+// Sesuaikan path data_file agar mengarah ke file yang sama dengan biaya.php
+$data_file = __DIR__ . '/../data_biaya.json';
+
+// 1. Ambil data dari JSON
+if (file_exists($data_file)) {
+    $biaya = json_decode(file_get_contents($data_file), true);
+} else {
+    $biaya = [];
+}
+
+// 2. Proses Simpan
+if (isset($_POST['simpan'])) {
+    // Ambil data dari form dan masukkan ke array
+    $new_data = [
+        "formulir"  => $_POST['formulir'],
+        "spp"       => $_POST['spp'],
+        "almamater" => $_POST['almamater'],
+        "olahraga"  => $_POST['olahraga'],
+        "wearpack"  => $_POST['wearpack'],
+        "atribut"   => $_POST['atribut'],
+        "k3"        => $_POST['k3'],
+        "toolbox"   => $_POST['toolbox'],
+        "ujian"     => $_POST['ujian'],
+        "asuransi"  => $_POST['asuransi']
+    ];
+    
+    // Simpan ke file JSON
+    if (file_put_contents($data_file, json_encode($new_data, JSON_PRETTY_PRINT))) {
+        // Redireksi kembali ke halaman edit agar tidak 404
+        // Sesuaikan parameter 'page' dengan nama menu di admin.php Anda
+        echo "<script>alert('Data Berhasil Disimpan!'); window.location='admin.php?page=edit-biaya';</script>";
+        exit;
+    }
+}
+
 $page_title = "RINCIAN BIAYA PENDIDIKAN";
-$page_description = "Transparansi biaya pendidikan untuk masa depan cerah putra-putri Anda di SMK Vokasi Merdeka Belajar.";
+$page_description = "Transparansi biaya pendidikan untuk masa depan cerah putra-putri Anda.";
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -84,6 +119,18 @@ $page_description = "Transparansi biaya pendidikan untuk masa depan cerah putra-
         border-radius: 15px;
         padding: 20px;
     }
+    @media (max-width: 768px) {
+    .table-responsive td {
+        font-size: 0.7rem;
+    }
+    .container h1 {
+        font-size: 1.5rem !important; 
+    } 
+    .container p {
+        font-size: 0.8rem !important; 
+        padding : 0px 30px 0 30px;
+    }
+    }
 </style>
 
 <main>
@@ -115,60 +162,52 @@ $page_description = "Transparansi biaya pendidikan untuk masa depan cerah putra-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="category-header">
-                                        <td colspan="2">Pendaftaran & Seleksi</td>
-                                    </tr>
+                                    <tr class="category-header"><td colspan="2">Pendaftaran & Seleksi</td></tr>
                                     <tr>
                                         <td>Formulir Pendaftaran</td>
-                                        <td class="text-end price-tag">Rp 250.000</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['formulir'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Tes Potensi Akademik & Kesehatan</td>
-                                        <td class="text-end price-tag">Rp 150.000</td>
+                                        <td>SPP tiap bulan</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['spp'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
 
-                                    <tr class="category-header">
-                                        <td colspan="2">Paket Seragam & Atribut</td>
-                                    </tr>
+                                    <tr class="category-header"><td colspan="2">Paket Seragam & Atribut</td></tr>
                                     <tr>
                                         <td>Jas Almamater Prestisius</td>
-                                        <td class="text-end price-tag">Rp 350.000</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['almamater'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
                                         <td>Pakaian Olahraga</td>
-                                        <td class="text-end price-tag">Rp 200.000</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['olahraga'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Seragam Identitas Jurusan (Wearpack)</td>
-                                        <td class="text-end price-tag">Rp 300.000</td>
+                                        <td>Seragam Identitas (Wearpack)</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['wearpack'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Set Atribut (Dasi, Topi, Sabuk, Kaos Kaki)</td>
-                                        <td class="text-end price-tag">Rp 150.000</td>
+                                        <td>Set Atribut (Dasi, Topi, Sabuk, dll)</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['atribut'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
 
-                                    <tr class="category-header">
-                                        <td colspan="2">Perlengkapan Praktek (Safety)</td>
+                                    <tr class="category-header"><td colspan="2">Perlengkapan Praktek</td></tr>
+                                    <tr>
+                                        <td>APD (K3) Lengkap</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['k3'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Alat Pelindung Diri (K3) Lengkap</td>
-                                        <td class="text-end price-tag">Rp 450.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Toolbox Personal (Khusus Jurusan Teknik)</td>
-                                        <td class="text-end price-tag">Rp 500.000</td>
+                                        <td>Toolbox Personal (Khusus Teknik)</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['toolbox'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
 
-                                    <tr class="category-header">
-                                        <td colspan="2">Biaya Ujian & Kegiatan</td>
+                                    <tr class="category-header"><td colspan="2">Lainnya</td></tr>
+                                    <tr>
+                                        <td>Biaya Ujian & Kegiatan</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['ujian'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Biaya Ujian Semester (1 Tahun)</td>
-                                        <td class="text-end price-tag">Rp 400.000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Asuransi Siswa & Kartu Pelajar Digital</td>
-                                        <td class="text-end price-tag">Rp 100.000</td>
+                                        <td>Asuransi & Kartu Pelajar Digital</td>
+                                        <td class="text-end price-tag">Rp <?= number_format($biaya['asuransi'] ?? 0, 0, ',', '.') ?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -176,61 +215,54 @@ $page_description = "Transparansi biaya pendidikan untuk masa depan cerah putra-
                     </div>
 
                     <div class="col-lg-4">
-                        <div class="top" style="top: 20px;">
+                        <div class="top" style="position: sticky; top: 20px;">
                             <div class="total-highlight mb-4">
                                 <h5 class="text-muted mb-1">Estimasi Total Awal</h5>
-                                <h2 class="text-dark fw-bold">Rp 3.100.000</h2>
+                                <h2 class="text-dark fw-bold" id="total-biaya">Rp 0</h2>
                                 <hr>
-                                <small class="text-muted">*Biaya di atas belum termasuk SPP bulanan.</small>
+                                <small class="text-muted">*Biaya di atas adalah biaya masuk awal (Sekali bayar).</small>
                             </div>
 
                             <div class="card bg-light border-0 p-3 mb-4">
                                 <h5 class="mb-3"><i class="fas fa-university me-2 text-primary"></i>Metode Pembayaran</h5>
-                                
-                                <div class="row g-2 text-center">
-                                    <div class="col-4">
-                                        <div class="bg-white p-2 rounded shadow-sm border">
-                                            <small class="fw-bold d-block" style="color:#0046ad">BCA</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="bg-white p-2 rounded shadow-sm border">
-                                            <small class="fw-bold d-block" style="color:#f7941d">MANDIRI</small>
-                                        </div>
-                                    </div>
-                                    <div class="col-4">
-                                        <div class="bg-white p-2 rounded shadow-sm border">
-                                            <small class="fw-bold d-block" style="color:#ff6600">BNI</small>
-                                        </div>
-                                    </div>
                                 </div>
-                                
-                                <div class="mt-3">
-                                    <div class="d-flex align-items-center gap-2 mb-2">
-                                        <i class="fab fa-google-pay fa-2x text-muted"></i>
-                                        <i class="fab fa-apple-pay fa-2x text-muted"></i>
-                                        <i class="fas fa-qrcode fa-lg text-success"></i>
-                                        <span class="small text-muted">Mendukung QRIS</span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <a href="#" class="btn btn-download w-100 text-white mb-3">
                                 <i class="fas fa-file-pdf me-2"></i> Download Brosur Biaya (PDF)
                             </a>
-
-                            <div class="alert alert-info border-0" style="border-radius: 15px;">
-                                <i class="fas fa-info-circle me-2"></i> 
-                                <strong>Tersedia Beasiswa!</strong><br>
-                                Dapatkan potongan biaya bagi siswa berprestasi atau jalur tahfidz.
-                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function hitungEstimasiTotal() {
+        let total = 0;
+        // Mengambil semua elemen yang memiliki class 'price-tag'
+        const prices = document.querySelectorAll('.price-tag');
+
+        prices.forEach(price => {
+            // Mengambil teks, menghapus 'Rp', titik, dan spasi agar menjadi angka murni
+            let cleanPrice = price.innerText.replace(/[^0-9]/g, '');
+            total += parseInt(cleanPrice) || 0;
+        });
+
+        // Format kembali angka ke format Rupiah (Rp XX.XXX.XXX)
+        const formattedTotal = new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(total);
+
+        // Update teks di elemen h2
+        document.getElementById('total-biaya').innerText = formattedTotal.replace("IDR", "Rp");
+    }
+
+    // Jalankan fungsi saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', hitungEstimasiTotal);
+</script>

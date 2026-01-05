@@ -1,10 +1,8 @@
 <?php
 // Tentukan variabel data yang berbeda untuk setiap halaman (RPL)
-$page_title = "METODE PEMBELAJARAN";
-$page_description = "Di SMK Teknologi Ascendia, pembelajaran berpusat pada Anda. 
-Mengadopsi semangat Kurikulum Merdeka, kami menerapkan pendekatan aktif yang 
-memprioritaskan eksplorasi, pemecahan masalah, dan kolaborasi, memastikan setiap 
-siswa mendapatkan pengalaman belajar yang mendalam sesuai dengan minat dan potensi mereka.";
+$page_title = "WELCOME TO SMK TEKNOLOGI ASCENDIA";
+$page_description = "Segera daftar dan bergabunglah dengan kami di SMK Teknologi Ascendia untuk masa depan yang gemilang!";
+include 'page/hero.php';
 
 // ======================
 // INISIALISASI VARIABEL DI AWAL
@@ -84,38 +82,52 @@ if (isset($_POST['submit_form'])) {
             // ======================
             // 4. SIMPAN ORANG TUA / WALI (Hanya jika Siswa Berhasil)
             // ======================
+            // ======================
             if ($penanggung === 'orangtua') {
+                // Bersihkan semua input POST untuk orang tua
+                $data_ot = [];
+                foreach ($_POST as $key => $val) {
+                    // Cek jika input bukan array, baru di-escape
+                    if (!is_array($val)) {
+                        $data_ot[$key] = mysqli_real_escape_string($conn, $val);
+                    } else {
+                        // Jika array (seperti checkbox), abaikan atau gabung jadi string dulu
+                        $data_ot[$key] = $val; 
+                    }
+                }
+
                 $query_orangtua = "
-                    INSERT INTO tb_orangtua (
-                        id_siswa,
-                        nama_ayah, nik_ayah, tempat_lahir_ayah, tanggal_lahir_ayah,
-                        kewarganegaraan_ayah, agama_ayah, golongan_darah_ayah,
-                        hubungan_ayah, no_hp_ayah,
-                        nama_lengkap_ibu, nik_ibu, tempat_lahir_ibu, tanggal_lahir_ibu,
-                        kewarganegaraan_ibu, agama_ibu, golongan_darah_ibu,
-                        hubungan_ibu, no_hp_ibu
+                    INSERT INTO tb_orangtua_siswa (
+                        id_siswa, nama_lengkap_ayah, nomor_induk_kependudukan_ayah, alamat_ayah,
+                        tempat_lahir_ayah, tanggal_lahir_ayah, kewarganegaraan_ayah, agama_ayah, 
+                        golongan_darah_ayah, hubungan_ayah, no_hp_ayah,
+                        nama_lengkap_ibu, nomor_induk_kependudukan_ibu, alamat_ibu, 
+                        tempat_lahir_ibu, tanggal_lahir_ibu, kewarganegaraan_ibu, 
+                        agama_ibu, golongan_darah_ibu, hubungan_ibu, nomor_handphone_ibu
                     ) VALUES (
                         '$id_siswa',
-                        '{$_POST['nama_lengkap_ayah']}', '{$_POST['nomor_induk_kependudukan_ayah']}', 
-                        '{$_POST['tempat_lahir_ayah']}', '{$_POST['tanggal_lahir_ayah']}',
-                        '{$_POST['kewarganegaraan_ayah']}', '{$_POST['agama_ayah']}', 
-                        '{$_POST['golongan_darah_ayah']}', 'ayah', '{$_POST['nomor_handphone_ayah']}',
-                        '{$_POST['nama_lengkap_ibu']}', '{$_POST['nomor_induk_kependudukan_ibu']}', 
-                        '{$_POST['tempat_lahir_ibu']}', '{$_POST['tanggal_lahir_ibu']}',
-                        '{$_POST['kewarganegaraan_ibu']}', '{$_POST['agama_ibu']}', 
-                        '{$_POST['golongan_darah_ibu']}', 'ibu', '{$_POST['nomor_handphone_ibu']}'
+                        '{$data_ot['nama_lengkap_ayah']}', '{$data_ot['nomor_induk_kependudukan_ayah']}', 
+                        '{$data_ot['alamat_ayah']}', '{$data_ot['tempat_lahir_ayah']}', '{$data_ot['tanggal_lahir_ayah']}',
+                        '{$data_ot['kewarganegaraan_ayah']}', '{$data_ot['agama_ayah']}', 
+                        '{$data_ot['golongan_darah_ayah']}', 'ayah', '{$data_ot['no_hp_ayah']}',
+                        '{$data_ot['nama_lengkap_ibu']}', '{$data_ot['nomor_induk_kependudukan_ibu']}', 
+                        '{$data_ot['alamat_ibu']}', '{$data_ot['tempat_lahir_ibu']}', '{$data_ot['tanggal_lahir_ibu']}',
+                        '{$data_ot['kewarganegaraan_ibu']}', '{$data_ot['agama_ibu']}', 
+                        '{$data_ot['golongan_darah_ibu']}', 'ibu', '{$data_ot['nomor_handphone_ibu']}'
                     )
                 ";
                 
                 if (!mysqli_query($conn, $query_orangtua)) {
                     $errors[] = "Gagal simpan data orangtua: " . mysqli_error($conn);
                 }
+
             } elseif ($penanggung === 'wali') {
                 $query_wali = "
                     INSERT INTO tb_wali (
                         id_siswa, 
                         nama_wali, 
                         nik_wali, 
+                        alamat_wali,
                         tempat_lahir_wali, 
                         tanggal_lahir_wali,
                         kewarganegaraan_wali, 
@@ -127,12 +139,13 @@ if (isset($_POST['submit_form'])) {
                         '$id_siswa',
                         '" . mysqli_real_escape_string($conn, $_POST['nama_lengkap_wali'] ?? '') . "', 
                         '" . mysqli_real_escape_string($conn, $_POST['nomor_induk_kependudukan_wali'] ?? '') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['alamat_wali'] ?? '') . "',
                         '" . mysqli_real_escape_string($conn, $_POST['tempat_lahir_wali'] ?? '') . "', 
                         '" . mysqli_real_escape_string($conn, $_POST['tanggal_lahir_wali'] ?? '') . "',
                         '" . mysqli_real_escape_string($conn, $_POST['kewarganegaraan_wali'] ?? '') . "', 
                         '" . mysqli_real_escape_string($conn, $_POST['agama_wali'] ?? '') . "',
                         '" . mysqli_real_escape_string($conn, $_POST['golongan_darah_wali'] ?? '') . "', 
-                        '" . mysqli_real_escape_string($conn, $_POST['hubungan_wali'] ?? 'Wali') . "',
+                        '" . mysqli_real_escape_string($conn, $_POST['hubungan_wali'] ?? '') . "',
                         '" . mysqli_real_escape_string($conn, $_POST['nomor_handphone_wali'] ?? '') . "'
                     )
                 ";
@@ -161,121 +174,99 @@ if (isset($_POST['submit_form'])) {
 // ... (setelah insert siswa dan orangtua/wali) ...
 
 // ======================
-// 7. UPLOAD FILE DAN SIMPAN KE tb_berkas
+// 7. UPLOAD FILE DAN SIMPAN LANGSUNG KE DATABASE (BLOB)
 // ======================
-if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang sudah ada
+if (empty($errors) && isset($id_siswa)) {
     
-    // Data sekolah asal dan nilai
     $sekolah_asal = mysqli_real_escape_string($conn, $_POST['sekolah_asal'] ?? '');
     $nilai_ijazah = mysqli_real_escape_string($conn, $_POST['nilai_ijazah'] ?? 0);
     
-    // Konfigurasi upload
-    $upload_dir = "uploads/berkas/";
-    
-    // Buat folder jika belum ada
-    if (!is_dir($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
-        echo "<div style='color:green;'>✓ Folder 'uploads/berkas/' berhasil dibuat</div>";
-    }
-    
-    // Cek apakah folder bisa ditulisi
-    if (!is_writable($upload_dir)) {
-        // Coba ubah permission
-        chmod($upload_dir, 0777);
-        
-        if (!is_writable($upload_dir)) {
-            die("<div style='color:red;'>
-                <h3>❌ ERROR: Folder tidak bisa ditulisi</h3>
-                <p>Folder: " . realpath($upload_dir) . "</p>
-                <p>Silakan berikan permission write ke folder 'uploads/berkas/'</p>
-            </div>");
-        }
-    }
-    
-    // Daftar file yang harus diupload
+    // Daftar input file
     $files_to_upload = [
         'bukti_pembayaran' => 'bukti_pembayaran',
-        'akte_lahir' => 'akte_lahir', 
-        'kartu_keluarga' => 'kartu_keluarga',
-        'raport' => 'raport',
-        'transkrip_nilai' => 'transkrip_nilai',
-        'surat_komitmen' => 'surat_komitmen'
+        'akte_lahir'       => 'akte_lahir', 
+        'kartu_keluarga'   => 'kartu_keluarga',
+        'raport'           => 'raport',
+        'transkrip_nilai'  => 'transkrip_nilai',
+        'surat_komitmen'   => 'surat_komitmen',
+        'foto_siswa'       => 'foto_siswa'
     ];
     
     $upload_errors = [];
     $upload_success_count = 0;
     
     foreach ($files_to_upload as $file_input => $jenis_berkas) {
+        // Cek apakah file ada dan tidak error
         if (isset($_FILES[$file_input]) && $_FILES[$file_input]['error'] == 0) {
             $file = $_FILES[$file_input];
             
-            // Validasi ukuran file (max 5MB)
-            $max_size = 5 * 1024 * 1024; // 5MB
-            if ($file['size'] > $max_size) {
-                $upload_errors[] = "File $jenis_berkas terlalu besar (maks 5MB)";
-                continue;
-            }
-            
-            // Validasi tipe file
-            $allowed_types = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png', 
-                            'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-            
-            // Gunakan finfo untuk deteksi tipe file yang lebih akurat
+            // 1. Validasi tipe file
+            $allowed_types = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $file_type = finfo_file($finfo, $file['tmp_name']);
             finfo_close($finfo);
             
             if (!in_array($file_type, $allowed_types)) {
-                $upload_errors[] = "Format file $jenis_berkas tidak didukung (tipe: $file_type)";
+                $upload_errors[] = "Format file $jenis_berkas tidak didukung ($file_type).";
                 continue;
             }
+
+            // 2. Validasi Ukuran (Max 5MB) - Backup validation server side
+            $max_size = 5 * 1024 * 1024; // 5 Megabytes
+            if ($file['size'] > $max_size) {
+                // Berhenti di sini dan beri peringatan jika file terlalu besar
+                $upload_errors[] = "File " . strtoupper(str_replace('_', ' ', $jenis_berkas)) . " gagal diunggah karena melebihi 5MB.";
+                continue; // Lanjut ke file berikutnya, jangan diproses ke database
+            }       
             
-            // Generate nama file unik
-            $file_ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-            $file_name = "siswa_" . $id_siswa . "_" . $jenis_berkas . "_" . time() . "." . $file_ext;
-            $file_path = $upload_dir . $file_name;
+            // 3. PROSES MEMBACA FILE KE VARIABEL (BLOB)
+            // Baca isi file sementara ke dalam memori
+            $file_content_raw = file_get_contents($file['tmp_name']);
+            // Escape string binary agar aman masuk query SQL
+            $file_content_db = mysqli_real_escape_string($conn, $file_content_raw);
+
+            $nama_asli = mysqli_real_escape_string($conn, $file['name']);
+            $ukuran_file = $file['size'];
             
-            // Debug info
-            echo "<div style='background:#f0f0f0; padding:5px; margin:2px;'>
-                    Uploading: {$file['name']} → $file_name
-                  </div>";
+            // Penentuan nama foto untuk keperluan display sederhana (opsional)
+            $foto_value = ($jenis_berkas == 'foto_siswa') ? $nama_asli : "default.jpg";
+
+            // 4. INSERT KE DATABASE
+            $jenis_save = $jenis_berkas; 
             
-            // Pindahkan file ke folder upload
-            if (move_uploaded_file($file['tmp_name'], $file_path)) {
-                // Simpan ke database
-                $insert_berkas = "INSERT INTO tb_berkas (
-                    id_siswa, 
-                    sekolah_asal, 
-                    nilai_ijazah, 
-                    jenis_berkas, 
-                    nama_file, 
-                    path_file, 
-                    ukuran_file, 
-                    tipe_file,
-                    uploaded_at
-                ) VALUES (
-                    '$id_siswa',
-                    '$sekolah_asal',
-                    '$nilai_ijazah',
-                    '$jenis_berkas',
-                    '" . mysqli_real_escape_string($conn, $file['name']) . "',
-                    '" . mysqli_real_escape_string($conn, $file_path) . "',
-                    '" . $file['size'] . "',
-                    '" . mysqli_real_escape_string($conn, $file_type) . "',
-                    NOW()
-                )";
-                
-                if (mysqli_query($conn, $insert_berkas)) {
-                    $upload_success_count++;
-                    echo "<div style='color:green; margin-left:20px;'>✓ $jenis_berkas berhasil diupload</div>";
-                } else {
-                    $upload_errors[] = "Gagal menyimpan data berkas $jenis_berkas ke database: " . mysqli_error($conn);
-                }
+            $insert_berkas = "INSERT INTO tb_berkas (
+                id_siswa, 
+                sekolah_asal, 
+                nilai_ijazah, 
+                jenis_berkas, 
+                nama_file, 
+                path_file, 
+                file_content,
+                ukuran_file, 
+                tipe_file,
+                foto,
+                uploaded_at
+            ) VALUES (
+                '$id_siswa',
+                '$sekolah_asal',
+                '$nilai_ijazah',
+                '$jenis_berkas',
+                '$nama_asli',
+                'DATABASE', 
+                '$file_content_db',
+                '$ukuran_file',
+                '$file_type',
+                '$foto_value',
+                NOW()
+            )";
+            
+            // Eksekusi Query
+            // NOTE: Query ini mungkin berat jika file sangat besar, pastikan setting 'max_allowed_packet' di MySQL cukup besar
+            if (mysqli_query($conn, $insert_berkas)) {
+                $upload_success_count++;
             } else {
-                $upload_errors[] = "Gagal memindahkan file $jenis_berkas ke server. Error: " . $file['error'];
+                $upload_errors[] = "Gagal menyimpan data biner $jenis_berkas: " . mysqli_error($conn);
             }
-        } else {
-            $upload_errors[] = "File $jenis_berkas tidak diupload atau error. Error code: " . ($_FILES[$file_input]['error'] ?? 'unknown');
         }
     }
     
@@ -297,87 +288,61 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
         if (isset($_POST['info_source']) && is_array($_POST['info_source'])) {
             $info_sources = implode(", ", $_POST['info_source']);
             
-            // Buat tabel jika belum ada
             $create_table = "CREATE TABLE IF NOT EXISTS tb_info_sumber (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 id_siswa INT,
                 sumber_info TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (id_siswa) REFERENCES tb_calon_siswa(id_siswa)
-            )";
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )"; // Removed FK check for brevity to prevent error if FK exists
             mysqli_query($conn, $create_table);
             
-            // Insert data
             $query_info = "INSERT INTO tb_info_sumber (id_siswa, sumber_info) 
-                          VALUES ('$id_siswa', '" . mysqli_real_escape_string($conn, $info_sources) . "')";
+                           VALUES ('$id_siswa', '" . mysqli_real_escape_string($conn, $info_sources) . "')";
             mysqli_query($conn, $query_info);
         }
         
         // Simpan info_source_others jika ada
         if (!empty($_POST['info_source_others'])) {
-            $others = mysqli_real_escape_string($conn, $_POST['info_source_others']);
-            // Anda bisa menyimpan ini di kolom tersendiri atau di tabel yang sama
+             // Logic simpan others
         }
         
         // ==========================================
-        // TAMPILKAN INFORMASI FILE YANG DISIMPAN
+        // TAMPILKAN STATUS SUKSES
         // ==========================================
         $registration_success = true;
         
-        // Simpan data untuk ditampilkan di Kartu
-        $sukses_nama = $nama_lengkap_siswa;
-        $sukses_id = $id_siswa; 
+        $sukses_id      = $id_siswa;
+        $sukses_nama    = $nama_lengkap_siswa;
         $sukses_jurusan = $minat_jurusan;
-        $sukses_sekolah = $_POST['sekolah_asal'];
-        $sukses_tgl = date('d F Y');
+        $sukses_sekolah = $sekolah_asal; // Diambil dari $_POST['sekolah_asal']
+        $sukses_tgl     = date('d F Y, H:i') . " WIB";
         $sukses_jumlah_file = $upload_success_count;
-        echo "<h3 style='color:#2e7d32;'>✅ UPLOAD BERHASIL!</h3>";
-        echo "<p><strong>Total file yang diupload:</strong> $upload_success_count file</p>";
+
+        echo "<h3 style='color:#2e7d32;'>✅ PENDAFTARAN & UPLOAD BERHASIL!</h3>";
+        echo "<p>Data siswa dan <strong>$upload_success_count berkas</strong> telah tersimpan aman di Database Pusat.</p>";
         
-        // Tampilkan lokasi folder
-        $absolute_path = realpath($upload_dir);
-        echo "<p><strong>Lokasi file di server:</strong> <code>$absolute_path</code></p>";
-        
-        // Tampilkan daftar file yang baru diupload
-        echo "<p><strong>File yang disimpan:</strong></p>";
+        // Tampilkan daftar file yang SUDAH masuk ke DB (Query ulang untuk memastikan)
+        echo "<p><strong>Berkas yang tersimpan:</strong></p>";
         echo "<ul>";
         
-        $files = scandir($upload_dir);
-        foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..') {
-                if (strpos($file, "siswa_{$id_siswa}_") === 0) {
-                    $file_path = $upload_dir . $file;
-                    $file_size = round(filesize($file_path) / 1024, 2);
-                    echo "<li>";
-                    echo "<strong>$file</strong> ($file_size KB) - ";
-                    echo "<a href='$file_path' target='_blank'>Lihat</a> | ";
-                    echo "<a href='$file_path' download>Download</a>";
-                    echo "</li>";
-                }
-            }
+        $query_cek_file = "SELECT nama_file, ukuran_file, jenis_berkas FROM tb_berkas WHERE id_siswa = '$id_siswa'";
+        $result_file = mysqli_query($conn, $query_cek_file);
+        
+        while($row_file = mysqli_fetch_assoc($result_file)){
+            $kb_size = round($row_file['ukuran_file'] / 1024, 2);
+            echo "<li>";
+            echo "<strong>" . htmlspecialchars($row_file['jenis_berkas']) . "</strong>: " . htmlspecialchars($row_file['nama_file']);
+            echo " ($kb_size KB) <span style='color:green'>[Tersimpan di DB]</span>";
+            echo "</li>";
         }
         echo "</ul>";
-
-
-        
-        // Tombol untuk membuka folder
-        $folder_path_for_windows = str_replace('/', '\\', $absolute_path);
-        echo "<button onclick=\"window.open('file:///$folder_path_for_windows')\" 
-              style='padding:10px 20px; background:#2196f3; color:white; border:none; border-radius:5px; cursor:pointer; margin-top:10px;'>
-              📁 Buka Folder di File Explorer
-              </button>";
         
         echo "</div>";
         
-        $success_message = "🎉 DATA BERHASIL DISIMPAN! $upload_success_count file telah diupload ke server.";
+        $success_message = "🎉 DATA BERHASIL DISIMPAN! Semua data kini berada di database server.";
     }
 }
-
 ?>
-
-
-
-
 
     <style>
         /* --- GENERAL RESET & TYPOGRAPHY --- */
@@ -711,13 +676,14 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 margin-left: 0;
                 margin-bottom: 10px;
             }
+            .form-step label{
+                font-size : 0.9em;
+            }
         }
     </style>
 
 
-<h1>Welcome to SMK Teknologi Ascendia</h1>
-    
-    <?php if (isset($registration_success) && $registration_success): ?>
+    <?php if (isset($registration_success) && $registration_success === true): ?>
 
         <div class="success-card">
             <div class="success-header">
@@ -727,32 +693,32 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
             </div>
             
             <div class="success-body">
-                <p>Halo <strong><?= htmlspecialchars($sukses_nama) ?></strong>, data pendaftaran dan berkas Anda telah berhasil kami terima.</p>
+                <p>Halo <strong><?= htmlspecialchars($sukses_nama ?? 'Calon Siswa') ?></strong>, data pendaftaran dan berkas Anda telah berhasil kami terima.</p>
                 
                 <div class="reg-number">
-                    NO. REG: REG-<?= date('Y') ?>-<?= str_pad($sukses_id, 4, '0', STR_PAD_LEFT) ?>
+                    NO. REG: REG-<?= date('Y') ?>-<?= str_pad($sukses_id ?? 0, 4, '0', STR_PAD_LEFT) ?>
                 </div>
 
                 <div class="student-details">
                     <div class="detail-row">
                         <span class="detail-label">Nama Lengkap</span>
-                        <span class="detail-value"><?= htmlspecialchars($sukses_nama) ?></span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_nama ?? '-') ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Jurusan Diminati</span>
-                        <span class="detail-value"><?= htmlspecialchars($sukses_jurusan) ?></span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_jurusan ?? '-') ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Sekolah Asal</span>
-                        <span class="detail-value"><?= htmlspecialchars($sukses_sekolah) ?></span>
+                        <span class="detail-value"><?= htmlspecialchars($sukses_sekolah ?? '-') ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Tanggal Daftar</span>
-                        <span class="detail-value"><?= $sukses_tgl ?></span>
+                        <span class="detail-value"><?= $sukses_tgl ?? '-' ?></span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Status Berkas</span>
-                        <span class="detail-value" style="color:green;">Terupload (<?= $sukses_jumlah_file ?> File)</span>
+                        <span class="detail-value" style="color:green;">Terupload (<?= $sukses_jumlah_file ?? 0 ?> File)</span>
                     </div>
                 </div>
 
@@ -763,15 +729,16 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
 
             <div class="success-footer">
                 <button onclick="window.print()" class="btn-print">🖨️ Cetak Bukti</button>
-                <a href="?page=daftar" class="btn-home">Kembali</a>
+                <a href="index.php?page=daftar" class="btn-home">Kembali</a>
             </div>
         </div>
 
     <?php else: ?> 
-    <?php if (!empty($errors)): ?>
-            <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px; border-radius: 5px; background: #ffe6e6;">
-                <strong>Mohon koreksi kesalahan berikut:</strong>
-                <ul style="margin: 10px 0 0 20px;">
+        <?php if (!empty($errors)): ?>
+            <div class="alert alert-danger shadow-sm mb-4" style="border-left: 5px solid red;">
+                <h5 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Mohon koreksi kesalahan berikut:</h5>
+                <hr>
+                <ul class="mb-0">
                     <?php foreach ($errors as $error): ?>
                         <li><?= $error ?></li> 
                     <?php endforeach; ?>
@@ -898,7 +865,7 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 <select id="minat_jurusan" name="minat_jurusan" required>
                     <option value="">Pilih Jurusan</option>
                     <option value="RPL" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'RPL') ? 'selected' : '' ?>>Rekayasa Perangkat Lunak (RPL)</option>
-                    <option value="TJKT" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'TJKT') ? 'selected' : '' ?>>Teknik Komputer dan Jaringan (TJKT)</option>
+                    <option value="TJKT" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'TJKT') ? 'selected' : '' ?>>Teknik Jaringan Komputer dan Telekomunikasi (TJKT)</option>
                     <option value="DKV" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'DKV') ? 'selected' : '' ?>>Desain Komunikasi Visual (DKV)</option>
                     <option value="DPIB" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'DPIB') ? 'selected' : '' ?>>Desain Pemodelan dan Informasi Bangunan (DPIB)</option>
                     <option value="MPLB" <?= (isset($form_data['minat_jurusan']) && $form_data['minat_jurusan'] == 'MPLB') ? 'selected' : '' ?>>Manajemen Perkantoran dan Layanan Bisnis (MPLB)</option>
@@ -983,6 +950,7 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
             oninput="validateNIK(this)">
             </div>
 
+
             <div class="form-group">
                 <label for="tempat_lahir_ayah">Tempat Lahir</label>
                 <input type="text" id="tempat_lahir_ayah" name="tempat_lahir_ayah" required value="<?= htmlspecialchars($form_data['tempat_lahir_ayah'] ?? '') ?>">
@@ -993,6 +961,10 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 <input type="date" id="tanggal_lahir_ayah" name="tanggal_lahir_ayah" required value="<?= htmlspecialchars($form_data['tanggal_lahir_ayah'] ?? '') ?>">
             </div>
 
+            <div class="form-group">
+                <label for="alamat_ayah">Alamat Lengkap Ayah</label>
+                <textarea id="alamat_ayah" name="alamat_ayah" rows="3" required><?= htmlspecialchars($form_data['alamat_ayah'] ?? '') ?></textarea>
+            </div>
 
             <div class="form-group">
                 <label for="kewarganegaraan_ayah">Kewarganegaraan</label>
@@ -1040,8 +1012,8 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
             </div>
 
             <div class="form-group">
-                <label for="nomor_handphone_ayah">Nomor Handphone</label>
-                <input type="tel" id="nomor_handphone_ayah" name="nomor_handphone_ayah" required value="<?= htmlspecialchars($form_data['nomor_handphone_ayah'] ?? '') ?>">
+                <label for="no_hp_ayah">Nomor Handphone</label>
+                <input type="tel" id="no_hp_ayah" name="no_hp_ayah" required value="<?= htmlspecialchars($form_data['no_hp_ayah'] ?? '') ?>">
             </div>
             
 
@@ -1082,6 +1054,11 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                     <option value="WNI" <?= (isset($form_data['kewarganegaraan_ibu']) && $form_data['kewarganegaraan_ibu'] == 'WNI') ? 'selected' : '' ?>>WNI</option>
                     <option value="WNA" <?= (isset($form_data['kewarganegaraan_ibu']) && $form_data['kewarganegaraan_ibu'] == 'WNA') ? 'selected' : '' ?>>WNA</option>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="alamat_ibu">Alamat Lengkap Ibu</label>
+                <textarea id="alamat_ibu" name="alamat_ibu" rows="3" required><?= htmlspecialchars($form_data['alamat_ibu'] ?? '') ?></textarea>
             </div>
 
             <div class="form-group">
@@ -1155,6 +1132,10 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
                 <input type="date" id="tanggal_lahir_wali" name="tanggal_lahir_wali" required value="<?= htmlspecialchars($form_data['tanggal_lahir_wali'] ?? '') ?>">
             </div>
 
+            <div class="form-group">
+                <label for="alamat_wali">Alamat Lengkap Wali</label>
+                <textarea id="alamat_wali" name="alamat_wali" rows="3" required><?= htmlspecialchars($form_data['alamat_wali'] ?? '') ?></textarea>
+            </div>
           
             <div class="form-group">
                 <label for="kewarganegaraan">Kewarganegaraan</label>
@@ -1235,6 +1216,11 @@ if (empty($errors) && isset($id_siswa)) {  // GANTI INI! Gunakan $id_siswa yang 
     <div class="form-group">
         <label for="bukti_pembayaran">Bukti Pembayaran Pendaftaran *</label>
         <input type="file" id="bukti_pembayaran" name="bukti_pembayaran" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+    </div>
+
+    <div class="form-group">
+        <label for="foto_siswa">Foto Siswa 3x4 *</label>
+        <input type="file" id="foto_siswa" name="foto_siswa" accept=".jpg,.jpeg,.png" required>
     </div>
     
     <div class="form-group">
