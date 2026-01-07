@@ -15,7 +15,7 @@ $program_studies_data = [
     '/tsm'  => ['file' => 'page/tsm.php', 'display' => 'TSM - Teknik Sepeda Motor'],
     '/akl'  => ['file' => 'page/akl.php', 'display' => 'AKL - Akuntansi dan Keuangan Lembaga'],
     '/rpl'  => ['file' => 'page/rpl.php', 'display' => 'RPL - Rekayasa Perangkat Lunak'],
-    '/dkv'  => ['file' => 'page/dkv.php', 'display' => 'DKV - Desain Komunikasi Visual'],
+    '/dkv'  => ['file' => 'page/dkv.php', 'display' => 'DKV - Desain Komunikasi dVisual'],
     '/titl' => ['file' => 'page/titl.php', 'display' => 'TITL - Teknik Instalasi Tenaga Listrik'],
     '/dpib' => ['file' => 'page/dpib.php', 'display' => 'DPIB - Desain Pemodelan dan Informasi Bangunan'],
     '/tkr'  => ['file' => 'page/tkr.php', 'display' => 'TKR - Teknik Kendaraan Ringan'],

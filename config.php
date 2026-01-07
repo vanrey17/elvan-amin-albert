@@ -1,8 +1,8 @@
 <?php 
 $host = "localhost";     // Host server
-$user = "root";          // Username MySQL
-$pass = "";              // Password MySQL (kosong di XAMPP)
-$db   = "db_project_smk";       // Nama database kamu
+$user = "smktekn3";          // Username MySQL
+$pass = "h8J00xrI-D4vT";              // Password MySQL (kosong di XAMPP)
+$db   = "smktekn3_db_project_smk";       // Nama database kamu
 
 // Membuat koneksi
 $conn = mysqli_connect($host, $user, $pass, $db);
